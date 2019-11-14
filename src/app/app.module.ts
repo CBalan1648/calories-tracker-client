@@ -3,15 +3,15 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './Components/header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ReactiveFormsModule } from '@angular/forms';
-import { LoginFormComponent } from './login-form/login-form.component';
+import { LoginFormComponent } from './Components/login-form/login-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { RegisterFormComponent } from './register-form/register-form.component';
+import { RegisterFormComponent } from './Components/register-form/register-form.component';
 import { RouterModule, Routes } from '@angular/router';
-import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent, data: {title : 'Welcome to Calories Tracker'} },

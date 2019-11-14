@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, FormGroupDirective, ValidatorFn, ValidationErrors, NgForm } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 
@@ -36,7 +36,7 @@ class RepeatPasswordFormErrorMatcher implements ErrorStateMatcher {
   }
 }
 
-const samePasswordValidator: validatorFn = (form: FormGroup): ValidationErrors | null => {
+const samePasswordValidator: ValidatorFn = (form: FormGroup): ValidationErrors | null => {
   const password = form.get('password');
   const repeatedPassword = form.get('repeatPassword');
 
