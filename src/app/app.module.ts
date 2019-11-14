@@ -9,14 +9,27 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { RegisterFormComponent } from './register-form/register-form.component';
+import { RouterModule, Routes } from '@angular/router';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+
+const routes: Routes = [
+  { path: 'login', component: LoginFormComponent, data: {title : 'Welcome to Calories Tracker'} },
+  { path: 'register', component: RegisterFormComponent },
+  {path: '', redirectTo: '/login', pathMatch: 'full'},
+  { path: '**', component :  PageNotFoundComponent}
+];
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     LoginFormComponent,
+    RegisterFormComponent,
+    PageNotFoundComponent,
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,

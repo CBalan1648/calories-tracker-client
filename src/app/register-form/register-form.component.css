@@ -1,4 +1,4 @@
-.login-form-container {
+.register-form-container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -9,13 +9,6 @@
     background: linear-gradient(to top, rgba(115, 253, 133, 0.904) , rgb(255, 255, 255));
 }
 
-.login-button-group {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-}
-
 form {
     display: flex;
     flex-direction: column;
@@ -23,7 +16,7 @@ form {
 }
 
 mat-form-field {
-    padding-bottom : 30px;
+    padding-bottom : 20px;
     min-width: 300px;
 }
 

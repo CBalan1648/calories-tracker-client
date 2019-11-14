@@ -17,8 +17,6 @@ export class LoginFormComponent {
   });
 
   submitForm() {
-    console.log('Login Form ', {form : this.loginForm});
+    console.log('Login Form ', { form: this.loginForm });
   }
-
-
 }
