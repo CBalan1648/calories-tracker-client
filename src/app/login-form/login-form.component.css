@@ -1,0 +1,26 @@
+.login-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+    background: #222222;
+    background: #16222A; /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, rgba(115, 253, 133, 0.904) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, rgba(115, 253, 133, 0.904) , rgb(255, 255, 255));
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-form-field {
+    padding-bottom : 30px;
+    min-width: 300px;
+}
+
+img {
+    width: 50%; height: auto;
+    padding-bottom: 50px;
+}
