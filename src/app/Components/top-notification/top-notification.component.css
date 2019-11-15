@@ -1,0 +1,24 @@
+div {
+    background-color: orange;
+    position: absolute;
+    width: 100%;
+    height:50px;
+    text-align: center;
+    font-size: x-large;
+}
+
+span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: normal;
+}
+
+.notification-shown {
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+
+.notification-hidden { 
+    opacity: 0;
+    transition: opacity 1s linear;
+}

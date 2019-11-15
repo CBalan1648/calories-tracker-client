@@ -5,8 +5,8 @@
     min-height: 100%;
     background: #222222;
     background: #16222A; /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, rgba(115, 253, 133, 0.904) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top, rgba(115, 253, 133, 0.904) , rgb(255, 255, 255));
+    background: -webkit-linear-gradient(to top, rgba(255, 72, 0, 0.596) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top, rgba(255, 72, 0, 0.596) , rgb(255, 255, 255));
 }
 
 form {

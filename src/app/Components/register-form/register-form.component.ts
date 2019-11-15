@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, FormGroupDirective, ValidatorFn, ValidationErrors, NgForm } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { TopNotificationService } from '../../Services/top-notification.service';
 
 @Component({
   selector: 'app-register-form',
@@ -10,7 +11,7 @@ import { ErrorStateMatcher } from '@angular/material/core';
 })
 export class RegisterFormComponent {
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private topNotification: TopNotificationService) { }
 
   registerForm = this.formBuilder.group({
     firstName: ['', Validators.required],
@@ -23,9 +24,8 @@ export class RegisterFormComponent {
   errorStateMatcher = new RepeatPasswordFormErrorMatcher();
 
   submitForm() {
-    console.log('Register Form ', { form: this.registerForm });
+    this.topNotification.setMessage('Hello, this is a notification form - Register Form');
   }
-
 }
 
 class RepeatPasswordFormErrorMatcher implements ErrorStateMatcher {

@@ -12,12 +12,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { RegisterFormComponent } from './Components/register-form/register-form.component';
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
+import { TopNotificationComponent } from './components/top-notification/top-notification.component';
 
 const routes: Routes = [
-  { path: 'login', component: LoginFormComponent, data: {title : 'Welcome to Calories Tracker'} },
+  { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
   { path: 'register', component: RegisterFormComponent },
-  {path: '', redirectTo: '/login', pathMatch: 'full'},
-  { path: '**', component :  PageNotFoundComponent}
+  { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({
@@ -27,6 +28,7 @@ const routes: Routes = [
     LoginFormComponent,
     RegisterFormComponent,
     PageNotFoundComponent,
+    TopNotificationComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
