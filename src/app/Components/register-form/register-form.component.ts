@@ -35,12 +35,11 @@ export class RegisterFormComponent implements OnDestroy, OnInit {
   }
 
   ngOnDestroy() {
-    this.registerService.deconnectRequestObservable(this.observableSubscription);
+    this.registerService.disconnectRequestObservable(this.observableSubscription);
   }
 
 
   submitForm() {
-    console.log('HELLO THIS IS THE FORM', { frm: this.registerForm });
     if (this.registerForm.status === 'VALID') {
       const formValues = this.registerForm.controls;
 

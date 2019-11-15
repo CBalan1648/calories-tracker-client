@@ -19,7 +19,6 @@ export class FakeBackendInterceptor implements HttpInterceptor {
             .pipe(dematerialize());
 
         function handleRoute() {
-            console.log('HANDLE ROUTE');
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
@@ -38,8 +37,8 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // route functions
 
         function authenticate() {
-            const { username, password } = body;
-            const user = users.find(x => x.username === username && x.password === password);
+            const { email, password } = body;
+            const user = users.find(x => x.email === email && x.password === password);
             if (!user) { return error('Username or password is incorrect'); }
             return ok({
                 id: user.id,
@@ -51,8 +50,9 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function register() {
-            console.log('REGISTER');
             const user = body;
+
+            user.username = user.email;
 
             if (users.find(x => x.username === user.username)) {
                 return error('Username "' + user.username + '" is already taken');
@@ -81,7 +81,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         // helper functions
 
         function ok(body?) {
-            return of(new HttpResponse({ status: 200, body }));
+            return of(new HttpResponse({ status: 200, body : body || 'OK' }));
         }
 
         function error(message) {

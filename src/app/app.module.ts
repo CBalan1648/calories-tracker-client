@@ -15,10 +15,12 @@ import { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
 import { TopNotificationComponent } from './components/top-notification/top-notification.component';
 import { HttpClientModule } from '@angular/common/http';
 import { fakeBackendProvider } from './Helpers/fake-backend';
+import { HomeComponent } from './components/home/home.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
   { path: 'register', component: RegisterFormComponent },
+  { path: 'home', component: HomeComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -31,6 +33,7 @@ const routes: Routes = [
     RegisterFormComponent,
     PageNotFoundComponent,
     TopNotificationComponent,
+    HomeComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

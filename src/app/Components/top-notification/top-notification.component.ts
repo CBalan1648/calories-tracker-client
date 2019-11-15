@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TopNotificationService } from '../../Services/top-notification.service'
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { TopNotificationService } from '../../Services/top-notification.service';
 import { Subscription } from 'rxjs';
 import { tap, delay } from 'rxjs/operators';
 
@@ -8,10 +8,10 @@ import { tap, delay } from 'rxjs/operators';
   templateUrl: './top-notification.component.html',
   styleUrls: ['./top-notification.component.css']
 })
-export class TopNotificationComponent implements OnInit {
+export class TopNotificationComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription
-  public message = null
+  private subscription: Subscription;
+  public message = null;
 
   constructor(private notificationService: TopNotificationService) {
   }
@@ -29,11 +29,11 @@ export class TopNotificationComponent implements OnInit {
   }
 
   showMessage(message) {
-    this.message = message
+    this.message = message;
   }
 
   hideMessage() {
-    this.message = null
+    this.message = null;
   }
 
 }
