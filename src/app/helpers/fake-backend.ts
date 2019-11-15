@@ -15,10 +15,11 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         return of(null)
             .pipe(mergeMap(handleRoute))
             .pipe(materialize())
-            .pipe(delay(500))
+            .pipe(delay(4000))
             .pipe(dematerialize());
 
         function handleRoute() {
+            console.log('HANDLE ROUTE');
             switch (true) {
                 case url.endsWith('/users/authenticate') && method === 'POST':
                     return authenticate();
@@ -50,6 +51,7 @@ export class FakeBackendInterceptor implements HttpInterceptor {
         }
 
         function register() {
+            console.log('REGISTER');
             const user = body;
 
             if (users.find(x => x.username === user.username)) {

@@ -13,6 +13,8 @@ import { RegisterFormComponent } from './Components/register-form/register-form.
 import { RouterModule, Routes } from '@angular/router';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { TopNotificationComponent } from './components/top-notification/top-notification.component';
+import { HttpClientModule } from '@angular/common/http';
+import { fakeBackendProvider } from './Helpers/fake-backend';
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
@@ -38,8 +40,9 @@ const routes: Routes = [
     ReactiveFormsModule,
     MatInputModule,
     MatButtonModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
