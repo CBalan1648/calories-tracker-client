@@ -1,0 +1,13 @@
+<div>
+    <mat-expansion-panel class="meal-panel" *ngFor="let meal of meals">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{meal.title}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{meal.time | date:'medium'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>{{meal.description}}</p>
+    </mat-expansion-panel>
+</div>
