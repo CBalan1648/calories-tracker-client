@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { tap, retry, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { retry, take, tap } from 'rxjs/operators';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -20,9 +20,10 @@ export class RegisterService {
   }
 
   postRequest(userData) {
-    this.http.post<any>('localhost:3000/users/register', userData).pipe(retry(3), take(1)).subscribe(response => {
-      if (response === 'OK') {
-        this.loginService.postRequest({email : userData.email, password : userData.password});
+    this.http.post<any>('http://localhost:3000/users/', userData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
+      console.log('register response', { response });
+      if (response.status === 201) {
+        this.loginService.postRequest({ email: userData.email, password: userData.password });
       }
     });
   }

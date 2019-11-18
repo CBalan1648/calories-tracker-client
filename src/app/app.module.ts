@@ -16,13 +16,12 @@ import { MealsComponent } from './components/meals/meals.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { RegisterFormComponent } from './Components/register-form/register-form.component';
 import { TopNotificationComponent } from './components/top-notification/top-notification.component';
-import { fakeBackendProvider } from './Helpers/fake-backend';
 
 
 const routes: Routes = [
   { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
   { path: 'register', component: RegisterFormComponent },
-  { path: 'home', component: HomeComponent},
+  { path: 'home', component: HomeComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
@@ -49,7 +48,6 @@ const routes: Routes = [
     MatExpansionModule,
     HttpClientModule
   ],
-  providers: [fakeBackendProvider],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

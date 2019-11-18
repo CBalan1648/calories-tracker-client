@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subscription, Subject } from 'rxjs';
-import { tap, retry, take } from 'rxjs/operators';
+import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Observable, Subscription } from 'rxjs';
+import { retry, take, tap } from 'rxjs/operators';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -25,7 +25,7 @@ export class LoginService {
   }
 
   postRequest(userData) {
-    this.http.post<any>('localhost:3000/users/authenticate', userData).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>('http://localhost:3000/users/login', userData).pipe(retry(3), take(1)).subscribe(response => {
       console.log(this);
       this.userService.updateUser(response);
       this.router.navigate(['/home']);
