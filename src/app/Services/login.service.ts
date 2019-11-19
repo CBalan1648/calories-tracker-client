@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { retry, take, tap } from 'rxjs/operators';
+import { User } from '../Models/user';
 import { UserService } from './user.service';
 
 @Injectable({
@@ -15,7 +16,6 @@ export class LoginService {
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
       tap(this.postRequest.bind(this)),
-      tap(console.log)
     ).subscribe();
 
   }
@@ -26,9 +26,22 @@ export class LoginService {
 
   postRequest(userData) {
     this.http.post<any>('http://localhost:3000/users/login', userData).pipe(retry(3), take(1)).subscribe(response => {
-      console.log(this);
-      this.userService.updateUser(response);
-      this.router.navigate(['/home']);
+      const [responseUserData, valid] = getTokenData(response.access_token);
+      if (valid) {
+        responseUserData.token = response.access_token;
+        this.userService.updateUser(responseUserData);
+        this.router.navigate(['/home']);
+      }
     });
   }
 }
+
+const getTokenData = (token: string): [User | null, boolean] => {
+  try {
+    const tokenInfoJson = atob(token.split('.')[1]);
+    const tokenInfo = JSON.parse(tokenInfoJson);
+    return [tokenInfo.user, true];
+  } catch (e) {
+    return [null, false];
+  }
+};
