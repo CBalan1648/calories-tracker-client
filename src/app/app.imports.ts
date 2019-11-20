@@ -19,4 +19,5 @@ export { PageNotFoundComponent } from './Components/page-not-found/page-not-foun
 export { RegisterFormComponent } from './Components/register-form/register-form.component';
 export { TopNotificationComponent } from './components/top-notification/top-notification.component';
 export { MatTableModule } from '@angular/material/table';
+export { MealFormComponent } from './Components/meal-form/meal-form.component'
 

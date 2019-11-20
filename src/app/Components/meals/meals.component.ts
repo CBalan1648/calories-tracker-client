@@ -24,7 +24,8 @@ export class MealsComponent implements OnInit {
       { id: 6, title: '3rd Dinner', description: 'Something something dinner', time: 1574063337366, calories: 865 },
       { id: 7, title: '4th Lunch', description: 'Something something lunch', time: 1574065334366, calories: 457 },
     ];
-    this.mealsObservable = this.mealsService.getMeals()
+    this.mealsObservable = this.mealsService.getObservable()
+    this.mealsService.getMeals()
   }
 
   ngOnInit() {

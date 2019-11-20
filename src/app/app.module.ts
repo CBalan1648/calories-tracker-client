@@ -22,6 +22,7 @@ const routes: Imports.Routes = [
     Imports.HomeComponent,
     Imports.MealsComponent,
     Imports.DashboardComponent,
+    Imports.MealFormComponent
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),

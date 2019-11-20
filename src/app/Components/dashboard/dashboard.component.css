@@ -1,0 +1,6 @@
+.dashboard-container {
+    width:400px;
+    height: 100%;
+    flex-grow: 0;
+    border: solid orange 4px;
+}
