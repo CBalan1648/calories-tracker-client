@@ -1,3 +1,25 @@
 .meal-panel {
     color : red;
 }
+
+.meal-container {
+    border: solid greenyellow 3px;
+}
+
+.test{
+    background-color: white;
+    transition: 1s;
+}
+
+.test:hover {
+    background-color: red;
+    transition: 1s;
+}
+
+mat-table {
+   justify-content: space-between;
+}
+
+.description-cell {
+    word-break: break-word;
+}

@@ -14,9 +14,9 @@ export { DashboardComponent } from './Components/dashboard/dashboard.component';
 export { HeaderComponent } from './Components/header/header.component';
 export { HomeComponent } from './components/home/home.component';
 export { LoginFormComponent } from './Components/login-form/login-form.component';
-export { MealsContainerComponent } from './Components/meals-container/meals-container.component';
 export { MealsComponent } from './components/meals/meals.component';
 export { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 export { RegisterFormComponent } from './Components/register-form/register-form.component';
 export { TopNotificationComponent } from './components/top-notification/top-notification.component';
+export { MatTableModule } from '@angular/material/table';
 

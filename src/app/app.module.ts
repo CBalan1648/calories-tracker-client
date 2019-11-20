@@ -1,4 +1,6 @@
 import * as Imports from './app.imports';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { JwtInterceptor } from './Helpers/jwt.interceptor';
 
 
 const routes: Imports.Routes = [
@@ -20,7 +22,6 @@ const routes: Imports.Routes = [
     Imports.HomeComponent,
     Imports.MealsComponent,
     Imports.DashboardComponent,
-    Imports.MealsContainerComponent,
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),
@@ -33,7 +34,13 @@ const routes: Imports.Routes = [
     Imports.MatExpansionModule,
     Imports.HttpClientModule,
     Imports.MatSidenavModule,
+    Imports.MatTableModule,
   ],
-  bootstrap: [Imports.AppComponent]
+  bootstrap: [Imports.AppComponent],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }]
 })
 export class AppModule { }

@@ -1,13 +1,27 @@
-<div>
-    <mat-expansion-panel class="meal-panel" *ngFor="let meal of meals">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{meal.title}}
-            </mat-panel-title>
-            <mat-panel-description>
-                {{meal.time | date:'medium'}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>{{meal.description}}</p>
-    </mat-expansion-panel>
+<div class = "meal-container">
+    <mat-table [dataSource]="mealsObservable">
+        <ng-container matColumnDef="title">
+            <mat-header-cell *matHeaderCellDef> Title </mat-header-cell>
+            <mat-cell *matCellDef="let meal"> {{meal.title}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+            <mat-header-cell *matHeaderCellDef> Description </mat-header-cell>
+            <mat-cell class="description-cell" *matCellDef="let meal"> {{meal.description}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="time">
+            <mat-header-cell *matHeaderCellDef> Time </mat-header-cell>
+            <mat-cell *matCellDef="let meal"> {{meal.time | date:'medium'}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="calories">
+            <mat-header-cell mat-sort-header *matHeaderCellDef> Calories </mat-header-cell>
+            <mat-cell *matCellDef="let meal"> {{meal.calories}} </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
+        <mat-row class="test" *matRowDef="let row; columns: columsToDisplay;"></mat-row>
+
+    </mat-table>
 </div>
