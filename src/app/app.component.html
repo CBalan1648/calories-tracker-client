@@ -1,2 +1,15 @@
 <app-top-notification></app-top-notification>
-<router-outlet></router-outlet>
+
+<mat-sidenav-container>
+        <!-- <mat-sidenav *ngIf="showSideBar" #sidenav opened mode="side" class = "home-sidebar"> FOR DEV PURPOSE-->
+        <mat-sidenav #sidenav opened mode="side" class="home-sidebar">
+                HELLO
+        </mat-sidenav>
+
+        <mat-sidenav-content class="home-content">
+                <!-- <app-header *ngIf="showSideBar"></app-header> FOR DEV PURPOSE-->
+                <app-header></app-header>
+                <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+</mat-sidenav-container>

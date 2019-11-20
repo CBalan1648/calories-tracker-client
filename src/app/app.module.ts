@@ -19,6 +19,8 @@ const routes: Imports.Routes = [
     Imports.TopNotificationComponent,
     Imports.HomeComponent,
     Imports.MealsComponent,
+    Imports.DashboardComponent,
+    Imports.MealsContainerComponent,
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),
@@ -29,7 +31,8 @@ const routes: Imports.Routes = [
     Imports.MatInputModule,
     Imports.MatButtonModule,
     Imports.MatExpansionModule,
-    Imports.HttpClientModule
+    Imports.HttpClientModule,
+    Imports.MatSidenavModule,
   ],
   bootstrap: [Imports.AppComponent]
 })
