@@ -1,0 +1,37 @@
+<div class="filter-menu-container">
+
+    <h3>Filter by</h3>
+
+    <form [formGroup]="filterForm" (ngSubmit)="submitForm()">
+
+        <mat-form-field>
+            <input matInput formControlName="stringSearch" placeholder="Title / Description">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select formControlName="timeSpan" matNativeControl placeholder="Timespan">
+                <mat-option value="volvo">Today</mat-option>
+                <mat-option value="saab">Last 7 Days</mat-option>
+                <mat-option value="mercedes">Last 30 Days</mat-option>
+                <mat-option value="custom">Custom</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="filterForm.controls.timeSpan.value === 'custom'" class="filter-menu-custom-date">
+            <mat-form-field class="filter-menu-custom-picker">
+                <input matInput [matDatepicker]="customDateFrom" placeholder="From" disabled>
+                <mat-datepicker-toggle matSuffix [for]="customDateFrom" disabled="false"></mat-datepicker-toggle >
+                <mat-datepicker #customDateFrom disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="filter-menu-custom-picker">
+                <input matInput [matDatepicker]="customDateTo" placeholder="To" disabled>
+                <mat-datepicker-toggle matSuffix [for]="customDateTo" disabled="false"></mat-datepicker-toggle>
+                <mat-datepicker #customDateTo disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+
+
+    </form>
+</div>

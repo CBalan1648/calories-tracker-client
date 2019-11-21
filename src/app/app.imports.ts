@@ -22,5 +22,11 @@ export { MatTableModule } from '@angular/material/table';
 export { MealFormComponent } from './Components/meal-form/meal-form.component';
 export { MatDialogModule } from '@angular/material/dialog';
 export { EditMealDialogComponent } from './Components/edit-meal-dialog/edit-meal-dialog.component';
+export { FilterMenuComponent } from './Components/filter-menu/filter-menu.component';
+export { MatSelectModule } from '@angular/material/select';
+export { MatDatepickerModule } from '@angular/material/datepicker';
+export { MatNativeDateModule } from '@angular/material/core';
+
+
 
 

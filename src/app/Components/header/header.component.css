@@ -1,12 +1,24 @@
 mat-toolbar {
     display: flex;
+    flex-direction: row;
     width: 100%;
     height: 60px;
-    background-color: rgb(50, 60, 80);
+    background-color: rgb(240, 240, 240);
+    justify-content: space-between;
 }
 
-span {
-    color: darkgreen;
+.header-main-title {
+    color: #25306c;
     font-size: larger;
     font-weight: bold;
+}
+
+.header-main-title-tracker{
+    color: #25306c;
+    font-size: larger;
+   
+}
+
+.header-name-tag {
+   justify-self: flex-end;
 }

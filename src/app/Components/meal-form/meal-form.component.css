@@ -1,7 +1,7 @@
 .meal-form-container {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-start;
         border: solid cornflowerblue 3px;
         width: 350px;
         height: 400px;
@@ -14,9 +14,14 @@ form {
 }
 
 mat-form-field {
-    padding-bottom : 20px;
+
     width: 90%;
 }
 form {
     width: 100%;
+}
+
+.mat-flat-button {
+    margin-top: 20px;
+    background-color: cornflowerblue;
 }

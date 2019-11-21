@@ -1,0 +1,34 @@
+.filter-menu-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    border: solid rgb(216, 35, 233) 3px;
+    width: 350px;
+    height: 400px;
+    
+}
+
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+mat-form-field {
+    padding-bottom : 20px;
+    width: 90%;
+}
+form {
+    width: 100%;
+}
+
+.filter-menu-custom-date {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.filter-menu-custom-picker {
+    width: 30%;
+}
