@@ -43,11 +43,10 @@ export class MealsService {
   }
 
   deleteMeal(mealId): void {
-    console.log(`DELETE MEAL CALLED WITH ${mealId}`);
     this.http.delete(`http://localhost:3000/meals/${mealId}`).pipe(
       retry(3),
       take(1),
-    ).subscribe(response => {
+    ).subscribe((response: { n: number, nModified: number, ok: number }) => {
       console.log(response);
       if (response.nModified === 1) {
         this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
@@ -55,8 +54,24 @@ export class MealsService {
           this.currentMealsSubject.next(updatedArray);
         });
       }
+    });
+  }
 
+  updateMeal(updatedMeal): void {
+    this.http.put('http://localhost:3000/meals', updatedMeal).pipe(
+      retry(3),
+      take(1),
+    ).subscribe((response: { n: number, nModified: number, ok: number }) => {
+      if (response.nModified === 1) {
+        this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
 
+          const updatedMealIndex = currentMealsArray.findIndex(arrayElement => arrayElement._id === updatedMeal._id);
+          const updatedArray = [...currentMealsArray];
+          updatedArray.splice(updatedMealIndex, 1, updatedMeal);
+
+          this.currentMealsSubject.next(updatedArray);
+        });
+      }
     });
   }
 
@@ -64,7 +79,7 @@ export class MealsService {
     this.http.get('http://localhost:3000/meals').pipe(
       retry(3),
       take(1),
-      map(responseData => responseData.meals)
+      map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)
     ).subscribe(meals => {
       this.currentMealsSubject.next(meals);
     });

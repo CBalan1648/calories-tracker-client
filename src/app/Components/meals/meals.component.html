@@ -23,7 +23,7 @@
         <ng-container matColumnDef="actions">
             <mat-header-cell mat-sort-header *matHeaderCellDef class="column-actions"> Actions </mat-header-cell>
             <mat-cell *matCellDef="let meal" class="column-actions">
-                <button mat-raised-button><i class="material-icons">edit</i></button>
+                <button mat-raised-button (click)="openEditDialog(meal)"><i class="material-icons">edit</i></button>
                 <button mat-raised-button (click)="deleteMeal(meal._id)"><i class="material-icons">delete</i></button>
             </mat-cell>
         </ng-container>

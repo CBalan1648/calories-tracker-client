@@ -1,0 +1,4 @@
+.edit-meal-form-container {
+    display: flex;
+    flex-direction: column;
+}

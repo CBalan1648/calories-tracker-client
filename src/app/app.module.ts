@@ -2,7 +2,6 @@ import * as Imports from './app.imports';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './Helpers/jwt.interceptor';
 
-
 const routes: Imports.Routes = [
   { path: 'login', component: Imports.LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
   { path: 'register', component: Imports.RegisterFormComponent },
@@ -22,7 +21,8 @@ const routes: Imports.Routes = [
     Imports.HomeComponent,
     Imports.MealsComponent,
     Imports.DashboardComponent,
-    Imports.MealFormComponent
+    Imports.MealFormComponent,
+    Imports.EditMealDialogComponent,
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),
@@ -36,12 +36,14 @@ const routes: Imports.Routes = [
     Imports.HttpClientModule,
     Imports.MatSidenavModule,
     Imports.MatTableModule,
+    Imports.MatDialogModule,
   ],
   bootstrap: [Imports.AppComponent],
   providers: [{
     provide: HTTP_INTERCEPTORS,
     useClass: JwtInterceptor,
     multi: true
-  }]
+  }],
+  entryComponents: [Imports.EditMealDialogComponent]
 })
 export class AppModule { }
