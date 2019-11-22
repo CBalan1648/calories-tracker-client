@@ -140,7 +140,7 @@ const getTimeFrame = (timeFrame, frameBegin, frameEnd) => {
 };
 
 const containString = (testTitleString, testDescriptionString, filterString) => {
-  return testTitleString.toLowerCase().includes(filterString) || testDescriptionString.toLowerCase().includes(filterString);
+  return testTitleString.toLowerCase().includes(filterString.toLowerCase()) || testDescriptionString.toLowerCase().includes(filterString.toLowerCase());
 };
 
 const isInTimeSpan = (targetDate, [fromDate, toDate]) => targetDate >= fromDate && targetDate <= toDate;

@@ -29,7 +29,7 @@
         </ng-container>
 
         <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
-        <mat-row class="test" *matRowDef="let row; columns: columsToDisplay;"></mat-row>
+        <mat-row [ngClass]="row.calories > caloriesValue ? 'red-bg' : 'green-bg'" *matRowDef="let row; columns: columsToDisplay;"></mat-row>
 
     </mat-table>
 </div>

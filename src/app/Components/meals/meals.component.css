@@ -6,13 +6,27 @@
     border: solid greenyellow 3px;
 }
 
-.test{
-    background-color: white;
+.green-bg {
+    background: -webkit-linear-gradient(to left, rgba(150, 255, 80, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, rgba(150, 255, 80, 0.514) , rgb(255, 255, 255));
     transition: 1s;
 }
 
-.test:hover {
-    background-color: red;
+.red-bg {
+    background: -webkit-linear-gradient(to left, rgba(253, 52, 26, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, rgba(253, 52, 26, 0.514) , rgb(255, 255, 255));
+    transition: 1s;
+}
+
+.red-bg:hover {
+    background: -webkit-linear-gradient(to left, rgba(4, 92, 255, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, rgba(4, 92, 255, 0.514) , rgb(255, 255, 255));
+    transition: 1s;
+}
+
+.green-bg:hover {
+    background: -webkit-linear-gradient(to left,rgba(4, 92, 255, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to left, rgba(4, 92, 255, 0.514) , rgb(255, 255, 255));
     transition: 1s;
 }
 
