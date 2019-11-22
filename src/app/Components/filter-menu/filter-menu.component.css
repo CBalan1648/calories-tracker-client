@@ -17,18 +17,18 @@ form {
 }
 
 mat-form-field {
-    padding-bottom : 20px;
     width: 90%;
 }
+
 form {
     width: 100%;
 }
 
 .filter-menu-custom-date {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: center;
 }
 
 .filter-menu-custom-picker {
-    width: 30%;
+    width: 37%;
 }

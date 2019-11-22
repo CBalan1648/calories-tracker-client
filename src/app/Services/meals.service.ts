@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { map, retry, take, tap } from 'rxjs/operators';
 import { Meal } from '../Models/meal';
 
@@ -10,19 +10,33 @@ import { Meal } from '../Models/meal';
 export class MealsService {
 
   private currentMealsSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentMeals: Observable<Meal[]> = this.currentMealsSubject.asObservable().pipe(tap(console.log));
+  public currentMeals: Observable<Meal[]> = this.currentMealsSubject.asObservable();
+
+  private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  public currentFilter: Observable<Meal[]> = this.currentFilterSubject.asObservable();
+
+  public currentFilteredMeals: Observable<any[]> = combineLatest(this.currentMeals, this.currentFilter).pipe(map(filterMeals));
 
   constructor(private http: HttpClient) { }
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
-      tap(console.log),
       tap(this.postRequest.bind(this)),
     ).subscribe();
 
   }
 
   disconnectRequestObservable(subscription: Subscription): void {
+    subscription.unsubscribe();
+  }
+
+  connectFilterObservable(observable: Observable<any>): Subscription {
+    return observable.subscribe((filterValue) => { this.currentFilterSubject.next(filterValue); });
+
+  }
+
+  disconnectFilterObservable(subscription: Subscription): void {
+    this.currentFilterSubject.next(null);
     subscription.unsubscribe();
   }
 
@@ -39,7 +53,7 @@ export class MealsService {
   }
 
   getObservable() {
-    return this.currentMeals;
+    return this.currentFilteredMeals;
   }
 
   deleteMeal(mealId): void {
@@ -47,7 +61,6 @@ export class MealsService {
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
-      console.log(response);
       if (response.nModified === 1) {
         this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = currentMealsArray.filter(meal => meal._id !== mealId);
@@ -86,4 +99,63 @@ export class MealsService {
   }
 }
 
+const filterMeals = ([mealsArray, filterObject]) => {
 
+  if (!filterObject) { return mealsArray; }
+
+  console.log('HELLO', { mealsArray, filterObject, data: Date.parse(filterObject.customDateFrom) });
+
+  return mealsArray.filter((meal: Meal) => {
+
+
+    return (filterObject.stringSearch ?
+      containString(meal.title, meal.description, filterObject.stringSearch) : true) &&
+      (filterObject.timeSpan ?
+        isInTimeSpan(meal.time, getTimeSpan(filterObject.timeSpan, filterObject.customDateFrom, filterObject.customDateTo)) : true) &&
+      (filterObject.timeFrame ?
+        isInTimeFrame(meal.time, getTimeFrame(filterObject.timeFrame, filterObject.frameBegin, filterObject.frameEnd)) : true);
+
+
+  });
+};
+
+const getTimeSpan = (timeSpan, customDateFrom, customDateTo) => {
+  const timeSpanOptions = {
+    SPAN_LAST_24_HOURS: [Date.now() - 86400000, Date.now()],
+    SPAN_LAST_7_DAYS: [Date.now() - 86400000 * 7, Date.now()],
+    SPAN_LAST_30_DAYS: [Date.now() - 86400000 * 30, Date.now()],
+    SPAN_CUSTOM: [Date.parse(customDateFrom) || 0, Date.parse(customDateTo) || Date.now()]
+  };
+  return timeSpanOptions[timeSpan];
+};
+
+const getTimeFrame = (timeFrame, frameBegin, frameEnd) => {
+  const timeSpanOptions = {
+    FRAME_BREAKFAST: ['07:00', '09:00'],
+    FRAME_LUNCH: ['12:00', '14:00'],
+    FRAME_DINNER: ['20:00', '22:00'],
+    FRAME_CUSTOM: [frameBegin || '00:00', frameEnd || '23:59']
+  };
+  return timeSpanOptions[timeFrame];
+};
+
+const containString = (testTitleString, testDescriptionString, filterString) => {
+  return testTitleString.toLowerCase().includes(filterString) || testDescriptionString.toLowerCase().includes(filterString);
+};
+
+const isInTimeSpan = (targetDate, [fromDate, toDate]) => targetDate >= fromDate && targetDate <= toDate;
+
+const isInTimeFrame = (targetTime, [frameBegin, frameEnd]) => {
+  const date = new Date(targetTime);
+  const targetHour = date.getHours();
+  const targetMinute = date.getMinutes();
+
+  const [frameBeginHour, frameBeginMinute] = frameBegin.split(':').map(Number);
+  const [frameEndHour, frameEndMinute] = frameEnd.split(':').map(Number);
+
+  return (targetHour > frameBeginHour ||
+    targetHour === frameBeginHour && targetMinute > frameBeginMinute) &&
+    (targetHour < frameEndHour ||
+      targetHour === frameEndHour && targetMinute < frameEndMinute);
+
+};
