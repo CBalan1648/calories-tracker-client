@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, retry, take, tap } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, from, Observable, Subscription } from 'rxjs';
+import { filter, groupBy, map, mergeMap, reduce, retry, take, tap } from 'rxjs/operators';
 import { Meal } from '../Models/meal';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +18,14 @@ export class MealsService {
 
   public currentFilteredMeals: Observable<any[]> = combineLatest(this.currentMeals, this.currentFilter).pipe(map(filterMeals));
 
-  constructor(private http: HttpClient) { }
+  public currentFilteredAndGroupedMeals: Observable<any[]>;
+
+  constructor(private http: HttpClient, userService: UserService) {
+
+    this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
+      filter(([ob1, ob2]) => !!ob1 && !!ob2),
+      mergeMap(updateMealWithCalories));
+  }
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
@@ -53,9 +61,9 @@ export class MealsService {
   }
 
   getObservable() {
-    return this.currentFilteredMeals;
+    return this.currentFilteredAndGroupedMeals;
   }
-
+ 
   deleteMeal(mealId): void {
     this.http.delete(`http://localhost:3000/meals/${mealId}`).pipe(
       retry(3),
@@ -103,18 +111,13 @@ const filterMeals = ([mealsArray, filterObject]) => {
 
   if (!filterObject) { return mealsArray; }
 
-  console.log('HELLO', { mealsArray, filterObject, data: Date.parse(filterObject.customDateFrom) });
-
   return mealsArray.filter((meal: Meal) => {
-
-
     return (filterObject.stringSearch ?
       containString(meal.title, meal.description, filterObject.stringSearch) : true) &&
       (filterObject.timeSpan ?
         isInTimeSpan(meal.time, getTimeSpan(filterObject.timeSpan, filterObject.customDateFrom, filterObject.customDateTo)) : true) &&
       (filterObject.timeFrame ?
         isInTimeFrame(meal.time, getTimeFrame(filterObject.timeFrame, filterObject.frameBegin, filterObject.frameEnd)) : true);
-
 
   });
 };
@@ -129,7 +132,7 @@ const getTimeSpan = (timeSpan, customDateFrom, customDateTo) => {
   return timeSpanOptions[timeSpan];
 };
 
-const getTimeFrame = (timeFrame, frameBegin, frameEnd) => {
+const getTimeFrame = (timeFrame: string, frameBegin: string, frameEnd: string) => {
   const timeSpanOptions = {
     FRAME_BREAKFAST: ['07:00', '09:00'],
     FRAME_LUNCH: ['12:00', '14:00'],
@@ -140,7 +143,8 @@ const getTimeFrame = (timeFrame, frameBegin, frameEnd) => {
 };
 
 const containString = (testTitleString, testDescriptionString, filterString) => {
-  return testTitleString.toLowerCase().includes(filterString.toLowerCase()) || testDescriptionString.toLowerCase().includes(filterString.toLowerCase());
+  return testTitleString.toLowerCase().includes(filterString.toLowerCase()) ||
+    testDescriptionString.toLowerCase().includes(filterString.toLowerCase());
 };
 
 const isInTimeSpan = (targetDate, [fromDate, toDate]) => targetDate >= fromDate && targetDate <= toDate;
@@ -158,4 +162,25 @@ const isInTimeFrame = (targetTime, [frameBegin, frameEnd]) => {
     (targetHour < frameEndHour ||
       targetHour === frameEndHour && targetMinute < frameEndMinute);
 
+};
+
+const updateMealWithCalories = ([filteredMealsObservable, userObservable]) => {
+  const tagetCalories = userObservable.targetCalories;
+
+  return from([filteredMealsObservable]).pipe(
+    mergeMap((mealArray: Meal[]) => from(mealArray).pipe(
+      groupBy((meal: Meal) => {
+        const mealDate = new Date(meal.time);
+        return `${mealDate.getUTCDate()}-${mealDate.getUTCMonth()}-${mealDate.getUTCFullYear()}`;
+      }),
+      mergeMap((groupedMealsObservable: Observable<any>) => groupedMealsObservable.pipe(
+        reduce((acc, cur) => [...acc, cur], []),
+      )),
+      map(groupedMeals => {
+        const totCal = groupedMeals.reduce((totCalories, meal) => totCalories += meal.calories, 0);
+        return groupedMeals.map(meal => ({ ...meal, overCal: totCal > tagetCalories }));
+      }),
+      reduce((acc, cur) => [...acc, ...cur], []),
+    ))
+  );
 };

@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MealsService } from '../../Services/meals.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
+import { Subscription } from 'rxjs';
 import { Meal } from 'src/app/Models/meal';
 import { UserService } from 'src/app/Services/user.service';
-import { Subscription } from 'rxjs';
+import { MealsService } from '../../Services/meals.service';
+import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 
 @Component({
   selector: 'app-meals',
@@ -17,7 +17,7 @@ export class MealsComponent implements OnInit, OnDestroy {
   private mealsObservable;
   private deleteMeal;
   private caloriesValue: number;
-  private userServiceSubscription : Subscription;
+  private userServiceSubscription: Subscription;
 
   constructor(private readonly mealsService: MealsService,
               private readonly editMealDialog: MatDialog,
@@ -35,21 +35,18 @@ export class MealsComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
+      console.log('TODO : Resolve');
     });
   }
 
 
   ngOnInit() {
     this.userServiceSubscription = this.userService.getUserObservable().subscribe(newValue => {
-      console.log(newValue)
-      this.caloriesValue = newValue.calories; });
+      this.caloriesValue = newValue.calories;
+    });
   }
 
   ngOnDestroy() {
-    this.userServiceSubscription.unsubscribe()
+    this.userServiceSubscription.unsubscribe();
   }
 }
-
-
-

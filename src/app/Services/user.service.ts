@@ -27,7 +27,7 @@ export class UserService {
 
   public updateCalories(calories: number) {
     this.currentUser.pipe(take(1)).subscribe(user => {
-      user.calories = calories;
+      user.targetCalories = calories;
       this.currentUserSubject.next(user);
     });
   }
