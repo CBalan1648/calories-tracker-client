@@ -7,6 +7,7 @@ const routes: Imports.Routes = [
   { path: 'login', component: Imports.LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
   { path: 'register', component: Imports.RegisterFormComponent },
   { path: 'home', component: Imports.HomeComponent },
+  { path: 'user', component: Imports.UserProfileComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: Imports.PageNotFoundComponent }
 ];
@@ -25,6 +26,7 @@ const routes: Imports.Routes = [
     Imports.MealFormComponent,
     Imports.EditMealDialogComponent,
     Imports.FilterMenuComponent,
+    Imports.UserProfileComponent,
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),

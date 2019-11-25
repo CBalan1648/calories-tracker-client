@@ -26,6 +26,7 @@ export { FilterMenuComponent } from './Components/filter-menu/filter-menu.compon
 export { MatSelectModule } from '@angular/material/select';
 export { MatDatepickerModule } from '@angular/material/datepicker';
 export { MatNativeDateModule } from '@angular/material/core';
+export { UserProfileComponent } from './Components/user-profile/user-profile.component';
 
 
 

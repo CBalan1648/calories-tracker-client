@@ -4,11 +4,11 @@
         <!-- <mat-sidenav *ngIf="showSideBar" #sidenav opened mode="side" class = "home-sidebar"> FOR DEV PURPOSE-->
         <mat-sidenav #sidenav opened mode="side" class="home-sidebar">
                 <button class="sidebar-home-button" mat-stroked-button (click)="redirectToHome()"><i
-                                class="material-icons">home</i><br/> Home </button>
-                <button class="sidebar-profile-button" mat-stroked-button (click)="redirectToHome()"><i
-                                class="material-icons">person</i><br/>Profile</button>
+                                class="material-icons">home</i><br /> Home </button>
+                <button class="sidebar-profile-button" mat-stroked-button (click)="redirectToHome()"
+                        (click)="redirectToUser()"><i class="material-icons">person</i><br />Profile</button>
                 <button *ngIf="isSuperUser(user && user.authLevel)" class="sidebar-admin-button" mat-stroked-button
-                        (click)="redirectToHome()"><i class="material-icons">people</i><br/> Admin </button>
+                        (click)="redirectToHome()"><i class="material-icons">people</i><br /> Admin </button>
         </mat-sidenav>
 
         <mat-sidenav-content class="home-content">
