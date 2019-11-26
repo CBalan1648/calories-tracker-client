@@ -4,7 +4,7 @@
 
     <div class="user-profile-form-container">
 
-        <form [formGroup]="userProfileForm" (ngSubmit)="submitForm()">
+        <form [formGroup]="userProfileForm">
             <mat-form-field>
                 <input matInput formControlName="firstName" placeholder="First Name" required>
                 <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
@@ -21,16 +21,16 @@
             </mat-form-field>
 
             <mat-form-field>
-                <input type="number" matInput formControlName="calories" placeholder="Calories" required>
-                <mat-error *ngIf="userProfileForm.controls.calories.errors">Please insert the Meal calories</mat-error>
+                <input type="number" matInput formControlName="calories" placeholder="Daily calories target" required>
+                <mat-error *ngIf="userProfileForm.controls.calories.errors">Please insert the daily calories target</mat-error>
             </mat-form-field>
+
+            <div class="user-profile-buttons">
+                <button class="edit-button" mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
+                <button *ngIf="editing" class="edit-button" (click)="abort()" mat-raised-button>Abort</button>
+            </div>
+
         </form>
-
-        <div class="user-profile-buttons">
-            <button class="edit-button" mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
-            <button *ngIf="editing" class="edit-button" mat-raised-button>Abort</button>
-        </div>
-
     </div>
 
     <h1>Total Meals : {{stats.totalMeals}}</h1>

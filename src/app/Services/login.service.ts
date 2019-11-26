@@ -25,7 +25,7 @@ export class LoginService {
   }
 
   postRequest(userData) {
-    this.http.post<any>('http://localhost:3000/users/login', userData).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>('http://localhost:3000/api/users/login', userData).pipe(retry(3), take(1)).subscribe(response => {
       const [responseUserData, valid] = getTokenData(response.access_token);
       if (valid) {
         responseUserData.token = response.access_token;

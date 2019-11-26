@@ -10,6 +10,7 @@ export class TopNotificationService {
   constructor() { }
 
   setMessage(message: string): void {
+    console.log("HELLO MESSAGE")
     this.subject.next(message);
   }
 

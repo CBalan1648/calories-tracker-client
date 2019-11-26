@@ -49,7 +49,7 @@ export class MealsService {
   }
 
   postRequest(mealData) {
-    this.http.post<any>('http://localhost:3000/meals/', mealData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>('http://localhost:3000/api/meals/', mealData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
       if (response.status === 201) {
         this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = [...currentMealsArray];
@@ -69,7 +69,7 @@ export class MealsService {
   }
  
   deleteMeal(mealId): void {
-    this.http.delete(`http://localhost:3000/meals/${mealId}`).pipe(
+    this.http.delete(`http://localhost:3000/api/meals/${mealId}`).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -83,7 +83,7 @@ export class MealsService {
   }
 
   updateMeal(updatedMeal): void {
-    this.http.put('http://localhost:3000/meals', updatedMeal).pipe(
+    this.http.put('http://localhost:3000/api/meals', updatedMeal).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -101,7 +101,7 @@ export class MealsService {
   }
 
   public getMeals(): void {
-    this.http.get('http://localhost:3000/meals').pipe(
+    this.http.get('http://localhost:3000/api/meals').pipe(
       retry(3),
       take(1),
       map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)

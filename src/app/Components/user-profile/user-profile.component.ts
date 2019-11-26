@@ -24,6 +24,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     averageCalories: string,
   };
 
+  private editUserObservableSubject: Subject<any> = new Subject();
+  private editUserObservableSubscription: Subscription;
+
   private user: User;
 
   constructor(private formBuilder: FormBuilder,
@@ -34,7 +37,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   userProfileForm = this.formBuilder.group({
     firstName: [{ value: '', disabled: true }, Validators.required],
     lastName: [{ value: '', disabled: true }, Validators.required],
-    email: [{ value: '', disabled: true }, [Validators.email, Validators.required]],
+    email: [{ value: '', disabled: true }],
     calories: [{ value: '', disabled: true }, [Validators.required]],
   });
 
@@ -54,24 +57,49 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.userProfileForm.controls.firstName.setValue(user.firstName);
     this.userProfileForm.controls.lastName.setValue(user.lastName);
     this.userProfileForm.controls.email.setValue(user.email);
-    this.userProfileForm.controls.calories.setValue(user.calories);
+    this.userProfileForm.controls.calories.setValue(user.targetCalories);
   }
 
   save() {
+    if (this.userProfileForm.status !== 'VALID') {return void 0;}
+
+    const formValues = this.userProfileForm.controls;
+
+    this.editUserObservableSubject.next({
+        _id: this.user._id,
+        authLevel : this.user.authLevel,
+        token : this.user.token,
+        firstName: formValues.firstName.value,
+        lastName: formValues.lastName.value,
+        email: formValues.email.value,
+        targetCalories : formValues.calories.value,
+      });
+
+
+
+    this.disableFormEditing();
+    this.editing = false;
+    this.buttonMessage = 'Edit';
+    this.topNotification.setMessage('Something something update successful');
+
+  }
+
+  edit() {
+    this.enableFormEditing();
+    this.buttonMessage = 'Save';
+    this.editing = true;
+  }
+
+  abort() {
     this.disableFormEditing();
     this.resetForm(this.user);
     this.buttonMessage = 'Edit';
     this.editing = false;
   }
 
-  edit() {
-    this.enableFormEditing();
-
-    this.buttonMessage = 'Save';
-    this.editing = true;
-  }
-
   ngOnInit() {
+    this.editUserObservableSubscription = this.userService.connectRequestObservable(this.editUserObservableSubject);
+
     this.userObservableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
       this.resetForm(user);
       this.user = user;
@@ -85,7 +113,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
       calculatedStats = meals.reduce((statsCounter, currentValue) => {
         statsCounter.totalCalories += currentValue.calories;
-        return statsCounter
+        return statsCounter;
       }, calculatedStats);
 
       calculatedStats.totalMeals = meals.length;
@@ -97,6 +125,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.userService.disconnectRequestObservable(this.editUserObservableSubscription);
+
     this.userObservableSubscription.unsubscribe();
     this.mealsObservableSubscription.unsubscribe();
   }

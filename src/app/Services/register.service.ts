@@ -20,7 +20,7 @@ export class RegisterService {
   }
 
   postRequest(userData) {
-    this.http.post<any>('http://localhost:3000/users/', userData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>('http://localhost:3000/api/users/', userData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
       if (response.status === 201) {
         this.loginService.postRequest({ email: userData.email, password: userData.password });
       }

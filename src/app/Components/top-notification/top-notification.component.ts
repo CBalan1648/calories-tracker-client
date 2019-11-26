@@ -19,7 +19,7 @@ export class TopNotificationComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscription = this.notificationService.getMessage().pipe(
       tap(this.showMessage.bind(this)),
-      delay(5000),
+      delay(3000),
       tap(this.hideMessage.bind(this))
     ).subscribe();
   }
