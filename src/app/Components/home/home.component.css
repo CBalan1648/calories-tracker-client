@@ -1,6 +1,6 @@
 .home-upper-component {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-content: space-evenly;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-content: space-evenly;
 }

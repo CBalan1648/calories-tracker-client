@@ -1,58 +1,89 @@
 .meal-panel {
-    color : red;
+  color: red;
 }
 
 .meal-container {
-    border: solid greenyellow 3px;
+  border: solid greenyellow 3px;
 }
 
 .green-bg {
-    background: -webkit-linear-gradient(to left, rgba(150, 255, 80, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, rgba(150, 255, 80, 0.514) , rgb(255, 255, 255));
-    transition: 1s;
+  background: -webkit-linear-gradient(
+    to left,
+    rgba(150, 255, 80, 0.514),
+    rgb(255, 255, 255)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    rgba(150, 255, 80, 0.514),
+    rgb(255, 255, 255)
+  );
+  transition: 1s;
 }
 
 .red-bg {
-    background: -webkit-linear-gradient(to left, rgba(253, 128, 26, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, rgba(253, 128, 26, 0.514) , rgb(255, 255, 255));
-    transition: 1s;
+  background: -webkit-linear-gradient(
+    to left,
+    rgba(253, 128, 26, 0.514),
+    rgb(255, 255, 255)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    rgba(253, 128, 26, 0.514),
+    rgb(255, 255, 255)
+  );
+  transition: 1s;
 }
 
 .red-bg:hover {
-    background: -webkit-linear-gradient(to left, rgba(66, 132, 255, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, rgba(66, 132, 255, 0.514) , rgb(255, 255, 255));
-    transition: 1s;
+  background: -webkit-linear-gradient(
+    to left,
+    rgba(66, 132, 255, 0.514),
+    rgb(255, 255, 255)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    rgba(66, 132, 255, 0.514),
+    rgb(255, 255, 255)
+  );
+  transition: 1s;
 }
 
 .green-bg:hover {
-    background: -webkit-linear-gradient(to left,rgba(66, 132, 255, 0.514) , rgb(255, 255, 255)); /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left, rgba(66, 132, 255, 0.514) , rgb(255, 255, 255));
-    transition: 1s;
+  background: -webkit-linear-gradient(
+    to left,
+    rgba(66, 132, 255, 0.514),
+    rgb(255, 255, 255)
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to left,
+    rgba(66, 132, 255, 0.514),
+    rgb(255, 255, 255)
+  );
+  transition: 1s;
 }
 
 mat-table {
-   justify-content: space-between;
+  justify-content: space-between;
 }
 
 .column-title {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .column-description {
-    word-break: break-word;
-    flex-grow: 1.5;
+  word-break: break-word;
+  flex-grow: 1.5;
 }
 
 .column-time {
-    flex-grow: 1;
-
+  flex-grow: 1;
 }
 
 .column-calories {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 
 .column-actions {
-    flex-grow: 0.5;
-    justify-content: center;
+  flex-grow: 0.5;
+  justify-content: center;
 }

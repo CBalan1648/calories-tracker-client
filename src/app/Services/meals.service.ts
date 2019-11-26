@@ -60,6 +60,10 @@ export class MealsService {
     });
   }
 
+  getRawObservable() {
+    return this.currentMeals;
+  }
+
   getObservable() {
     return this.currentFilteredAndGroupedMeals;
   }

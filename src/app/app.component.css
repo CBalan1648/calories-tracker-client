@@ -1,37 +1,36 @@
 mat-sidenav-container {
-    height : 100%
+  height: 100%;
 }
 
 .home-content {
-    border: solid red 3px;
+  border: solid red 3px;
 }
 
 .home-sidebar {
-    border: solid rgb(136, 0, 0) 3px;
-    width: 80px;
-    background-color: #404668;
+  border: solid rgb(136, 0, 0) 3px;
+  width: 80px;
+  background-color: #404668;
 }
 
 .sidebar-home-button {
-   color: #00dcd9;
-   background-color: #404668;
-   border-radius: 0;
+  color: #00dcd9;
+  background-color: #404668;
+  border-radius: 0;
 }
 
 .sidebar-profile-button {
-    background-color: #404668;
+  background-color: #404668;
 }
 
 .sidebar-admin-button {
-    background-color: #404668;
+  background-color: #404668;
 }
 
-
 button {
-    border-radius: 0;
-    width: 100%;
-    height: 60px;
-    line-height: 13px;
-    font-size: small;
-    text-justify: auto;
+  border-radius: 0;
+  width: 100%;
+  height: 60px;
+  line-height: 13px;
+  font-size: small;
+  text-justify: auto;
 }

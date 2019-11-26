@@ -1,25 +1,39 @@
-<div class="register-form-container">
-    <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
+<div class="user-profile-container">
 
-        <mat-form-field>
-            <input matInput formControlName="firstName" placeholder="First Name" required>
-            <mat-error *ngIf="registerForm.controls.firstName.errors">Please insert a first name</mat-error>
-        </mat-form-field>
+    <h1 class="user-profile-title">{{user.firstName}} {{user.lastName}}</h1>
 
-        <mat-form-field>
-            <input matInput formControlName="lastName" placeholder="Last Name" required>
-            <mat-error *ngIf="registerForm.controls.lastName.errors">Please insert a last name</mat-error>
-        </mat-form-field>
+    <div class="user-profile-form-container">
 
-        <mat-form-field>
-            <input matInput formControlName="email" placeholder="Your Email" required>
-            <mat-error *ngIf="registerForm.controls.email.errors">Invalid Email</mat-error>
-        </mat-form-field>
+        <form [formGroup]="userProfileForm" (ngSubmit)="submitForm()">
+            <mat-form-field>
+                <input matInput formControlName="firstName" placeholder="First Name" required>
+                <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
+            </mat-form-field>
 
- 
+            <mat-form-field>
+                <input matInput formControlName="lastName" placeholder="Last Name" required>
+                <mat-error *ngIf="userProfileForm.controls.lastName.errors">Please insert a last name</mat-error>
+            </mat-form-field>
 
+            <mat-form-field>
+                <input matInput formControlName="email" placeholder="Your Email" required>
+                <mat-error *ngIf="userProfileForm.controls.email.errors">Invalid Email</mat-error>
+            </mat-form-field>
 
-    </form>
+            <mat-form-field>
+                <input type="number" matInput formControlName="calories" placeholder="Calories" required>
+                <mat-error *ngIf="userProfileForm.controls.calories.errors">Please insert the Meal calories</mat-error>
+            </mat-form-field>
+        </form>
 
-    <button mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
+        <div class="user-profile-buttons">
+            <button class="edit-button" mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
+            <button *ngIf="editing" class="edit-button" mat-raised-button>Abort</button>
+        </div>
+
+    </div>
+
+    <h1>Total Meals : {{stats.totalMeals}}</h1>
+    <h1>Total Calories : {{stats.totalCalories}}</h1>
+    <h1>Average Calories: {{stats.averageCalories}}</h1>
 </div>

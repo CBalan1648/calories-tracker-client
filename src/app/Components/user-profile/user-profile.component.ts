@@ -1,10 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { filter } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { TopNotificationService } from '../../Services/top-notification.service';
+import { MealsService } from 'src/app/Services/meals.service';
 
 
 @Component({
@@ -14,37 +15,46 @@ import { TopNotificationService } from '../../Services/top-notification.service'
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  private mealsObservableSubscription: Subscription;
+  private userObservableSubscription: Subscription;
   public buttonMessage = 'Edit';
   public editing = false;
+  public stats: {totalMeals: number,
+    totalCalories: number,
+    averageCalories: string,
+  };
 
   private user: User;
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private topNotification: TopNotificationService) { }
+              private topNotification: TopNotificationService,
+              private mealsService: MealsService) { }
 
-  registerForm = this.formBuilder.group({
+  userProfileForm = this.formBuilder.group({
     firstName: [{ value: '', disabled: true }, Validators.required],
     lastName: [{ value: '', disabled: true }, Validators.required],
     email: [{ value: '', disabled: true }, [Validators.email, Validators.required]],
+    calories: [{ value: '', disabled: true }, [Validators.required]],
   });
 
   enableFormEditing() {
-    this.registerForm.controls.firstName.enable();
-    this.registerForm.controls.lastName.enable();
+    this.userProfileForm.controls.firstName.enable();
+    this.userProfileForm.controls.lastName.enable();
+    this.userProfileForm.controls.calories.enable();
   }
 
   disableFormEditing() {
-    this.registerForm.controls.firstName.disable();
-    this.registerForm.controls.lastName.disable();
+    this.userProfileForm.controls.firstName.disable();
+    this.userProfileForm.controls.lastName.disable();
+    this.userProfileForm.controls.calories.disable();
   }
 
   resetForm(user) {
-    this.registerForm.controls.firstName.setValue(user.firstName);
-    this.registerForm.controls.lastName.setValue(user.lastName);
-    this.registerForm.controls.email.setValue(user.email);
+    this.userProfileForm.controls.firstName.setValue(user.firstName);
+    this.userProfileForm.controls.lastName.setValue(user.lastName);
+    this.userProfileForm.controls.email.setValue(user.email);
+    this.userProfileForm.controls.calories.setValue(user.calories);
   }
 
   save() {
@@ -62,14 +72,32 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.observableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
+    this.userObservableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
       this.resetForm(user);
-
       this.user = user;
+    });
+
+    this.mealsObservableSubscription = this.mealsService.getRawObservable().pipe(tap(console.log)).subscribe(meals => {
+      let calculatedStats = { totalMeals : 0,
+        totalCalories : 0,
+        averageCalories : '',
+      };
+
+      calculatedStats = meals.reduce((statsCounter, currentValue) => {
+        statsCounter.totalCalories += currentValue.calories;
+        return statsCounter
+      }, calculatedStats);
+
+      calculatedStats.totalMeals = meals.length;
+
+      calculatedStats.averageCalories = Number(calculatedStats.totalCalories / calculatedStats.totalMeals).toFixed(2);
+
+      this.stats = calculatedStats;
     });
   }
 
   ngOnDestroy() {
-    this.observableSubscription.unsubscribe();
+    this.userObservableSubscription.unsubscribe();
+    this.mealsObservableSubscription.unsubscribe();
   }
 }
