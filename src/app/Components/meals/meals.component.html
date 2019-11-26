@@ -1,4 +1,4 @@
-<div class="meal-container">
+<!-- <div class="meal-container">
     <mat-table [dataSource]="mealsObservable">
         <ng-container matColumnDef="title">
             <mat-header-cell *matHeaderCellDef class="column-title"> Title </mat-header-cell>
@@ -32,4 +32,21 @@
         <mat-row [ngClass]="row.overCal ? 'red-bg' : 'green-bg'" *matRowDef="let row; columns: columsToDisplay;"></mat-row>
 
     </mat-table>
-</div>
+</div> -->
+
+<div>
+    <mat-list>
+        <cdk-virtual-scroll-viewport style="height: 500px" itemSize="20" class="example-viewport" (scrolledIndexChange)="log($event)">
+    <mat-expansion-panel class="meal-panel" *cdkVirtualFor="let meal of meals">
+        <mat-expansion-panel-header>
+            <mat-panel-title>
+                {{meal.title}}
+            </mat-panel-title>
+            <mat-panel-description>
+                {{meal.time | date:'medium'}}
+            </mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>{{meal.description}}</p>
+    </mat-expansion-panel>
+</cdk-virtual-scroll-viewport>
+</div> 

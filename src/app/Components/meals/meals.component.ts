@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Meal } from 'src/app/Models/meal';
 import { UserService } from 'src/app/Services/user.service';
 import { MealsService } from '../../Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+
 
 @Component({
   selector: 'app-meals',
@@ -13,11 +15,16 @@ import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.co
 })
 export class MealsComponent implements OnInit, OnDestroy {
 
+  @ViewChild(CdkVirtualScrollViewport)
+  private viewport: CdkVirtualScrollViewport;
+
   private columsToDisplay: string[] = ['title', 'description', 'time', 'calories', 'actions'];
   private mealsObservable;
   private deleteMeal;
   private caloriesValue: number;
   private userServiceSubscription: Subscription;
+  private mealsObservableSubscription: Subscription;
+  private meals: Meal[];
 
   constructor(private readonly mealsService: MealsService,
               private readonly editMealDialog: MatDialog,
@@ -39,14 +46,21 @@ export class MealsComponent implements OnInit, OnDestroy {
     });
   }
 
+  log(event, offset) {
+    console.log('HELLO LAST ITEM', event, offset);
+  }
+
 
   ngOnInit() {
     this.userServiceSubscription = this.userService.getUserObservable().subscribe(newValue => {
       this.caloriesValue = newValue.calories;
     });
+
+    this.mealsObservableSubscription = this.mealsService.getObservable().subscribe(meals => this.meals = meals);
   }
 
   ngOnDestroy() {
     this.userServiceSubscription.unsubscribe();
+    this.mealsObservableSubscription.unsubscribe();
   }
 }

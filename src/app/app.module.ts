@@ -1,6 +1,7 @@
 import * as Imports from './app.imports';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { JwtInterceptor } from './Helpers/jwt.interceptor';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 
 const routes: Imports.Routes = [
@@ -8,6 +9,7 @@ const routes: Imports.Routes = [
   { path: 'register', component: Imports.RegisterFormComponent },
   { path: 'home', component: Imports.HomeComponent },
   { path: 'user', component: Imports.UserProfileComponent},
+  { path: 'admin', component: Imports.AdminComponent},
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: Imports.PageNotFoundComponent }
 ];
@@ -27,6 +29,7 @@ const routes: Imports.Routes = [
     Imports.EditMealDialogComponent,
     Imports.FilterMenuComponent,
     Imports.UserProfileComponent,
+    Imports.AdminComponent,
   ],
   imports: [
     Imports.RouterModule.forRoot(routes),
@@ -44,6 +47,7 @@ const routes: Imports.Routes = [
     Imports.MatSelectModule,
     Imports.MatDatepickerModule,
     Imports.MatNativeDateModule,
+    ScrollingModule,
   ],
   bootstrap: [Imports.AppComponent],
   providers: [{

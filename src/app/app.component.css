@@ -12,18 +12,16 @@ mat-sidenav-container {
   background-color: #404668;
 }
 
-.sidebar-home-button {
-  color: #00dcd9;
+.sidebar-button {
   background-color: #404668;
-  border-radius: 0;
+  transition: color 0.4s ease-in-out;
 }
 
-.sidebar-profile-button {
-  background-color: #404668;
-}
-
-.sidebar-admin-button {
-  background-color: #404668;
+.sidebar-button-active {
+  background-color: #406852;
+  border-left: solid 4px;
+  color: greenyellow;
+  transition: color 0.4s ease-in-out;
 }
 
 button {

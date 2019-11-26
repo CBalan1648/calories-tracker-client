@@ -17,8 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private userServiceSubscriptions: Subscription;
   private showSideBar: boolean;
   private user: User;
-
-  title = 'calories-tracker-FE';
+  private activeButton = 'HOME'
 
   ngOnInit() {
     this.userServiceSubscriptions = this.userService.getUserObservable().subscribe(user => {
@@ -38,11 +37,18 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   redirectToHome() {
+    this.activeButton = 'HOME'
     this.router.navigate(['/home']);
   }
 
   redirectToUser() {
+    this.activeButton = 'USER'
     this.router.navigate(['/user']);
+  }
+
+  redirectToAdmin() {
+    this.activeButton = 'ADMIN'
+    this.router.navigate(['/admin']);
   }
 
 }
