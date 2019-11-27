@@ -28,7 +28,7 @@ export { MatDatepickerModule } from '@angular/material/datepicker';
 export { MatNativeDateModule } from '@angular/material/core';
 export { UserProfileComponent } from './Components/user-profile/user-profile.component';
 export { AdminComponent } from './Components/admin/admin.component';
-
+export { MatListModule } from '@angular/material/list';
 
 
 

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { UserService } from 'src/app/Services/user.service';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
@@ -15,7 +15,9 @@ export class HeaderComponent implements OnInit, OnDestroy {
   private lastName: string;
   private logout;
 
-  constructor(private userService: UserService) { 
+  @Input() private sidenavRef: any;
+
+  constructor(private userService: UserService) {
     this.logout = userService.logoutUser.bind(this.userService);
   }
 

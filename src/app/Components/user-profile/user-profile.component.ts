@@ -105,7 +105,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.user = user;
     });
 
-    this.mealsObservableSubscription = this.mealsService.getRawObservable().pipe(tap(console.log)).subscribe(meals => {
+    this.mealsObservableSubscription = this.mealsService.getRawObservable().subscribe(meals => {
       let calculatedStats = { totalMeals : 0,
         totalCalories : 0,
         averageCalories : '',

@@ -2,12 +2,8 @@ mat-sidenav-container {
   height: 100%;
 }
 
-.home-content {
-  border: solid red 3px;
-}
-
 .home-sidebar {
-  border: solid rgb(136, 0, 0) 3px;
+  border: 0;
   width: 80px;
   background-color: #404668;
 }

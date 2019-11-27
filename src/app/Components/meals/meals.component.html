@@ -36,17 +36,21 @@
 
 <div>
     <mat-list>
-        <cdk-virtual-scroll-viewport style="height: 500px" itemSize="20" class="example-viewport" (scrolledIndexChange)="log($event)">
-    <mat-expansion-panel class="meal-panel" *cdkVirtualFor="let meal of meals">
-        <mat-expansion-panel-header>
-            <mat-panel-title>
-                {{meal.title}}
-            </mat-panel-title>
-            <mat-panel-description>
-                {{meal.time | date:'medium'}}
-            </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p>{{meal.description}}</p>
-    </mat-expansion-panel>
-</cdk-virtual-scroll-viewport>
-</div> 
+        <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20"
+            (scrolledIndexChange)="log($event)">
+            <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'" *cdkVirtualFor="let meal of meals">
+        
+                    <div class="flex-table-cell title">{{meal.title}} </div>
+                    <div class="flex-table-cell time"> {{meal.time | date:'medium'}}</div>
+                    <div class="flex-table-cell description"> -- {{meal.description}}</div>
+                    <div class="flex-table-cell actions">
+                        <button mat-raised-button (click)="openEditDialog(meal)"><i
+                                class="material-icons">edit</i></button>
+                        <button mat-raised-button (click)="deleteMeal(meal._id)"><i
+                                class="material-icons">delete</i></button>
+                    </div>
+                
+            </mat-list-item>
+        </cdk-virtual-scroll-viewport>
+    </mat-list>
+</div>

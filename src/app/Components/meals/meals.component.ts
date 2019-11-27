@@ -6,7 +6,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { MealsService } from '../../Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-
+ 
 
 @Component({
   selector: 'app-meals',
@@ -15,8 +15,6 @@ import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 })
 export class MealsComponent implements OnInit, OnDestroy {
 
-  @ViewChild(CdkVirtualScrollViewport)
-  private viewport: CdkVirtualScrollViewport;
 
   private columsToDisplay: string[] = ['title', 'description', 'time', 'calories', 'actions'];
   private mealsObservable;
@@ -47,7 +45,7 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   log(event, offset) {
-    console.log('HELLO LAST ITEM', event, offset);
+    console.log('HELLO LAST  ITEM', event, offset);
   }
 
 

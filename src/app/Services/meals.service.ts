@@ -4,11 +4,14 @@ import { BehaviorSubject, combineLatest, from, Observable, Subscription } from '
 import { filter, groupBy, map, mergeMap, reduce, retry, take, tap } from 'rxjs/operators';
 import { Meal } from '../Models/meal';
 import { UserService } from './user.service';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MealsService {
+
+  private user: User;
 
   private currentMealsSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentMeals: Observable<Meal[]> = this.currentMealsSubject.asObservable();
@@ -22,6 +25,8 @@ export class MealsService {
 
   constructor(private http: HttpClient, userService: UserService) {
 
+    userService.getUserObservable().subscribe(user => this.user = user);
+
     this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
       filter(([ob1, ob2]) => !!ob1 && !!ob2),
       mergeMap(updateMealWithCalories));
@@ -31,7 +36,6 @@ export class MealsService {
     return observable.pipe(
       tap(this.postRequest.bind(this)),
     ).subscribe();
-
   }
 
   disconnectRequestObservable(subscription: Subscription): void {
@@ -40,7 +44,6 @@ export class MealsService {
 
   connectFilterObservable(observable: Observable<any>): Subscription {
     return observable.subscribe((filterValue) => { this.currentFilterSubject.next(filterValue); });
-
   }
 
   disconnectFilterObservable(subscription: Subscription): void {
@@ -49,7 +52,10 @@ export class MealsService {
   }
 
   postRequest(mealData) {
-    this.http.post<any>('http://localhost:3000/api/meals/', mealData, { observe: 'response' }).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>(`http://localhost:3000/api/users/${this.user._id}/meals/`, mealData, { observe: 'response' }).pipe(
+      retry(3),
+      take(1)
+    ).subscribe(response => {
       if (response.status === 201) {
         this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = [...currentMealsArray];
@@ -67,9 +73,9 @@ export class MealsService {
   getObservable() {
     return this.currentFilteredAndGroupedMeals;
   }
- 
+
   deleteMeal(mealId): void {
-    this.http.delete(`http://localhost:3000/api/meals/${mealId}`).pipe(
+    this.http.delete(`http://localhost:3000/api/users/${this.user._id}/meals/${mealId}`).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -83,7 +89,7 @@ export class MealsService {
   }
 
   updateMeal(updatedMeal): void {
-    this.http.put('http://localhost:3000/api/meals', updatedMeal).pipe(
+    this.http.put(`http://localhost:3000/api/users/${this.user._id}/meals/${updatedMeal._id}`, updatedMeal).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -101,7 +107,7 @@ export class MealsService {
   }
 
   public getMeals(): void {
-    this.http.get('http://localhost:3000/api/meals').pipe(
+    this.http.get(`http://localhost:3000/api/users/${this.user._id}/meals`).pipe(
       retry(3),
       take(1),
       map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)

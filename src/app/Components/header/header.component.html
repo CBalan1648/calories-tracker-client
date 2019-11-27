@@ -1,5 +1,7 @@
 <mat-toolbar>
     <div class='header-main-title'>
+            <button *ngIf="!sidenavRef.opened" mat-stroked-button (click)="sidenavRef.toggle()"><i
+                class="material-icons">menu</i></button>
         Calories Tracker
     </div>
     

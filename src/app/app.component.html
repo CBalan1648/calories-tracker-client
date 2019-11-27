@@ -13,7 +13,7 @@
 
         <mat-sidenav-content class="home-content">
                 <!-- <app-header *ngIf="showSideBar"></app-header> FOR DEV PURPOSE-->
-                <app-header></app-header>
+                <app-header [sidenavRef]="sidenav"> </app-header>
                 <router-outlet></router-outlet>
         </mat-sidenav-content>
 
