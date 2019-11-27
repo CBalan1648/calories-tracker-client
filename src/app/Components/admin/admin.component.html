@@ -1,16 +1,38 @@
 <cdk-virtual-scroll-viewport class="user-scroll-viewport" role="table" itemSize="20">
 
-    <mat-expansion-panel *cdkVirtualFor="let user of users" (opened)="log(user)">
+    <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="getData(user._id)">
         <mat-expansion-panel-header>
             <mat-panel-title>
                 {{user.firstName}} {{user.lastName}}
             </mat-panel-title>
             <mat-panel-description>
-                {{user.email}}  <button mat-button>Click me</button>
+                {{user.email}} <button mat-button>Click me</button>
             </mat-panel-description>
-         
-        </mat-expansion-panel-header>
 
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <div>
+                <mat-list>
+                    <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20"
+                        (scrolledIndexChange)="log($event)">
+                        <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'"
+                            *cdkVirtualFor="let meal of log(user._id)">
+
+                            <div class="flex-table-cell title">{{meal.title}} </div>
+                            <div class="flex-table-cell time"> {{meal.time | date:'medium'}}</div>
+                            <div class="flex-table-cell description"> -- {{meal.description}}</div>
+                            <div class="flex-table-cell actions">
+                                <button mat-raised-button (click)="openEditDialog(meal)"><i
+                                        class="material-icons">edit</i></button>
+                                <button mat-raised-button (click)="deleteMeal(meal._id)"><i
+                                        class="material-icons">delete</i></button>
+                            </div>
+
+                        </mat-list-item>
+                    </cdk-virtual-scroll-viewport>
+                </mat-list>
+            </div>
+        </ng-template>
     </mat-expansion-panel>
 
 </cdk-virtual-scroll-viewport>

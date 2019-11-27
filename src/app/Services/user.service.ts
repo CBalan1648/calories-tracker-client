@@ -4,12 +4,14 @@ import { Router } from '@angular/router';
 import { take, tap, retry } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
+const emptyUser = {_id : undefined}
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+  private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(emptyUser);
   public currentUser: Observable<any> = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
@@ -23,7 +25,7 @@ export class UserService {
   }
 
   public logoutUser() {
-    this.currentUserSubject.next(null);
+    this.currentUserSubject.next(emptyUser);
     this.router.navigate(['/login']);
   }
 

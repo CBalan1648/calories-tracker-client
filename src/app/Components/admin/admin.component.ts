@@ -27,8 +27,15 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
   }
 
+  getData() {
+    
+  }
+
   log(event) {
-    console.log(event)
+    return [
+      {title : "meal ", _id : "asd", description : "not a description", calories : 412, time : 1124122412, overCal : false},
+      {title : "meal ", _id : "asd", description : "not a description", calories : 412, time : 1124122412, overCal : false}
+    ]
   }
 
   ngOnDestroy() {

@@ -6,6 +6,7 @@ import { UserService } from 'src/app/Services/user.service';
 import { MealsService } from '../../Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { filter, tap } from 'rxjs/operators';
  
 
 @Component({
@@ -28,7 +29,7 @@ export class MealsComponent implements OnInit, OnDestroy {
               private readonly editMealDialog: MatDialog,
               private readonly userService: UserService) {
 
-    this.mealsObservable = this.mealsService.getObservable();
+    this.mealsObservable = this.mealsService.getFilteredObservable();
     this.mealsService.getMeals();
     this.deleteMeal = this.mealsService.deleteMeal.bind(this.mealsService);
   }
@@ -44,8 +45,13 @@ export class MealsComponent implements OnInit, OnDestroy {
     });
   }
 
-  log(event, offset) {
+  log(event, offset) : Meal[] {
     console.log('HELLO LAST  ITEM', event, offset);
+
+    return [
+      {title : "meal ", _id : "asd", description : "not a description", calories : 412, time : 1124122412, overCal : false},
+      {title : "meal ", _id : "asd", description : "not a description", calories : 412, time : 1124122412, overCal : false}
+    ]
   }
 
 
@@ -54,7 +60,7 @@ export class MealsComponent implements OnInit, OnDestroy {
       this.caloriesValue = newValue.calories;
     });
 
-    this.mealsObservableSubscription = this.mealsService.getObservable().subscribe(meals => this.meals = meals);
+    this.mealsObservableSubscription = this.mealsService.getFilteredObservable().pipe(tap(console.log)).subscribe(meals => this.meals = meals);
   }
 
   ngOnDestroy() {

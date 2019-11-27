@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, Observable, Subscription } from 'rxjs';
 import { filter, groupBy, map, mergeMap, reduce, retry, take, tap } from 'rxjs/operators';
 import { Meal } from '../Models/meal';
-import { UserService } from './user.service';
 import { User } from '../Models/user';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,24 +13,29 @@ export class MealsService {
 
   private user: User;
 
-  private currentMealsSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentMeals: Observable<Meal[]> = this.currentMealsSubject.asObservable();
+  private observablesMap: Map<string, BehaviorSubject<any>> = new Map()
+
+
 
   private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentFilter: Observable<Meal[]> = this.currentFilterSubject.asObservable();
 
-  public currentFilteredMeals: Observable<any[]> = combineLatest(this.currentMeals, this.currentFilter).pipe(map(filterMeals));
+  public currentFilteredMeals: Observable<any[]>;
 
   public currentFilteredAndGroupedMeals: Observable<any[]>;
 
   constructor(private http: HttpClient, userService: UserService) {
 
-    userService.getUserObservable().subscribe(user => this.user = user);
-
-    this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
-      filter(([ob1, ob2]) => !!ob1 && !!ob2),
-      mergeMap(updateMealWithCalories));
+    userService.getUserObservable().subscribe(user => {
+      this.currentFilteredMeals = combineLatest(this.getRawObservable(user._id), this.currentFilter).pipe(map(filterMeals));
+      this.user = user
+      this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
+        tap(console.log),
+        filter(([ob1, ob2]) => !!ob1 && !!ob2),
+        mergeMap(updateMealWithCalories));
+    });
   }
+
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
@@ -57,20 +62,27 @@ export class MealsService {
       take(1)
     ).subscribe(response => {
       if (response.status === 201) {
-        this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = [...currentMealsArray];
           updatedArray.push(response.body);
-          this.currentMealsSubject.next(updatedArray);
+          this.getBehaviourSubject(this.user._id).next(updatedArray);
         });
       }
     });
   }
 
-  getRawObservable() {
-    return this.currentMeals;
+  getRawObservable(userId) {
+    return this.getBehaviourSubject(userId).asObservable();
   }
 
-  getObservable() {
+  getBehaviourSubject(userId = this.user && this.user._id || 'null') {
+    if (!this.observablesMap.has(userId)) {
+      this.observablesMap.set(userId, new BehaviorSubject<any>(null))
+    }
+    return this.observablesMap.get(userId)
+  }
+
+  getFilteredObservable() {
     return this.currentFilteredAndGroupedMeals;
   }
 
@@ -80,9 +92,9 @@ export class MealsService {
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
       if (response.nModified === 1) {
-        this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = currentMealsArray.filter(meal => meal._id !== mealId);
-          this.currentMealsSubject.next(updatedArray);
+          this.getBehaviourSubject(this.user._id).next(updatedArray);
         });
       }
     });
@@ -94,25 +106,26 @@ export class MealsService {
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
       if (response.nModified === 1) {
-        this.currentMeals.pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
 
           const updatedMealIndex = currentMealsArray.findIndex(arrayElement => arrayElement._id === updatedMeal._id);
           const updatedArray = [...currentMealsArray];
           updatedArray.splice(updatedMealIndex, 1, updatedMeal);
 
-          this.currentMealsSubject.next(updatedArray);
+          this.getBehaviourSubject(this.user._id).next(updatedArray);
         });
       }
     });
   }
 
-  public getMeals(): void {
-    this.http.get(`http://localhost:3000/api/users/${this.user._id}/meals`).pipe(
+  public getMeals(userId = this.user._id): void {
+    this.http.get(`http://localhost:3000/api/users/${userId}/meals`).pipe(
       retry(3),
       take(1),
       map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)
     ).subscribe(meals => {
-      this.currentMealsSubject.next(meals);
+      console.log(meals)
+      this.getBehaviourSubject(userId).next(meals);
     });
   }
 }
