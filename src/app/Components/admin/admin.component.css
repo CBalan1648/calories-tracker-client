@@ -1,5 +1,5 @@
 .user-scroll-viewport {
-  height: 100%;
+  height: 90%;
 }
 
 .meals-scroll-viewport {
@@ -41,4 +41,8 @@
   flex-grow: 1;
   flex-shrink: 1.1;
   justify-content: space-evenly;
+}
+
+.admin-extension-panel {
+  background-color: rgba(112, 128, 144, 0.226);
 }

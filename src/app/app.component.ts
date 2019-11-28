@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AddUserDialogComponent } from './Components/add-user-dialog/add-user-dialog.component';
 import { User } from './Models/user';
 import { UserService } from './Services/user.service';
 
@@ -12,7 +14,8 @@ import { UserService } from './Services/user.service';
 export class AppComponent implements OnInit, OnDestroy {
 
   constructor(private readonly router: Router,
-              private readonly userService: UserService) { }
+              private readonly userService: UserService,
+              private readonly popupDialog: MatDialog) { }
 
   private userServiceSubscriptions: Subscription;
   private showSideBar: boolean;
@@ -51,4 +54,18 @@ export class AppComponent implements OnInit, OnDestroy {
     this.router.navigate(['/admin']);
   }
 
+  addNewUser() {
+    const dialogRef = this.popupDialog.open(AddUserDialogComponent, {
+      width: '400px',
+      data: null,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('TODO : Resolve');
+    });
+  }
+
+  clearFilters() {
+    console.log('CLEAR');
+  }
 }

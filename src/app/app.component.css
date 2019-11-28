@@ -20,6 +20,26 @@ mat-sidenav-container {
   transition: color 0.4s ease-in-out;
 }
 
+.sidebar-add-button-active {
+  background-color: #8b7b1e;
+  border-left: solid 4px;
+  color: rgb(255, 188, 87);
+  animation-name: flashingAnimation;
+  animation-duration: 1s;
+}
+
+@keyframes flashingAnimation {
+  0%   {color: rgba(255, 188, 87, 0);}
+  50%  {color: yellow;}
+  100% {color: rgb(255, 188, 87);}
+}
+
+.sidebar-add-button-hidden {
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s linear;
+}
+
 button {
   border-radius: 0;
   width: 100%;

@@ -1,7 +1,7 @@
 <cdk-virtual-scroll-viewport class="user-scroll-viewport" role="table" itemSize="20">
 
     <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="loadData(user._id)" cli>
-        <mat-expansion-panel-header>
+        <mat-expansion-panel-header class="admin-extension-panel">
             <mat-panel-title>
                 {{user.firstName}} {{user.lastName}}
             </mat-panel-title>

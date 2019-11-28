@@ -12,19 +12,22 @@ export class RegisterService {
   constructor(private http: HttpClient, private loginService: LoginService) { }
 
   connectRequestObservable(observable: Observable<any>): Subscription {
-    return observable.pipe(tap(this.postRequest.bind(this))).subscribe();
+    return observable.subscribe(registerRequest => {
+      const [newUserData, autologin] = registerRequest;
+      this.postRequest(newUserData, !!autologin)
+    });
   }
 
   disconnectRequestObservable(subscription: Subscription): void {
     subscription.unsubscribe();
   }
 
-  postRequest(userData) {
+  postRequest(userData, autologin = false) {
     this.http.post<any>('http://localhost:3000/api/users/', userData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
-      if (response.status === 201) {
+      if (response.status === 201 && autologin) {
         this.loginService.postRequest({ email: userData.email, password: userData.password });
       }
     });
