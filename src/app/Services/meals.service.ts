@@ -33,9 +33,10 @@ export class MealsService {
   }
 
   connectRequestObservable(observable: Observable<any>): Subscription {
-    return observable.pipe(
-      tap(this.postRequest.bind(this)),
-    ).subscribe();
+    return observable.subscribe(newMealData => {
+      const [mealData, userId] = newMealData;
+      this.postRequest(mealData, userId);
+    });
   }
 
   disconnectRequestObservable(subscription: Subscription): void {

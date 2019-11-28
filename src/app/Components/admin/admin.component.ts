@@ -7,6 +7,7 @@ import { User } from 'src/app/Models/user';
 import { AdminService } from 'src/app/Services/admin.service';
 import { MealsService } from 'src/app/Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
+import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -42,6 +43,17 @@ export class AdminComponent implements OnInit, OnDestroy {
     const dialogRef = this.editMealDialog.open(EditMealDialogComponent, {
       width: '400px',
       data: { meal, ownerId },
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('TODO : Resolve');
+    });
+  }
+
+  openMealAddDialog(userId) {
+    const dialogRef = this.editMealDialog.open(AddMealDialogComponent, {
+      width: '400px',
+      data: userId,
     });
 
     dialogRef.afterClosed().subscribe(result => {

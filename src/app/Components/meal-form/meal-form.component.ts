@@ -34,12 +34,12 @@ export class MealFormComponent implements OnInit, OnDestroy {
   submitForm() {
     if (this.mealForm.status === 'VALID') {
       const formValues = this.mealForm.controls;
-      this.observableSubject.next({
+      this.observableSubject.next([{
         title: formValues.title.value,
         description: formValues.description.value,
         time: formValues.time.value ? Date.parse(formValues.time.value) : Date.now(),
         calories: formValues.calories.value,
-      });
+      }]);
     }
   }
 }
