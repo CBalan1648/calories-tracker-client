@@ -9,7 +9,7 @@ import { MealsService } from 'src/app/Services/meals.service';
   templateUrl: './edit-meal-dialog.component.html',
   styleUrls: ['./edit-meal-dialog.component.css']
 })
-export class EditMealDialogComponent implements OnInit {
+export class EditMealDialogComponent {
 
   constructor(
     private readonly mealsService: MealsService,
@@ -24,8 +24,6 @@ export class EditMealDialogComponent implements OnInit {
     time: [new Date(this.data.meal.time).toISOString().slice(0, -1)],
     calories: [this.data.meal.calories, Validators.required]
   });
-  ngOnInit() {
-  }
 
   submitForm() {
     if (this.mealForm.status === 'VALID') {

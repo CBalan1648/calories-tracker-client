@@ -2,11 +2,11 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
+import { Meal } from 'src/app/Models/meal';
 import { User } from 'src/app/Models/user';
 import { AdminService } from 'src/app/Services/admin.service';
 import { MealsService } from 'src/app/Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
-import { Meal } from 'src/app/Models/meal';
 
 @Component({
   selector: 'app-admin',
@@ -50,11 +50,13 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   onClick(event) {
     event.preventDefault();
-    console.log(event);
+  }
+
+  deleteUser(userId) {
+    this.adminService.deleteRequest(userId);
   }
 
   loadData(userId) {
-    console.log('called SET setData with ', userId);
 
     if (!this.data[userId]) {
       this.data[userId] = new RefactorDataSource(this.mealsService.getRawObservable(userId));
@@ -82,11 +84,9 @@ export class RefactorDataSource extends DataSource<string> {
 
 
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
-    console.log('CONNECT');
     return this.mealsObservable;
   }
 
   disconnect(): void {
-    console.log('DISCONNECTED');
   }
 }

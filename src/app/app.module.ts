@@ -49,6 +49,7 @@ const routes: Imports.Routes = [
     Imports.MatNativeDateModule,
     ScrollingModule,
     Imports.MatListModule,
+    Imports.MatDividerModule,
   ],
   bootstrap: [Imports.AppComponent],
   providers: [{

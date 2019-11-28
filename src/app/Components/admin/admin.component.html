@@ -1,18 +1,43 @@
 <cdk-virtual-scroll-viewport class="user-scroll-viewport" role="table" itemSize="20">
 
-    <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="loadData(user._id)">
+    <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="loadData(user._id)" cli>
         <mat-expansion-panel-header>
             <mat-panel-title>
                 {{user.firstName}} {{user.lastName}}
             </mat-panel-title>
             <mat-panel-description>
-                {{user.email}} <button mat-button (click)="onClick($event)" >Click me</button>
+                {{user.email}}
             </mat-panel-description>
 
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
             <div>
                 <mat-list>
+                    <mat-list-item>
+
+                        <div class="flex-table-cell">
+                            <button mat-raised-button>
+                                <i class="material-icons">edit</i>
+                                Edit User
+                            </button>
+                        </div>
+
+                        <div class="flex-table-cell">
+                            <button mat-raised-button (click)="deleteUser(user._id)">
+                                <i class="material-icons">delete_forever</i>
+                                Delete User
+                            </button>
+                        </div>
+
+                        <div class="flex-table-cell">
+                            <button mat-raised-button>
+                                <i class="material-icons"> library_add </i>
+                                New Meal
+                            </button>
+                        </div>
+
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
                     <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20">
                         <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'"
                             *cdkVirtualFor="let meal of getData(user._id)">

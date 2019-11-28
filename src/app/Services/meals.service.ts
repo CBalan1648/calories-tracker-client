@@ -12,10 +12,7 @@ import { UserService } from './user.service';
 export class MealsService {
 
   private user: User;
-
-  private observablesMap: Map<string, BehaviorSubject<any>> = new Map()
-
-
+  private observablesMap: Map<string, BehaviorSubject<any>> = new Map();
 
   private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   public currentFilter: Observable<Meal[]> = this.currentFilterSubject.asObservable();
@@ -28,7 +25,7 @@ export class MealsService {
 
     userService.getUserObservable().subscribe(user => {
       this.currentFilteredMeals = combineLatest(this.getRawObservable(user._id), this.currentFilter).pipe(map(filterMeals));
-      this.user = user
+      this.user = user;
       this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
         filter(([ob1, ob2]) => !!ob1 && !!ob2),
         mergeMap(updateMealWithCalories));
@@ -76,9 +73,9 @@ export class MealsService {
 
   getBehaviourSubject(userId = this.user && this.user._id || 'null') {
     if (!this.observablesMap.has(userId)) {
-      this.observablesMap.set(userId, new BehaviorSubject<any>([]))
+      this.observablesMap.set(userId, new BehaviorSubject<any>([]));
     }
-    return this.observablesMap.get(userId)
+    return this.observablesMap.get(userId);
   }
 
   getFilteredObservable() {
@@ -100,7 +97,7 @@ export class MealsService {
   }
 
   updateMeal(updatedMeal, userId = this.user._id): void {
-    console.log(userId)
+    console.log(userId);
     this.http.put(`http://localhost:3000/api/users/${userId}/meals/${updatedMeal._id}`, updatedMeal).pipe(
       retry(3),
       take(1),
