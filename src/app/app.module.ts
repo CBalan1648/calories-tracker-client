@@ -15,4 +15,7 @@ import { JwtInterceptor } from './Helpers/jwt.interceptor';
   }],
   entryComponents: EntryComponents
 })
+
+
+
 export class AppModule { }

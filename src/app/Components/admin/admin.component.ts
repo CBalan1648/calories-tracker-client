@@ -6,8 +6,9 @@ import { Meal } from 'src/app/Models/meal';
 import { User } from 'src/app/Models/user';
 import { AdminService } from 'src/app/Services/admin.service';
 import { MealsService } from 'src/app/Services/meals.service';
-import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
+import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
+import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -35,6 +36,7 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.usersSubscription = this.usersObservable.subscribe(users => {
+      console.log(users);
       this.users = users;
     });
   }
@@ -54,6 +56,17 @@ export class AdminComponent implements OnInit, OnDestroy {
     const dialogRef = this.editMealDialog.open(AddMealDialogComponent, {
       width: '400px',
       data: userId,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('TODO : Resolve');
+    });
+  }
+
+  openEditUserDialog(user): void {
+    const dialogRef = this.editMealDialog.open(EditUserDialogComponent, {
+      width: '400px',
+      data: user,
     });
 
     dialogRef.afterClosed().subscribe(result => {
