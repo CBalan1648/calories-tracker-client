@@ -15,14 +15,14 @@ export class EditMealDialogComponent implements OnInit {
     private readonly mealsService: MealsService,
     public dialogRef: MatDialogRef<EditMealDialogComponent>,
     private formBuilder: FormBuilder,
-    @Inject(MAT_DIALOG_DATA) public data: Meal,
+    @Inject(MAT_DIALOG_DATA) public data: { meal: Meal, ownerId: string },
   ) { }
 
   mealForm = this.formBuilder.group({
-    title: [this.data.title, Validators.required],
-    description: [this.data.description],
-    time: [new Date(this.data.time).toISOString().slice(0,-1)],
-    calories: [this.data.calories, Validators.required]
+    title: [this.data.meal.title, Validators.required],
+    description: [this.data.meal.description],
+    time: [new Date(this.data.meal.time).toISOString().slice(0, -1)],
+    calories: [this.data.meal.calories, Validators.required]
   });
   ngOnInit() {
   }
@@ -31,12 +31,12 @@ export class EditMealDialogComponent implements OnInit {
     if (this.mealForm.status === 'VALID') {
       const formValues = this.mealForm.controls;
       this.mealsService.updateMeal({
-        _id: this.data._id,
+        _id: this.data.meal._id,
         title: formValues.title.value,
         description: formValues.description.value,
         calories: formValues.calories.value,
-        time: Date.parse(formValues.time.value) || this.data.time,
-      });
+        time: Date.parse(formValues.time.value) || this.data.meal.time,
+      }, this.data.ownerId);
     }
   }
 

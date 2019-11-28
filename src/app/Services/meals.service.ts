@@ -30,7 +30,6 @@ export class MealsService {
       this.currentFilteredMeals = combineLatest(this.getRawObservable(user._id), this.currentFilter).pipe(map(filterMeals));
       this.user = user
       this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
-        tap(console.log),
         filter(([ob1, ob2]) => !!ob1 && !!ob2),
         mergeMap(updateMealWithCalories));
     });
@@ -56,16 +55,16 @@ export class MealsService {
     subscription.unsubscribe();
   }
 
-  postRequest(mealData) {
-    this.http.post<any>(`http://localhost:3000/api/users/${this.user._id}/meals/`, mealData, { observe: 'response' }).pipe(
+  postRequest(mealData, userId = this.user._id) {
+    this.http.post<any>(`http://localhost:3000/api/users/${userId}/meals/`, mealData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
       if (response.status === 201) {
-        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(userId).pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = [...currentMealsArray];
           updatedArray.push(response.body);
-          this.getBehaviourSubject(this.user._id).next(updatedArray);
+          this.getBehaviourSubject(userId).next(updatedArray);
         });
       }
     });
@@ -77,7 +76,7 @@ export class MealsService {
 
   getBehaviourSubject(userId = this.user && this.user._id || 'null') {
     if (!this.observablesMap.has(userId)) {
-      this.observablesMap.set(userId, new BehaviorSubject<any>(null))
+      this.observablesMap.set(userId, new BehaviorSubject<any>([]))
     }
     return this.observablesMap.get(userId)
   }
@@ -86,33 +85,34 @@ export class MealsService {
     return this.currentFilteredAndGroupedMeals;
   }
 
-  deleteMeal(mealId): void {
-    this.http.delete(`http://localhost:3000/api/users/${this.user._id}/meals/${mealId}`).pipe(
+  deleteMeal(mealId, userId = this.user._id): void {
+    this.http.delete(`http://localhost:3000/api/users/${userId}/meals/${mealId}`).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
       if (response.nModified === 1) {
-        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(userId).pipe(take(1)).subscribe(currentMealsArray => {
           const updatedArray = currentMealsArray.filter(meal => meal._id !== mealId);
-          this.getBehaviourSubject(this.user._id).next(updatedArray);
+          this.getBehaviourSubject(userId).next(updatedArray);
         });
       }
     });
   }
 
-  updateMeal(updatedMeal): void {
-    this.http.put(`http://localhost:3000/api/users/${this.user._id}/meals/${updatedMeal._id}`, updatedMeal).pipe(
+  updateMeal(updatedMeal, userId = this.user._id): void {
+    console.log(userId)
+    this.http.put(`http://localhost:3000/api/users/${userId}/meals/${updatedMeal._id}`, updatedMeal).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
       if (response.nModified === 1) {
-        this.getRawObservable(this.user._id).pipe(take(1)).subscribe(currentMealsArray => {
+        this.getRawObservable(userId).pipe(take(1)).subscribe(currentMealsArray => {
 
           const updatedMealIndex = currentMealsArray.findIndex(arrayElement => arrayElement._id === updatedMeal._id);
           const updatedArray = [...currentMealsArray];
           updatedArray.splice(updatedMealIndex, 1, updatedMeal);
 
-          this.getBehaviourSubject(this.user._id).next(updatedArray);
+          this.getBehaviourSubject(userId).next(updatedArray);
         });
       }
     });
@@ -124,7 +124,6 @@ export class MealsService {
       take(1),
       map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)
     ).subscribe(meals => {
-      console.log(meals)
       this.getBehaviourSubject(userId).next(meals);
     });
   }
