@@ -6,7 +6,7 @@ div {
   height: 50px;
   text-align: center;
   font-size: x-large;
-  pointer-events: none
+  pointer-events: none;
 }
 
 span {

@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
-import { UserService } from './Services/user.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { User } from './Models/user';
+import { UserService } from './Services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +17,7 @@ export class AppComponent implements OnInit, OnDestroy {
   private userServiceSubscriptions: Subscription;
   private showSideBar: boolean;
   private user: User;
-  private activeButton = 'HOME'
+  private activeButton = 'HOME';
 
   ngOnInit() {
     this.userServiceSubscriptions = this.userService.getUserObservable().subscribe(user => {
@@ -37,17 +37,17 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   redirectToHome() {
-    this.activeButton = 'HOME'
+    this.activeButton = 'HOME';
     this.router.navigate(['/home']);
   }
 
   redirectToUser() {
-    this.activeButton = 'USER'
+    this.activeButton = 'USER';
     this.router.navigate(['/user']);
   }
 
   redirectToAdmin() {
-    this.activeButton = 'ADMIN'
+    this.activeButton = 'ADMIN';
     this.router.navigate(['/admin']);
   }
 

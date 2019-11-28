@@ -6,15 +6,12 @@ import { UserService } from 'src/app/Services/user.service';
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css']
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
 
-  constructor(private readonly userService : UserService) { }
+  constructor(private readonly userService: UserService) { }
 
-  ngOnInit() {
-  }
-
-  updateCalories(event){
-    this.userService.updateCalories(event)
+  updateCalories(event) {
+    this.userService.updateCalories(event);
   }
 
 }

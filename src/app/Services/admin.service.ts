@@ -17,7 +17,6 @@ export class AdminService {
     return this.usersObservable;
   }
 
-
   public getUsers(): void {
     this.http.get('http://localhost:3000/api/users').pipe(
       retry(3),

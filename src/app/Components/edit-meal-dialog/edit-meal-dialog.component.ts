@@ -1,8 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Meal } from '../../Models/meal';
+import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MealsService } from 'src/app/Services/meals.service';
+import { Meal } from '../../Models/meal';
 
 @Component({
   selector: 'app-edit-meal-dialog',
@@ -37,7 +37,6 @@ export class EditMealDialogComponent {
       }, this.data.ownerId);
     }
   }
-
 
   onClose(): void {
     this.dialogRef.close();

@@ -1,8 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { LoginService} from '../../Services/login.service';
+import { LoginService } from '../../Services/login.service';
 
 @Component({
   selector: 'app-login-form',

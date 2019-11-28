@@ -17,6 +17,7 @@
 
         <mat-form-field>
             <mat-select formControlName="timeSpan" matNativeControl placeholder="Timespan">
+
                 <mat-option>Always</mat-option>
                 <mat-option value="SPAN_LAST_24_HOURS">Last 24 Hours</mat-option>
                 <mat-option value="SPAN_LAST_7_DAYS">Last 7 Days</mat-option>
@@ -27,6 +28,7 @@
         </mat-form-field>
 
         <div *ngIf="filterForm.controls.timeSpan.value === 'SPAN_CUSTOM'" class="filter-menu-custom-date">
+
             <mat-form-field class="filter-menu-custom-picker">
                 <input matInput formControlName="customDateFrom" [matDatepicker]="customDateFrom" placeholder="From"
                     disabled>
@@ -44,6 +46,7 @@
 
         <mat-form-field>
             <mat-select formControlName="timeFrame" matNativeControl placeholder="TimeFrame">
+
                 <mat-option>None</mat-option>
                 <mat-option value="FRAME_BREAKFAST">Breakfast (7-9 AM)</mat-option>
                 <mat-option value="FRAME_LUNCH">Lunch (12-14 PM)</mat-option>
@@ -66,7 +69,6 @@
             </mat-form-field>
 
         </div>
-
 
     </form>
 </div>

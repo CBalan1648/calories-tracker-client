@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,6 @@ export class TopNotificationService {
   constructor() { }
 
   setMessage(message: string): void {
-    console.log("HELLO MESSAGE")
     this.subject.next(message);
   }
 

@@ -3,12 +3,33 @@
 <mat-sidenav-container>
         <!-- <mat-sidenav *ngIf="showSideBar" #sidenav opened mode="side" class = "home-sidebar"> FOR DEV PURPOSE-->
         <mat-sidenav #sidenav opened mode="side" class="home-sidebar">
-                <button [ngClass] = "activeButton == 'HOME' ? 'sidebar-button-active' : 'sidebar-button'" mat-stroked-button (click)="redirectToHome()"><i
-                                class="material-icons">home</i><br /> Home </button>
-                <button [ngClass] = "activeButton == 'USER' ? 'sidebar-button-active' : 'sidebar-button'" mat-stroked-button (click)="redirectToUser()">
-                        <i class="material-icons">person</i><br />Profile</button>
-                <button [ngClass] = "activeButton == 'ADMIN' ? 'sidebar-button-active' : 'sidebar-button'" *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button
-                        (click)="redirectToAdmin()"><i class="material-icons">people</i><br /> Admin </button>
+
+                <button [ngClass]="activeButton == 'HOME' ? 'sidebar-button-active' : 'sidebar-button'"
+                        mat-stroked-button (click)="redirectToHome()">
+
+                        <i class="material-icons">home</i>
+                        <br />
+                        Home
+
+                </button>
+
+                <button [ngClass]="activeButton == 'USER' ? 'sidebar-button-active' : 'sidebar-button'"
+                        mat-stroked-button (click)="redirectToUser()">
+
+                        <i class="material-icons">person</i>
+                        <br />
+                        Profile
+
+                </button>
+
+                <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-button-active' : 'sidebar-button'"
+                        *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button (click)="redirectToAdmin()">
+
+                        <i class="material-icons">people</i>
+                        <br />
+                        Admin
+
+                </button>
         </mat-sidenav>
 
         <mat-sidenav-content class="home-content">

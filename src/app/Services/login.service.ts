@@ -17,7 +17,6 @@ export class LoginService {
     return observable.pipe(
       tap(this.postRequest.bind(this)),
     ).subscribe();
-
   }
 
   disconnectRequestObservable(subscription: Subscription): void {

@@ -25,10 +25,11 @@ export class AdminComponent implements OnInit, OnDestroy {
               private mealsService: MealsService,
               private readonly editMealDialog: MatDialog,
   ) {
-    this.deleteMeal = this.mealsService.deleteMeal.bind(this.mealsService);
 
+    this.deleteMeal = this.mealsService.deleteMeal.bind(this.mealsService);
     this.usersObservable = adminService.getUserObservable();
-    adminService.getUsers();
+    this.adminService.getUsers();
+
   }
 
   ngOnInit() {
@@ -48,16 +49,11 @@ export class AdminComponent implements OnInit, OnDestroy {
     });
   }
 
-  onClick(event) {
-    event.preventDefault();
-  }
-
   deleteUser(userId) {
     this.adminService.deleteRequest(userId);
   }
 
   loadData(userId) {
-
     if (!this.data[userId]) {
       this.data[userId] = new RefactorDataSource(this.mealsService.getRawObservable(userId));
       this.mealsService.getMeals(userId);
@@ -71,7 +67,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.usersSubscription.unsubscribe();
   }
-
 }
 
 export class RefactorDataSource extends DataSource<string> {
@@ -82,11 +77,9 @@ export class RefactorDataSource extends DataSource<string> {
     super();
   }
 
-
   connect(collectionViewer: CollectionViewer): Observable<any[]> {
     return this.mealsObservable;
   }
 
-  disconnect(): void {
-  }
+  disconnect(): void { }
 }

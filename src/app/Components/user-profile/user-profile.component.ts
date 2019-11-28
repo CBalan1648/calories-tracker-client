@@ -1,12 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { User } from 'src/app/Models/user';
+import { MealsService } from 'src/app/Services/meals.service';
 import { UserService } from 'src/app/Services/user.service';
 import { TopNotificationService } from '../../Services/top-notification.service';
-import { MealsService } from 'src/app/Services/meals.service';
-
 
 @Component({
   selector: 'app-user-profile',
@@ -19,7 +18,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   private userObservableSubscription: Subscription;
   public buttonMessage = 'Edit';
   public editing = false;
-  public stats: {totalMeals: number,
+  public stats: {
+    totalMeals: number,
     totalCalories: number,
     averageCalories: string,
   };
@@ -61,21 +61,19 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   save() {
-    if (this.userProfileForm.status !== 'VALID') {return void 0;}
+    if (this.userProfileForm.status !== 'VALID') { return void 0; }
 
     const formValues = this.userProfileForm.controls;
 
     this.editUserObservableSubject.next({
-        _id: this.user._id,
-        authLevel : this.user.authLevel,
-        token : this.user.token,
-        firstName: formValues.firstName.value,
-        lastName: formValues.lastName.value,
-        email: formValues.email.value,
-        targetCalories : formValues.calories.value,
-      });
-
-
+      _id: this.user._id,
+      authLevel: this.user.authLevel,
+      token: this.user.token,
+      firstName: formValues.firstName.value,
+      lastName: formValues.lastName.value,
+      email: formValues.email.value,
+      targetCalories: formValues.calories.value,
+    });
 
     this.disableFormEditing();
     this.editing = false;
@@ -105,10 +103,11 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       this.user = user;
     });
 
-    this.mealsObservableSubscription = this.mealsService.getRawObservable().subscribe(meals => {
-      let calculatedStats = { totalMeals : 0,
-        totalCalories : 0,
-        averageCalories : '',
+    this.mealsObservableSubscription = this.mealsService.getRawObservable(this.user._id).subscribe(meals => {
+      let calculatedStats = {
+        totalMeals: 0,
+        totalCalories: 0,
+        averageCalories: '',
       };
 
       calculatedStats = meals.reduce((statsCounter, currentValue) => {
@@ -117,7 +116,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       }, calculatedStats);
 
       calculatedStats.totalMeals = meals.length;
-
       calculatedStats.averageCalories = Number(calculatedStats.totalCalories / calculatedStats.totalMeals).toFixed(2);
 
       this.stats = calculatedStats;
@@ -126,7 +124,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.userService.disconnectRequestObservable(this.editUserObservableSubscription);
-
     this.userObservableSubscription.unsubscribe();
     this.mealsObservableSubscription.unsubscribe();
   }

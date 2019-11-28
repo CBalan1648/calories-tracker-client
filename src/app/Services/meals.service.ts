@@ -32,7 +32,6 @@ export class MealsService {
     });
   }
 
-
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
       tap(this.postRequest.bind(this)),

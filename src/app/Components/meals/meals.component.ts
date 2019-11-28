@@ -1,14 +1,11 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import { Meal } from 'src/app/Models/meal';
+import { User } from 'src/app/Models/user';
 import { UserService } from 'src/app/Services/user.service';
 import { MealsService } from '../../Services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { filter, tap } from 'rxjs/operators';
-import { User } from 'src/app/Models/user';
-
 
 @Component({
   selector: 'app-meals',

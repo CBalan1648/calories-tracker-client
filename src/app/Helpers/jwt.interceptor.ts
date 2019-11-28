@@ -1,8 +1,8 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
-import { UserService } from '../Services/user.service';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { UserService } from '../Services/user.service';
 
 
 @Injectable()
