@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { BrowserModule } from '@angular/platform-browser';
@@ -31,6 +32,7 @@ import { MealFormComponent } from './Components/meal-form/meal-form.component';
 import { MealsComponent } from './Components/meals/meals.component';
 import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
 import { RegisterFormComponent } from './Components/register-form/register-form.component';
+import { SearchUserDialogComponent } from './Components/search-user-dialog/search-user-dialog.component';
 import { TopNotificationComponent } from './Components/top-notification/top-notification.component';
 import { UserProfileComponent } from './Components/user-profile/user-profile.component';
 
@@ -61,7 +63,8 @@ export const AppDeclarations = [
     AdminComponent,
     EditUserDialogComponent,
     AddUserDialogComponent,
-    AddMealDialogComponent
+    AddMealDialogComponent,
+    SearchUserDialogComponent
 ];
 
 
@@ -84,6 +87,13 @@ export const AppImports = [
     MatListModule,
     MatDividerModule,
     ScrollingModule,
+    MatSnackBarModule,
 ];
 
-export const EntryComponents = [EditMealDialogComponent, EditUserDialogComponent, AddUserDialogComponent, AddMealDialogComponent];
+export const EntryComponents = [
+    EditMealDialogComponent,
+    EditUserDialogComponent,
+    AddUserDialogComponent,
+    AddMealDialogComponent,
+    SearchUserDialogComponent
+];

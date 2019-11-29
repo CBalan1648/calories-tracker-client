@@ -24,14 +24,28 @@ mat-sidenav-container {
   background-color: #8b7b1e;
   border-left: solid 4px;
   color: rgb(255, 188, 87);
-  animation-name: flashingAnimation;
+  animation-name: flashingAnimationAdd;
   animation-duration: 1s;
 }
 
-@keyframes flashingAnimation {
+@keyframes flashingAnimationAdd {
   0%   {color: rgba(255, 188, 87, 0);}
   50%  {color: yellow;}
   100% {color: rgb(255, 188, 87);}
+}
+
+.sidebar-search-button-active {
+  background-color: #8b7b1e;
+  border-left: solid 4px;
+  color: rgb(87, 235, 255);
+  animation-name: flashingAnimationSearch;
+  animation-duration: 1s;
+}
+
+@keyframes flashingAnimationSearch {
+  0%   {color: rgba(255, 188, 87, 0);}
+  50%  {color: yellow;}
+  100% {color: rgb(87, 235, 255);}
 }
 
 .sidebar-add-button-hidden {

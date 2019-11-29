@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { retry, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
+import { map, retry, take, filter } from 'rxjs/operators';
+import { User } from '../Models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -11,10 +12,18 @@ export class AdminService {
   private usersBehaviourSubject = new BehaviorSubject<any>(null);
   private usersObservable = this.usersBehaviourSubject.asObservable();
 
+  private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ searchString: '', searchAuthLevel: '' });
+  public currentFilter: Observable<any> = this.currentFilterSubject.asObservable();
+
+  public currentFilteredUsers: Observable<any[]> = combineLatest(this.usersObservable, this.currentFilter).pipe(
+    filter(([ob1, ob2]) => !!ob1 && !!ob2),
+    map(filterUsers)
+  );
+
   constructor(private http: HttpClient) { }
 
   public getUserObservable() {
-    return this.usersObservable;
+    return this.currentFilteredUsers;
   }
 
   connectEditUserRequestObservable(observable: Observable<any>): Subscription {
@@ -25,6 +34,23 @@ export class AdminService {
 
   disconnectObservable(subscription: Subscription): void {
     subscription.unsubscribe();
+  }
+
+
+  connectFilterObservable(observable: Observable<any>): Subscription {
+    return observable.subscribe((filterValue) => { this.currentFilterSubject.next(filterValue); });
+  }
+
+  disconnectFilterObservable(subscription: Subscription): void {
+    subscription.unsubscribe();
+  }
+
+  clearFilterObservable(): void {
+    this.currentFilterSubject.next({searchString : '', searchAuthLevel : ''});
+  }
+
+  getFilterObservable() {
+    return this.currentFilter;
   }
 
   public getUsers(): void {
@@ -70,3 +96,24 @@ export class AdminService {
     });
   }
 }
+
+const filterUsers = ([usersArray, filterData]) => {
+  if (!filterData) { return usersArray; }
+
+  return usersArray.filter((user: User) => {
+    return (filterData.searchString ? containString(user.firstName, user.lastName, user.email, filterData.searchString) : true) &&
+      (filterData.searchAuthLevel ? filterLevel(user.authLevel, filterData.searchAuthLevel) : true);
+  });
+
+};
+
+const containString = (testFirstName, testLastName, testEmail, searchString) => {
+
+  const lowerCaseSearch = searchString.toLowerCase();
+
+  return testFirstName.toLowerCase().includes(lowerCaseSearch) ||
+    testLastName.toLowerCase().includes(lowerCaseSearch) ||
+    testEmail.toLowerCase().includes(lowerCaseSearch);
+};
+
+const filterLevel = (userAuthLevel, searchAuthLevel) => userAuthLevel === searchAuthLevel;
