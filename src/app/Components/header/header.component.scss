@@ -1,3 +1,5 @@
+@import "../../../styles.scss";
+
 mat-toolbar {
   display: flex;
   flex-direction: row;
@@ -8,7 +10,7 @@ mat-toolbar {
 }
 
 .header-main-title {
-  color: #25306c;
+  @include primary;
   font-size: larger;
   font-weight: bold;
   display: flex;

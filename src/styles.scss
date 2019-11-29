@@ -1,4 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import "material.theme.scss";
+@include mat-core();
+@include angular-material-theme($my-theme);
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+$primary : map-get($my-theme, primary);
+$warn : map-get($my-theme, warn);
+
+@mixin primary {
+    color : mat-color($primary)
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
