@@ -7,7 +7,7 @@ import { MealsService } from 'src/app/Services/meals.service';
 @Component({
   selector: 'app-add-meal-dialog',
   templateUrl: './add-meal-dialog.component.html',
-  styleUrls: ['./add-meal-dialog.component.css']
+  styleUrls: ['./add-meal-dialog.component.scss']
 })
 export class AddMealDialogComponent implements OnInit, OnDestroy {
 

@@ -13,7 +13,7 @@ import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.co
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+  styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit, OnDestroy {
 

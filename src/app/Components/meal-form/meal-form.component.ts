@@ -6,7 +6,7 @@ import { Subject, Subscription } from 'rxjs';
 @Component({
   selector: 'app-meal-form',
   templateUrl: './meal-form.component.html',
-  styleUrls: ['./meal-form.component.css']
+  styleUrls: ['./meal-form.component.scss']
 })
 export class MealFormComponent implements OnInit, OnDestroy {
 

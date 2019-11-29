@@ -29,9 +29,15 @@ mat-sidenav-container {
 }
 
 @keyframes flashingAnimationAdd {
-  0%   {color: rgba(255, 188, 87, 0);}
-  50%  {color: yellow;}
-  100% {color: rgb(255, 188, 87);}
+  0% {
+    color: rgba(255, 188, 87, 0);
+  }
+  50% {
+    color: yellow;
+  }
+  100% {
+    color: rgb(255, 188, 87);
+  }
 }
 
 .sidebar-search-button-active {
@@ -43,9 +49,15 @@ mat-sidenav-container {
 }
 
 @keyframes flashingAnimationSearch {
-  0%   {color: rgba(255, 188, 87, 0);}
-  50%  {color: yellow;}
-  100% {color: rgb(87, 235, 255);}
+  0% {
+    color: rgba(255, 188, 87, 0);
+  }
+  50% {
+    color: yellow;
+  }
+  100% {
+    color: rgb(87, 235, 255);
+  }
 }
 
 .sidebar-add-button-hidden {

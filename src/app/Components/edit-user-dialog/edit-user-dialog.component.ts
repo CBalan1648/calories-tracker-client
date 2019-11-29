@@ -9,7 +9,7 @@ import { AdminService } from 'src/app/Services/admin.service';
 @Component({
   selector: 'app-edit-user-dialog',
   templateUrl: './edit-user-dialog.component.html',
-  styleUrls: ['./edit-user-dialog.component.css']
+  styleUrls: ['./edit-user-dialog.component.scss']
 })
 export class EditUserDialogComponent implements OnInit, OnDestroy {
 

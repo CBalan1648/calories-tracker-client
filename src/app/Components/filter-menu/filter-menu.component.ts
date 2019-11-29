@@ -6,7 +6,7 @@ import { MealsService } from 'src/app/Services/meals.service';
 @Component({
   selector: 'app-filter-menu',
   templateUrl: './filter-menu.component.html',
-  styleUrls: ['./filter-menu.component.css']
+  styleUrls: ['./filter-menu.component.scss']
 })
 export class FilterMenuComponent implements OnInit, OnDestroy {
 

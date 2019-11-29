@@ -9,7 +9,7 @@ import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.compo
 @Component({
   selector: 'app-add-user-dialog',
   templateUrl: './add-user-dialog.component.html',
-  styleUrls: ['./add-user-dialog.component.css']
+  styleUrls: ['./add-user-dialog.component.scss']
 })
 export class AddUserDialogComponent implements OnInit, OnDestroy {
 

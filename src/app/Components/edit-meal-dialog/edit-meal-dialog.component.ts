@@ -7,7 +7,7 @@ import { Meal } from '../../Models/meal';
 @Component({
   selector: 'app-edit-meal-dialog',
   templateUrl: './edit-meal-dialog.component.html',
-  styleUrls: ['./edit-meal-dialog.component.css']
+  styleUrls: ['./edit-meal-dialog.component.scss']
 })
 export class EditMealDialogComponent {
 

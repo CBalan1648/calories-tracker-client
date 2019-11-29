@@ -7,7 +7,7 @@ import { AdminService } from 'src/app/Services/admin.service';
 @Component({
   selector: 'app-search-user-dialog',
   templateUrl: './search-user-dialog.component.html',
-  styleUrls: ['./search-user-dialog.component.css']
+  styleUrls: ['./search-user-dialog.component.scss']
 })
 export class SearchUserDialogComponent implements OnInit, OnDestroy {
 

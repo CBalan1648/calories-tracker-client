@@ -10,7 +10,7 @@ import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.co
 @Component({
   selector: 'app-meals',
   templateUrl: './meals.component.html',
-  styleUrls: ['./meals.component.css']
+  styleUrls: ['./meals.component.scss']
 })
 export class MealsComponent implements OnInit, OnDestroy {
 
