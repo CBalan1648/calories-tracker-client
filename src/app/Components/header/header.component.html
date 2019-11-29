@@ -1,10 +1,11 @@
 <mat-toolbar>
-    <div class='header-main-title'>
-        <button *ngIf="!sidenavRef.opened" mat-stroked-button (click)="sidenavRef.toggle()"><i
-                class="material-icons">menu</i></button>
-        Calories Tracker
-    </div>
 
+    <div class='header-main-title'>
+        <div>Calories Tracker</div>
+        <button class="header-sidebar-button" *ngIf="!sidenavRef.opened" mat-stroked-button (click)="sidenavRef.toggle()"><i
+            class="material-icons">vertical_split</i></button>
+    </div>
+   
     <div class='header-name-tag'>
         Welcome, {{firstName}} {{lastName}}
         <button mat-icon-button (click)="logout()">

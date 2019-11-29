@@ -11,6 +11,9 @@ mat-toolbar {
   color: #25306c;
   font-size: larger;
   font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  height: 36px
 }
 
 .header-main-title-tracker {
@@ -21,3 +24,8 @@ mat-toolbar {
 .header-name-tag {
   justify-self: flex-end;
 }
+
+.header-sidebar-button {
+  margin-left: 30px;
+}
+

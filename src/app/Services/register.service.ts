@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { retry, take, tap } from 'rxjs/operators';
+import { retry, take } from 'rxjs/operators';
 import { LoginService } from './login.service';
 
 @Injectable({
@@ -14,7 +14,7 @@ export class RegisterService {
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(registerRequest => {
       const [newUserData, autologin] = registerRequest;
-      this.postRequest(newUserData, !!autologin)
+      this.postRequest(newUserData, !!autologin);
     });
   }
 

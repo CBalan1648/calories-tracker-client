@@ -20,7 +20,7 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private adminService: AdminService,
     public dialogRef: MatSnackBarRef<SearchUserDialogComponent>,
-    @Inject(MAT_SNACK_BAR_DATA) public data: {searchString : string, searchAuthLevel : string}
+    @Inject(MAT_SNACK_BAR_DATA) public data: { searchString: string, searchAuthLevel: string }
   ) {
     console.log({ data });
 

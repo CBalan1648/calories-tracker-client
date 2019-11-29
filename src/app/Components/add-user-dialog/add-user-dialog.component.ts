@@ -2,9 +2,9 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
+import { AdminService } from 'src/app/Services/admin.service';
 import { RegisterService } from 'src/app/Services/register.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
-import { AdminService } from 'src/app/Services/admin.service';
 
 @Component({
   selector: 'app-add-user-dialog',
@@ -19,7 +19,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder,
               private registerService: RegisterService,
-              private adminService : AdminService,
+              private adminService: AdminService,
               public dialogRef: MatDialogRef<AddMealDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
@@ -49,7 +49,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
         password: formValues.password.value
       }, false]);
 
-      this.adminService.getUsers()
+      this.adminService.getUsers();
       this.onClose();
     }
   }
