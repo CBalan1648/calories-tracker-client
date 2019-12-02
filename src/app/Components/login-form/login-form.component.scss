@@ -1,3 +1,5 @@
+@import "../../../material.theme.scss";
+
 .login-form-container {
   display: flex;
   justify-content: center;
@@ -7,13 +9,13 @@
   background: #16222a; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,
-    rgba(115, 124, 253, 0.904),
-    rgb(255, 255, 255)
+    mat-color($accent,900),
+    rgb(255, 255, 255, 0)
   ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to top,
-    rgba(115, 124, 253, 0.904),
-    rgb(255, 255, 255)
+    mat-color($accent,900),
+    rgba(255, 255, 255, 0)
   );
 }
 
@@ -25,18 +27,20 @@
 }
 
 form {
+  font-weight: bold;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
 mat-form-field {
+  font-weight: bold;
   padding-bottom: 30px;
   min-width: 300px;
 }
 
 img {
-  width: 50%;
+  width: 100%;
   height: auto;
   padding-bottom: 50px;
 }

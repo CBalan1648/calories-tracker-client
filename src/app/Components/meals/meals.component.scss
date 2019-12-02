@@ -1,63 +1,41 @@
+@import "../../../material.theme.scss";
+
 .meal-panel {
   color: red;
 }
 
-.meal-container {
-  border: solid greenyellow 3px;
-}
-
 .green-bg {
-  background: -webkit-linear-gradient(
-    to left,
-    rgba(150, 255, 80, 0.514),
-    rgb(255, 255, 255)
-  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
-    rgba(150, 255, 80, 0.514),
-    rgb(255, 255, 255)
+    mat-color($primary,900),
+    rgb(255, 255, 255, 0)
   );
   transition: 1s;
 }
 
 .red-bg {
-  background: -webkit-linear-gradient(
-    to left,
-    rgba(253, 128, 26, 0.514),
-    rgb(255, 255, 255)
-  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
-    rgba(253, 128, 26, 0.514),
-    rgb(255, 255, 255)
+    mat-color($warn,900),
+    rgb(255, 255, 255, 0)
   );
   transition: 1s;
 }
 
 .red-bg:hover {
-  background: -webkit-linear-gradient(
-    to left,
-    rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255)
-  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
     rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255)
+    rgb(255, 255, 255, 0)
   );
   transition: 1s;
 }
 
 .green-bg:hover {
-  background: -webkit-linear-gradient(
-    to left,
-    rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255)
-  ); /* Chrome 10-25, Safari 5.1-6 */
   background: linear-gradient(
     to left,
     rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255)
+    rgb(255, 255, 255, 0)
   );
   transition: 1s;
 }
@@ -109,7 +87,6 @@ div {
   overflow: hidden;
   text-overflow: ellipsis;
   list-style: none;
-  border: solid 1px white;
   text-align: center;
   align-items: center;
   display: flex;
@@ -127,8 +104,21 @@ div {
   flex-grow: 2;
 }
 
+.calories {
+  flex-grow: 1;
+  flex-shrink: 1.3;
+}
+
 .actions {
   flex-grow: 1;
   flex-shrink: 1.1;
   justify-content: space-evenly;
+}
+
+.flex-table-header {
+  background: linear-gradient(
+    to left,
+    mat-color($accent,500),
+    rgb(255, 255, 255, 0)
+  );
 }

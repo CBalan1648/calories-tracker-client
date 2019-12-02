@@ -1,6 +1,8 @@
 <div class="register-form-container">
     <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
 
+        <h3>New User</h3>
+
         <mat-form-field>
             <input matInput formControlName="firstName" placeholder="First Name" required>
             <mat-error *ngIf="registerForm.controls.firstName.errors">Please insert a first name</mat-error>

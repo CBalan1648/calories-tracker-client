@@ -1,14 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 @import "material.theme.scss";
-@include mat-core();
-@include angular-material-theme($my-theme);
-
-$primary : map-get($my-theme, primary);
-$warn : map-get($my-theme, warn);
-
-@mixin primary {
-    color : mat-color($primary)
-}
 
 html,
 body {
@@ -17,4 +8,8 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-dialog .mat-dialog-container {
+  padding : 0;
 }

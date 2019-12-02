@@ -35,13 +35,15 @@ import { RegisterFormComponent } from './Components/register-form/register-form.
 import { SearchUserDialogComponent } from './Components/search-user-dialog/search-user-dialog.component';
 import { TopNotificationComponent } from './Components/top-notification/top-notification.component';
 import { UserProfileComponent } from './Components/user-profile/user-profile.component';
+import { AuthGuard } from './Helpers/auth.guard';
+
 
 const routes: Routes = [
     { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
     { path: 'register', component: RegisterFormComponent },
-    { path: 'home', component: HomeComponent },
-    { path: 'user', component: UserProfileComponent },
-    { path: 'admin', component: AdminComponent },
+    { path: 'home', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: HomeComponent },
+    { path: 'user', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: UserProfileComponent },
+    { path: 'admin', canActivate: [AuthGuard], data: { roles: ['USER_MANAGER', 'ADMIN'] }, component: AdminComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
 ];
@@ -69,7 +71,7 @@ export const AppDeclarations = [
 
 
 export const AppImports = [
-    RouterModule.forRoot(routes),
+    RouterModule.forRoot(routes, { useHash: true }),
     BrowserModule,
     BrowserAnimationsModule,
     MatToolbarModule,

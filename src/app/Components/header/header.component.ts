@@ -26,10 +26,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
       this.firstName = user.firstName;
       this.lastName = user.lastName;
     });
+    this.sidenavRef.open()
   }
 
   ngOnDestroy() {
     this.userServiceSubscriptions.unsubscribe();
+    this.sidenavRef.close()
   }
 
 }

@@ -1,20 +1,20 @@
+@import "../../../material.theme.scss";
+
 .register-form-container {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100%;
-  background: #222222;
-  background: #16222a; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    rgba(255, 72, 0, 0.596),
-    rgb(255, 255, 255)
-  ); /* Chrome 10-25, Safari 5.1-6 */
+  
   background: linear-gradient(
     to top,
-    rgba(255, 72, 0, 0.596),
-    rgb(255, 255, 255)
+    mat-color($accent, 900),
+    rgb(255, 255, 255, 0)
   );
+}
+
+.mat-dialog-container {
+  padding: 0;
 }
 
 form {
@@ -33,3 +33,4 @@ img {
   height: auto;
   padding-bottom: 50px;
 }
+

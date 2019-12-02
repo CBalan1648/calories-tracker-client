@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.userServiceSubscriptions = this.userService.getUserObservable().subscribe(user => {
       this.user = user;
-      this.showSideBar = !!user;
+      this.showSideBar = !!user.email;
     });
 
     this.filterValueSubscription = this.adminService.getFilterObservable().subscribe(value => {
@@ -43,8 +43,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   isSuperUser(authLevel) {
-    // FOR DEV PURPOSE
-    return true;
     return authLevel === 'USER_MANAGER' || authLevel === 'ADMIN';
   }
 
@@ -84,6 +82,8 @@ export class AppComponent implements OnInit, OnDestroy {
   addNewUser() {
     const dialogRef = this.popupDialog.open(AddUserDialogComponent, {
       width: '400px',
+      height : '500px',
+      panelClass : 'custom-dialog',
       data: null,
     });
 

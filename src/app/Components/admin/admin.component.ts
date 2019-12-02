@@ -44,7 +44,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   openEditDialog(meal: Meal, ownerId: string): void {
     const dialogRef = this.editMealDialog.open(EditMealDialogComponent, {
       width: '400px',
+      height : '500px',
       data: { meal, ownerId },
+      panelClass : 'custom-dialog',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -55,7 +57,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   openMealAddDialog(userId) {
     const dialogRef = this.editMealDialog.open(AddMealDialogComponent, {
       width: '400px',
+      height : '500px',
       data: userId,
+      panelClass : 'custom-dialog',
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -66,7 +70,9 @@ export class AdminComponent implements OnInit, OnDestroy {
   openEditUserDialog(user): void {
     const dialogRef = this.editMealDialog.open(EditUserDialogComponent, {
       width: '400px',
+      height : '500px',
       data: user,
+      panelClass : 'custom-dialog',
     });
 
     dialogRef.afterClosed().subscribe(result => {

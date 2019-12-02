@@ -1,8 +1,7 @@
 <app-top-notification></app-top-notification>
 
 <mat-sidenav-container>
-        <!-- <mat-sidenav *ngIf="showSideBar" #sidenav opened mode="side" class = "home-sidebar"> FOR DEV PURPOSE-->
-        <mat-sidenav #sidenav opened mode="side" class="home-sidebar">
+        <mat-sidenav #sidenav mode="side" class = "home-sidebar">
 
                 <button [ngClass]="activeButton == 'HOME' ? 'sidebar-button-active' : 'sidebar-button'"
                         mat-stroked-button (click)="redirectToHome()">
@@ -57,12 +56,10 @@
                         Show all
 
                 </button>
-
         </mat-sidenav>
 
         <mat-sidenav-content class="home-content">
-                <!-- <app-header *ngIf="showSideBar"></app-header> FOR DEV PURPOSE-->
-                <app-header [sidenavRef]="sidenav"> </app-header>
+                <app-header [sidenavRef]="sidenav" *ngIf="showSideBar"></app-header>
                 <router-outlet></router-outlet>
         </mat-sidenav-content>
 

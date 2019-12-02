@@ -1,3 +1,5 @@
+@import "../material.theme.scss";
+
 mat-sidenav-container {
   height: 100%;
 }
@@ -5,26 +7,35 @@ mat-sidenav-container {
 .home-sidebar {
   border: 0;
   width: 80px;
-  background-color: #404668;
+  @include bg-accent(800);
 }
 
 .sidebar-button {
-  background-color: #404668;
+  @include bg-accent(800);
   transition: color 0.4s ease-in-out;
+  @include color-primary(600);
 }
 
 .sidebar-button-active {
-  background-color: #406852;
+  @include bg-primary(A300);
+  @include color-primary(A400);
   border-left: solid 4px;
-  color: greenyellow;
   transition: color 0.4s ease-in-out;
 }
 
 .sidebar-add-button-active {
-  background-color: #8b7b1e;
+  @include bg-primary(700);
   border-left: solid 4px;
-  color: rgb(255, 188, 87);
+  @include color-accent(50);
   animation-name: flashingAnimationAdd;
+  animation-duration: 1s;
+}
+
+.sidebar-search-button-active {
+  @include bg-primary(700);
+  border-left: solid 4px;
+  @include color-accent(50);
+  animation-name: flashingAnimationSearch;
   animation-duration: 1s;
 }
 
@@ -32,31 +43,25 @@ mat-sidenav-container {
   0% {
     color: rgba(255, 188, 87, 0);
   }
-  50% {
+  30% {
     color: yellow;
   }
   100% {
-    color: rgb(255, 188, 87);
+    @include color-accent(50);
   }
 }
 
-.sidebar-search-button-active {
-  background-color: #8b7b1e;
-  border-left: solid 4px;
-  color: rgb(87, 235, 255);
-  animation-name: flashingAnimationSearch;
-  animation-duration: 1s;
-}
+
 
 @keyframes flashingAnimationSearch {
   0% {
     color: rgba(255, 188, 87, 0);
   }
-  50% {
+  30% {
     color: yellow;
   }
   100% {
-    color: rgb(87, 235, 255);
+    @include color-accent(50);
   }
 }
 
