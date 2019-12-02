@@ -2,12 +2,15 @@
 
     <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="loadData(user._id)" cli>
         <mat-expansion-panel-header class="admin-extension-panel">
-            <mat-panel-title>
+            <div class="flex-table-cell">
                 {{user.firstName}} {{user.lastName}}
-            </mat-panel-title>
-            <mat-panel-description>
+            </div>
+            <div class="flex-table-cell">
                 {{user.email}}
-            </mat-panel-description>
+            </div>
+            <div class="flex-table-cell">
+                    {{user.authLevel}}
+                </div>
 
         </mat-expansion-panel-header>
         <ng-template matExpansionPanelContent>
@@ -15,22 +18,22 @@
                 <mat-list>
                     <mat-list-item>
 
-                        <div class="flex-table-cell">
-                            <button mat-raised-button (click)="openEditUserDialog(user)">
+                        <div class="flex-table-cell header-cell">
+                            <button mat-raised-button color="primary" (click)="openEditUserDialog(user)">
                                 <i class="material-icons">edit</i>
                                 Edit User
                             </button>
                         </div>
 
-                        <div class="flex-table-cell">
-                            <button mat-raised-button (click)="deleteUser(user._id)">
+                        <div class="flex-table-cell header-cell">
+                            <button mat-raised-button color="primary" (click)="deleteUser(user._id)">
                                 <i class="material-icons">delete_forever</i>
                                 Delete User
                             </button>
                         </div>
 
-                        <div class="flex-table-cell">
-                            <button mat-raised-button (click)="openMealAddDialog(user._id)">
+                        <div class="flex-table-cell header-cell">
+                            <button mat-raised-button color="primary" (click)="openMealAddDialog(user._id)">
                                 <i class="material-icons"> library_add </i>
                                 New Meal
                             </button>
@@ -39,7 +42,7 @@
                     </mat-list-item>
                     <mat-divider></mat-divider>
                     <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20">
-                        <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'"
+                        <mat-list-item class = "admin-list-item"
                             *cdkVirtualFor="let meal of getData(user._id)">
 
                             <div class="flex-table-cell title">{{meal.title}} </div>

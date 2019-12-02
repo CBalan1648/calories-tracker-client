@@ -35,6 +35,8 @@ export class EditMealDialogComponent {
         calories: formValues.calories.value,
         time: Date.parse(formValues.time.value) || this.data.meal.time,
       }, this.data.ownerId);
+
+      this.onClose()
     }
   }
 

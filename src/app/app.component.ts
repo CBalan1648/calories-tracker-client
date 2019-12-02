@@ -75,7 +75,8 @@ export class AppComponent implements OnInit, OnDestroy {
 
   openUserSearchDialog() {
     this.userSearchRef = this.snackBar.openFromComponent(SearchUserDialogComponent, {
-      data: this.filterValue
+      data: this.filterValue,
+      panelClass: ['user-search-dialog']
     });
   }
 

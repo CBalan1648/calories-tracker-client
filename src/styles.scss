@@ -13,3 +13,11 @@ body {
 .custom-dialog .mat-dialog-container {
   padding : 0;
 }
+
+.user-search-dialog {
+  background: linear-gradient(
+    to top,
+    mat-color($accent,700),
+    rgba(255, 255, 255, 0)
+  );
+}

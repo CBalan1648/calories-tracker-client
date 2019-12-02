@@ -1,52 +1,14 @@
-<!-- <div class="meal-container">
-    <mat-table [dataSource]="mealsObservable">
-        <ng-container matColumnDef="title">
-            <mat-header-cell *matHeaderCellDef class="column-title"> Title </mat-header-cell>
-            <mat-cell *matCellDef="let meal" class="column-title"> {{meal.title}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="description">
-            <mat-header-cell *matHeaderCellDef class="column-description"> Description </mat-header-cell>
-            <mat-cell class="column-description" *matCellDef="let meal"> {{meal.description}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="time">
-            <mat-header-cell *matHeaderCellDef class="column-time"> Time </mat-header-cell>
-            <mat-cell *matCellDef="let meal" class="column-time"> {{meal.time | date:'medium'}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="calories">
-            <mat-header-cell mat-sort-header *matHeaderCellDef class="column-calories"> Calories </mat-header-cell>
-            <mat-cell *matCellDef="let meal" class="column-calories"> {{meal.calories}} </mat-cell>
-        </ng-container>
-
-        <ng-container matColumnDef="actions">
-            <mat-header-cell mat-sort-header *matHeaderCellDef class="column-actions"> Actions </mat-header-cell>
-            <mat-cell *matCellDef="let meal" class="column-actions">
-                <button mat-raised-button (click)="openEditDialog(meal)"><i class="material-icons">edit</i></button>
-                <button mat-raised-button (click)="deleteMeal(meal._id)"><i class="material-icons">delete</i></button>
-            </mat-cell>
-        </ng-container>
-
-        <mat-header-row *matHeaderRowDef="columsToDisplay"></mat-header-row>
-        <mat-row [ngClass]="row.overCal ? 'red-bg' : 'green-bg'" *matRowDef="let row; columns: columsToDisplay;"></mat-row>
-
-    </mat-table>
-</div> -->
-
 <div class="meal-container">
     <mat-list>
-            <mat-list-item class="flex-table-header">
+        <mat-list-item class="flex-table-header">
 
-                    <div class="flex-table-cell title">Title</div>
-                    <div class="flex-table-cell time">Time</div>
-                    <div class="flex-table-cell description">Description</div>
-                    <div class="flex-table-cell calories">Calories</div>
-                    <div class="flex-table-cell actions">
-                        Actions
-                    </div>
-    
-                </mat-list-item>
+            <div class="flex-table-cell title">Title</div>
+            <div class="flex-table-cell time">Time</div>
+            <div class="flex-table-cell description">Description</div>
+            <div class="flex-table-cell calories">Calories</div>
+            <div class="flex-table-cell actions">Actions</div>
+
+        </mat-list-item>
 
         <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20">
             <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'" *cdkVirtualFor="let meal of meals">
