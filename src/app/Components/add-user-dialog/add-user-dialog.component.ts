@@ -3,7 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { getRegisterFormFormValues } from 'src/app/Helpers/functions.static';
-import { registerFormConfig } from 'src/app/Helpers/objects.static';
+import { addUserFormConfig } from 'src/app/Helpers/objects.static';
 import { AdminService } from 'src/app/Services/admin.service';
 import { RegisterService } from 'src/app/Services/register.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
@@ -24,7 +24,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
               public dialogRef: MatDialogRef<AddMealDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
-  registerForm = this.formBuilder.group(registerFormConfig);
+  registerForm = this.formBuilder.group(addUserFormConfig);
 
   ngOnInit() {
     this.observableSubscription = this.registerService.connectRequestObservable(this.observableSubject);

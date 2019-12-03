@@ -1,7 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
+import { getEditUserFormValues } from 'src/app/Helpers/functions.static';
+import { editUserFormConfig } from 'src/app/Helpers/objects.static';
 import { User } from 'src/app/Models/user';
 import { AdminService } from 'src/app/Services/admin.service';
 
@@ -22,14 +24,7 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public userData: User,
   ) { }
 
-  userProfileForm = this.formBuilder.group({
-    firstName: [this.userData.firstName, Validators.required],
-    lastName: [this.userData.lastName, Validators.required],
-    email: [this.userData.email],
-    targetCalories: [this.userData.targetCalories, [Validators.required]],
-    authLevel: [this.userData.authLevel, Validators.required],
-  });
-
+  userProfileForm = this.formBuilder.group(editUserFormConfig(this.userData));
 
   ngOnInit() {
     this.userObservableSubscription = this.adminService.connectEditUserRequestObservable(this.userObservableSubject);
@@ -40,25 +35,14 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    if (this.userProfileForm.status !== 'VALID') { return void 0; }
+    if (this.userProfileForm.status === 'VALID') {
 
-    const formValues = this.userProfileForm.controls;
-
-    this.userObservableSubject.next({
-      _id: this.userData._id,
-      authLevel: formValues.authLevel.value,
-      token: this.userData.token,
-      firstName: formValues.firstName.value,
-      lastName: formValues.lastName.value,
-      email: formValues.email.value,
-      targetCalories: formValues.targetCalories.value,
-    });
-
+    this.userObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.userData));
     this.onClose();
+    }
   }
 
   onClose(): void {
     this.dialogRef.close();
   }
-
 }

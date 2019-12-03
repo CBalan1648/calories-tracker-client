@@ -1,7 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
+import { getEditUserFormValues } from 'src/app/Helpers/functions.static';
+import { userProfileFormConfig } from 'src/app/Helpers/objects.static';
 import { User } from 'src/app/Models/user';
 import { MealsService } from 'src/app/Services/meals.service';
 import { UserService } from 'src/app/Services/user.service';
@@ -34,12 +36,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
               private topNotification: TopNotificationService,
               private mealsService: MealsService) { }
 
-  userProfileForm = this.formBuilder.group({
-    firstName: [{ value: '', disabled: true }, Validators.required],
-    lastName: [{ value: '', disabled: true }, Validators.required],
-    email: [{ value: '', disabled: true }],
-    calories: [{ value: '', disabled: true }, [Validators.required]],
-  });
+  userProfileForm = this.formBuilder.group(userProfileFormConfig);
 
   enableFormEditing() {
     this.userProfileForm.controls.firstName.enable();
@@ -63,23 +60,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   save() {
     if (this.userProfileForm.status !== 'VALID') { return void 0; }
 
-    const formValues = this.userProfileForm.controls;
-
-    this.editUserObservableSubject.next({
-      _id: this.user._id,
-      authLevel: this.user.authLevel,
-      token: this.user.token,
-      firstName: formValues.firstName.value,
-      lastName: formValues.lastName.value,
-      email: formValues.email.value,
-      targetCalories: formValues.calories.value,
-    });
+    this.editUserObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.user));
 
     this.disableFormEditing();
     this.editing = false;
     this.buttonMessage = 'Edit';
     this.topNotification.setMessage('Something something update successful');
-
   }
 
   edit() {
@@ -97,7 +83,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.editUserObservableSubscription = this.userService.connectRequestObservable(this.editUserObservableSubject);
-
     this.userObservableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
       this.resetForm(user);
       this.user = user;

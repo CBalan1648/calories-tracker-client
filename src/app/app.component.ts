@@ -85,15 +85,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   addNewUser() {
-    const dialogRef = this.popupDialog.open(AddUserDialogComponent, {
+   this.popupDialog.open(AddUserDialogComponent, {
       width: '400px',
       height : '500px',
       panelClass : 'custom-dialog',
       data: null,
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('TODO : Resolve');
     });
   }
 

@@ -16,7 +16,7 @@ export class LoginService {
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
-      tap(this.postRequest.bind(this)),
+      tap(this.loginUserRequest.bind(this)),
     ).subscribe();
   }
 
@@ -24,8 +24,9 @@ export class LoginService {
     subscription.unsubscribe();
   }
 
-  postRequest(userData) {
+  loginUserRequest(userData) {
     this.http.post<any>(`${apiAddress}/api/users/login`, userData).pipe(retry(3), take(1)).subscribe(response => {
+
       const [responseUserData, valid] = getTokenData(response.access_token);
       if (valid) {
         responseUserData.token = response.access_token;

@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { LoginService } from '../../Services/login.service';
+import { loginFormConfig } from 'src/app/Helpers/objects.static';
+import { getLoginFormValues } from 'src/app/Helpers/functions.static';
 
 @Component({
   selector: 'app-login-form',
@@ -15,10 +17,7 @@ export class LoginFormComponent implements OnDestroy, OnInit {
 
   constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
 
-  loginForm = this.formBuilder.group({
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', Validators.required]
-  });
+  loginForm = this.formBuilder.group(loginFormConfig);
 
   ngOnInit() {
     this.observableSubscription = this.loginService.connectRequestObservable(this.observableSubject);
@@ -30,12 +29,7 @@ export class LoginFormComponent implements OnDestroy, OnInit {
 
   submitForm() {
     if (this.loginForm.status === 'VALID') {
-      const formValues = this.loginForm.controls;
-
-      this.observableSubject.next({
-        email: formValues.email.value,
-        password: formValues.password.value
-      });
+      this.observableSubject.next(getLoginFormValues(this.loginForm));
     }
   }
 }

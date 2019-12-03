@@ -4,6 +4,8 @@ import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
 import { RegisterService } from 'src/app/Services/register.service';
 import { TopNotificationService } from '../../Services/top-notification.service';
+import { registerFormConfig } from 'src/app/Helpers/objects.static';
+import { getRegisterFormFormValues } from 'src/app/Helpers/functions.static';
 
 @Component({
   selector: 'app-register-form',
@@ -19,13 +21,7 @@ export class RegisterFormComponent implements OnDestroy, OnInit {
               private registerService: RegisterService,
               private topNotification: TopNotificationService) { }
 
-  registerForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-    repeatPassword: ['', Validators.required]
-  }, { validators: samePasswordValidator });
+  registerForm = this.formBuilder.group(registerFormConfig, { validators: samePasswordValidator });
 
   errorStateMatcher = new RepeatPasswordFormErrorMatcher();
 
@@ -37,17 +33,9 @@ export class RegisterFormComponent implements OnDestroy, OnInit {
     this.registerService.disconnectRequestObservable(this.observableSubscription);
   }
 
-
   submitForm() {
     if (this.registerForm.status === 'VALID') {
-      const formValues = this.registerForm.controls;
-
-      this.observableSubject.next({
-        firstName: formValues.firstName.value,
-        lastName: formValues.lastName.value,
-        email: formValues.email.value,
-        password: formValues.password.value
-      });
+      this.observableSubject.next([getRegisterFormFormValues(this.registerForm), true]);
     }
     this.topNotification.setMessage('Hello, this is a notification form - Register Form');
   }

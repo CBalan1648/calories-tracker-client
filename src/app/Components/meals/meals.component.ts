@@ -14,7 +14,6 @@ import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.co
 })
 export class MealsComponent implements OnInit, OnDestroy {
 
-
   private columsToDisplay: string[] = ['title', 'description', 'time', 'calories', 'actions'];
   private mealsObservable;
   private deleteMeal;
@@ -29,27 +28,20 @@ export class MealsComponent implements OnInit, OnDestroy {
 
     this.mealsObservable = this.mealsService.getFilteredObservable();
     this.mealsService.getMeals();
-    this.deleteMeal = this.mealsService.deleteMeal.bind(this.mealsService);
+    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
   }
 
   openEditDialog(meal: Meal, ownerId = this.user._id): void {
-    const dialogRef = this.editMealDialog.open(EditMealDialogComponent, {
+   this.editMealDialog.open(EditMealDialogComponent, {
       width: '400px',
       height: '500px',
       panelClass: 'custom-dialog',
       data: { meal, ownerId },
     });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('TODO : Resolve');
-    });
   }
 
   ngOnInit() {
-    this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => {
-      this.user = user;
-    });
-
+    this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.user = user);
     this.mealsObservableSubscription = this.mealsService.getFilteredObservable().subscribe(meals => this.meals = meals);
   }
 

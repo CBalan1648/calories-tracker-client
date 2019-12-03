@@ -13,8 +13,7 @@ export class TopNotificationComponent implements OnInit, OnDestroy {
   private subscription: Subscription;
   public message = null;
 
-  constructor(private notificationService: TopNotificationService) {
-  }
+  constructor(private notificationService: TopNotificationService) { }
 
   ngOnInit() {
     this.subscription = this.notificationService.getMessage().pipe(

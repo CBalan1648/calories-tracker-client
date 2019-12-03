@@ -12,7 +12,6 @@ const emptyUser = { _id: undefined };
 })
 export class UserService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(emptyUser);
-  public currentUser: Observable<any> = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -21,7 +20,7 @@ export class UserService {
   }
 
   public getUserObservable(): Observable<any> {
-    return this.currentUser;
+    return this.currentUserSubject.asObservable();
   }
 
   public logoutUser() {
@@ -30,7 +29,7 @@ export class UserService {
   }
 
   public updateCalories(calories: number) {
-    this.currentUser.pipe(take(1)).subscribe(user => {
+    this.currentUserSubject.asObservable().pipe(take(1)).subscribe(user => {
       user.targetCalories = calories;
       this.currentUserSubject.next(user);
     });
@@ -38,7 +37,7 @@ export class UserService {
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(updateBody => {
-      this.putRequest.call(this, updateBody);
+      this.editUserRequest.call(this, updateBody);
     });
   }
 
@@ -46,7 +45,7 @@ export class UserService {
     subscription.unsubscribe();
   }
 
-  putRequest(userData) {
+  editUserRequest(userData) {
     const { token, email, _id, ...updateData } = userData;
     this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
       retry(3),

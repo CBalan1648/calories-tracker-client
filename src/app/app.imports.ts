@@ -37,7 +37,6 @@ import { TopNotificationComponent } from './Components/top-notification/top-noti
 import { UserProfileComponent } from './Components/user-profile/user-profile.component';
 import { AuthGuard } from './Helpers/auth.guard';
 
-
 const routes: Routes = [
     { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
     { path: 'register', component: RegisterFormComponent },
@@ -68,7 +67,6 @@ export const AppDeclarations = [
     AddMealDialogComponent,
     SearchUserDialogComponent
 ];
-
 
 export const AppImports = [
     RouterModule.forRoot(routes, { useHash: true }),

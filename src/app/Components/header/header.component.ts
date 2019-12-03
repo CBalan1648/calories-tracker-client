@@ -33,5 +33,4 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.userServiceSubscriptions.unsubscribe();
     this.sidenavRef.close();
   }
-
 }

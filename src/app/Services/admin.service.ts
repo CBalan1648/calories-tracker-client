@@ -26,7 +26,7 @@ export class AdminService {
 
   connectEditUserRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(userData => {
-      this.putRequest.call(this, userData);
+      this.updateUserRequest.call(this, userData);
     });
   }
 
@@ -39,7 +39,7 @@ export class AdminService {
   }
 
   clearFilterObservable(): void {
-    this.filterSubject.next({searchString : '', searchAuthLevel : ''});
+    this.filterSubject.next({ searchString: '', searchAuthLevel: '' });
   }
 
   getFilterObservable() {
@@ -55,7 +55,7 @@ export class AdminService {
     });
   }
 
-  deleteRequest(userId) {
+  deleteUserRequest(userId) {
     this.http.delete<any>(`${apiAddress}/api/users/${userId}`, { observe: 'response' }).pipe(
       retry(3),
       take(1)
@@ -69,7 +69,7 @@ export class AdminService {
     });
   }
 
-  putRequest(userData) {
+  updateUserRequest(userData) {
     const { token, email, _id, ...updateData } = userData;
     this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
       retry(3),

@@ -27,25 +27,24 @@ export class AdminComponent implements OnInit, OnDestroy {
   private data: any = {};
   private deleteMeal: any;
   private isAdmin = isAdmin.bind(null);
-  private deleteUser : (string) => void;
+  private deleteUser: (userId: string) => void;
 
 
   constructor(private readonly adminService: AdminService,
-    private readonly mealsService: MealsService,
-    private readonly editMealDialog: MatDialog,
-    private readonly userService: UserService,
+              private readonly mealsService: MealsService,
+              private readonly editMealDialog: MatDialog,
+              private readonly userService: UserService,
   ) {
 
-    this.deleteMeal = this.mealsService.deleteMeal.bind(this.mealsService);
+    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
+    this.deleteUser = this.adminService.deleteUserRequest.bind(this.adminService);
     this.usersObservable = adminService.getUserObservable();
     this.adminService.getUsers();
-    
-    this.deleteUser = this.adminService.deleteRequest.bind(this.adminService);
   }
 
   ngOnInit() {
     this.usersSubscription = this.usersObservable.subscribe(users => this.users = users);
-    this.userServiceSubscription = this.userService.currentUser.subscribe(user => this.activeUser = user);
+    this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.activeUser = user);
   }
 
   loadData(userId) {

@@ -36,7 +36,7 @@ export class MealsService {
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(newMealData => {
       const [mealData, userId] = newMealData;
-      this.postRequest(mealData, userId);
+      this.addMealRequest(mealData, userId);
     });
   }
 
@@ -53,7 +53,7 @@ export class MealsService {
     subscription.unsubscribe();
   }
 
-  postRequest(mealData, userId = this.user._id) {
+  addMealRequest(mealData, userId = this.user._id) {
     this.http.post<any>(`${apiAddress}/api/users/${userId}/meals/`, mealData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
@@ -83,7 +83,7 @@ export class MealsService {
     return this.currentFilteredAndGroupedMeals;
   }
 
-  deleteMeal(mealId, userId = this.user._id): void {
+  deleteMealRequest(mealId, userId = this.user._id): void {
     this.http.delete(`${apiAddress}/api/users/${userId}/meals/${mealId}`).pipe(
       retry(3),
       take(1),
@@ -97,8 +97,7 @@ export class MealsService {
     });
   }
 
-  updateMeal(updatedMeal, userId = this.user._id): void {
-    console.log(userId);
+  updateMealRequest(updatedMeal, userId = this.user._id): void {
     this.http.put(`${apiAddress}/api/users/${userId}/meals/${updatedMeal._id}`, updatedMeal).pipe(
       retry(3),
       take(1),

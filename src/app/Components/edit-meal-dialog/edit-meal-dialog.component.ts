@@ -3,6 +3,8 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MealsService } from 'src/app/Services/meals.service';
 import { Meal } from '../../Models/meal';
+import { editMealFormConfig } from 'src/app/Helpers/objects.static';
+import { getEditMealFormValues } from 'src/app/Helpers/functions.static';
 
 @Component({
   selector: 'app-edit-meal-dialog',
@@ -18,24 +20,11 @@ export class EditMealDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: { meal: Meal, ownerId: string },
   ) { }
 
-  mealForm = this.formBuilder.group({
-    title: [this.data.meal.title, Validators.required],
-    description: [this.data.meal.description],
-    time: [new Date(this.data.meal.time).toISOString().slice(0, -1)],
-    calories: [this.data.meal.calories, Validators.required]
-  });
+  mealForm = this.formBuilder.group(editMealFormConfig(this.data));
 
   submitForm() {
     if (this.mealForm.status === 'VALID') {
-      const formValues = this.mealForm.controls;
-      this.mealsService.updateMeal({
-        _id: this.data.meal._id,
-        title: formValues.title.value,
-        description: formValues.description.value,
-        calories: formValues.calories.value,
-        time: Date.parse(formValues.time.value) || this.data.meal.time,
-      }, this.data.ownerId);
-
+      this.mealsService.updateMealRequest(getEditMealFormValues(this.mealForm, this.data), this.data.ownerId);
       this.onClose();
     }
   }

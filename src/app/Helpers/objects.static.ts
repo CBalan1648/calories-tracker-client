@@ -7,9 +7,60 @@ export const mealFormConfig = {
     calories: ['', Validators.required]
 };
 
-export const registerFormConfig = {
+export const addUserFormConfig = {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
 };
+
+export const editMealFormConfig = (data) => ({
+    title: [data.meal.title, Validators.required],
+    description: [data.meal.description],
+    time: [new Date(data.meal.time).toISOString().slice(0, -1)],
+    calories: [data.meal.calories, Validators.required]
+});
+
+
+export const editUserFormConfig = (userData) => ({
+    firstName: [userData.firstName, Validators.required],
+    lastName: [userData.lastName, Validators.required],
+    email: [userData.email],
+    targetCalories: [userData.targetCalories, [Validators.required]],
+    authLevel: [userData.authLevel, Validators.required],
+});
+
+export const filterFormConfig = {
+    stringSearch: [''],
+    timeSpan: [''],
+    customDateFrom: [''],
+    customDateTo: [''],
+    timeFrame: [''],
+    frameBegin: [''],
+    frameEnd: [''],
+};
+
+export const loginFormConfig = {
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', Validators.required]
+};
+
+export const registerFormConfig = {
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    email: ['', [Validators.email, Validators.required]],
+    password: ['', [Validators.required, Validators.minLength(8)]],
+    repeatPassword: ['', Validators.required]
+};
+
+export const searchUserFormConfig = (data) => ({
+    searchString: [data.searchString],
+    searchAuthLevel: [data.searchAuthLevel],
+  });
+
+export const userProfileFormConfig = {
+    firstName: [{ value: '', disabled: true }, Validators.required],
+    lastName: [{ value: '', disabled: true }, Validators.required],
+    email: [{ value: '', disabled: true }],
+    calories: [{ value: '', disabled: true }, [Validators.required]],
+  };

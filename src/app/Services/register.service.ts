@@ -15,7 +15,7 @@ export class RegisterService {
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(registerRequest => {
       const [newUserData, autologin] = registerRequest;
-      this.postRequest(newUserData, !!autologin);
+      this.registerUserRequest(newUserData, !!autologin);
     });
   }
 
@@ -23,13 +23,13 @@ export class RegisterService {
     subscription.unsubscribe();
   }
 
-  postRequest(userData, autologin = false) {
+  registerUserRequest(userData, autologin = false) {
     this.http.post<any>(`${apiAddress}/api/users/`, userData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
       if (response.status === 201 && autologin) {
-        this.loginService.postRequest({ email: userData.email, password: userData.password });
+        this.loginService.loginUserRequest({ email: userData.email, password: userData.password });
       }
     });
   }

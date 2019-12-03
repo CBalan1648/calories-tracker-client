@@ -21,8 +21,6 @@ export class AuthGuard implements CanActivate {
 
     const roles = next.data.roles as Array<string>;
 
-    console.log(this.user)
-
     if (!this.user) {
       this.router.navigate(['/login']);
       return false;
