@@ -1,7 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
+import { getRegisterFormFormValues } from 'src/app/Helpers/functions.static';
+import { registerFormConfig } from 'src/app/Helpers/objects.static';
 import { AdminService } from 'src/app/Services/admin.service';
 import { RegisterService } from 'src/app/Services/register.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
@@ -22,12 +24,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
               public dialogRef: MatDialogRef<AddMealDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
-  registerForm = this.formBuilder.group({
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
-  });
+  registerForm = this.formBuilder.group(registerFormConfig);
 
   ngOnInit() {
     this.observableSubscription = this.registerService.connectRequestObservable(this.observableSubject);
@@ -39,15 +36,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.registerForm.status === 'VALID') {
-      const formValues = this.registerForm.controls;
-
-      this.observableSubject.next([{
-        firstName: formValues.firstName.value,
-        lastName: formValues.lastName.value,
-        email: formValues.email.value,
-        password: formValues.password.value
-      }, false]);
-
+      this.observableSubject.next([getRegisterFormFormValues(this.registerForm), false]);
       this.adminService.getUsers();
       this.onClose();
     }

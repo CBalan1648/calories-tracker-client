@@ -1,7 +1,9 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
+import { getMealFormValues } from 'src/app/Helpers/functions.static';
+import { mealFormConfig } from 'src/app/Helpers/objects.static';
 import { MealsService } from 'src/app/Services/meals.service';
 
 @Component({
@@ -16,17 +18,12 @@ export class AddMealDialogComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly mealsService: MealsService,
-    public dialogRef: MatDialogRef<AddMealDialogComponent>,
-    private formBuilder: FormBuilder,
+    private readonly dialogRef: MatDialogRef<AddMealDialogComponent>,
+    private readonly formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public userId: string,
   ) { }
 
-  mealForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    description: [''],
-    time: [''],
-    calories: ['', Validators.required]
-  });
+  mealForm = this.formBuilder.group(mealFormConfig);
 
   ngOnInit() {
     this.observableSubscription = this.mealsService.connectRequestObservable(this.observableSubject);
@@ -38,18 +35,11 @@ export class AddMealDialogComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.mealForm.status === 'VALID') {
-      const formValues = this.mealForm.controls;
-      this.observableSubject.next([{
-        title: formValues.title.value,
-        description: formValues.description.value,
-        time: formValues.time.value ? Date.parse(formValues.time.value) : Date.now(),
-        calories: formValues.calories.value,
-      }, this.userId]);
+      this.observableSubject.next([getMealFormValues(this.mealForm), this.userId]);
     }
   }
 
   onClose(): void {
     this.dialogRef.close();
   }
-
 }

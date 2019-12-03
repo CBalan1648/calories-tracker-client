@@ -1,7 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
-import { MealsService } from 'src/app/Services/meals.service';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
+import { getMealFormValues, resetMealForm } from 'src/app/Helpers/functions.static';
+import { mealFormConfig } from 'src/app/Helpers/objects.static';
+import { MealsService } from 'src/app/Services/meals.service';
 
 @Component({
   selector: 'app-meal-form',
@@ -13,15 +15,10 @@ export class MealFormComponent implements OnInit, OnDestroy {
   private observableSubject: Subject<any> = new Subject();
   private observableSubscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder, private readonly mealService: MealsService) { }
+  constructor(private readonly formBuilder: FormBuilder,
+              private readonly mealService: MealsService) { }
 
-  mealForm = this.formBuilder.group({
-    title: ['', Validators.required],
-    description: [''],
-    time: [''],
-    calories: ['', Validators.required]
-  });
-
+  mealForm = this.formBuilder.group(mealFormConfig);
 
   ngOnInit() {
     this.observableSubscription = this.mealService.connectRequestObservable(this.observableSubject);
@@ -33,13 +30,8 @@ export class MealFormComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.mealForm.status === 'VALID') {
-      const formValues = this.mealForm.controls;
-      this.observableSubject.next([{
-        title: formValues.title.value,
-        description: formValues.description.value,
-        time: formValues.time.value ? Date.parse(formValues.time.value) : Date.now(),
-        calories: formValues.calories.value,
-      }]);
+      this.observableSubject.next([getMealFormValues(this.mealForm)]);
+      resetMealForm(this.mealForm);
     }
   }
 }

@@ -18,14 +18,14 @@
                 <mat-list>
                     <mat-list-item>
 
-                        <div class="flex-table-cell header-cell" *ngIf="isAdmin()" >
+                        <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)" >
                             <button mat-raised-button color="primary" (click)="openEditUserDialog(user)">
                                 <i class="material-icons">edit</i>
                                 Edit User
                             </button>
                         </div>
 
-                        <div class="flex-table-cell header-cell" *ngIf="isAdmin()" >
+                        <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)" >
                             <button mat-raised-button color="primary" (click)="deleteUser(user._id)">
                                 <i class="material-icons">delete_forever</i>
                                 Delete User
