@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, Observable, Subscription } from 'rxjs';
-import { filter, groupBy, map, mergeMap, reduce, retry, take, tap } from 'rxjs/operators';
+import { filter, groupBy, map, mergeMap, reduce, retry, take } from 'rxjs/operators';
+import { apiAddress } from '../config';
 import { Meal } from '../Models/meal';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
@@ -53,7 +54,7 @@ export class MealsService {
   }
 
   postRequest(mealData, userId = this.user._id) {
-    this.http.post<any>(`http://localhost:3000/api/users/${userId}/meals/`, mealData, { observe: 'response' }).pipe(
+    this.http.post<any>(`${apiAddress}/api/users/${userId}/meals/`, mealData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
@@ -83,7 +84,7 @@ export class MealsService {
   }
 
   deleteMeal(mealId, userId = this.user._id): void {
-    this.http.delete(`http://localhost:3000/api/users/${userId}/meals/${mealId}`).pipe(
+    this.http.delete(`${apiAddress}/api/users/${userId}/meals/${mealId}`).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -98,7 +99,7 @@ export class MealsService {
 
   updateMeal(updatedMeal, userId = this.user._id): void {
     console.log(userId);
-    this.http.put(`http://localhost:3000/api/users/${userId}/meals/${updatedMeal._id}`, updatedMeal).pipe(
+    this.http.put(`${apiAddress}/api/users/${userId}/meals/${updatedMeal._id}`, updatedMeal).pipe(
       retry(3),
       take(1),
     ).subscribe((response: { n: number, nModified: number, ok: number }) => {
@@ -116,7 +117,7 @@ export class MealsService {
   }
 
   public getMeals(userId = this.user._id): void {
-    this.http.get(`http://localhost:3000/api/users/${userId}/meals`).pipe(
+    this.http.get(`${apiAddress}/api/users/${userId}/meals`).pipe(
       retry(3),
       take(1),
       map((responseData: { _id: string, meals: Meal[] }) => responseData.meals)

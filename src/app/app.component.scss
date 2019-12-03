@@ -44,7 +44,7 @@ mat-sidenav-container {
     color: rgba(255, 188, 87, 0);
   }
   30% {
-    color: yellow;
+    color: mat-color($primary, A200);
   }
   100% {
     @include color-accent(50);
@@ -58,7 +58,7 @@ mat-sidenav-container {
     color: rgba(255, 188, 87, 0);
   }
   30% {
-    color: yellow;
+    color: mat-color($primary, A200);
   }
   100% {
     @include color-accent(50);

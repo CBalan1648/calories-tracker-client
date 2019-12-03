@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { map, retry, take, filter } from 'rxjs/operators';
+import { filter, map, retry, take } from 'rxjs/operators';
+import { apiAddress } from '../config';
 import { User } from '../Models/user';
 
 @Injectable({
@@ -9,13 +10,10 @@ import { User } from '../Models/user';
 })
 export class AdminService {
 
-  private usersBehaviourSubject = new BehaviorSubject<any>(null);
-  private usersObservable = this.usersBehaviourSubject.asObservable();
+  private usersSubject = new BehaviorSubject<any>(null);
+  private filterSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ searchString: '', searchAuthLevel: '' });
 
-  private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ searchString: '', searchAuthLevel: '' });
-  public currentFilter: Observable<any> = this.currentFilterSubject.asObservable();
-
-  public currentFilteredUsers: Observable<any[]> = combineLatest(this.usersObservable, this.currentFilter).pipe(
+  public currentFilteredUsers: Observable<any[]> = combineLatest(this.usersSubject.asObservable(), this.filterSubject.asObservable()).pipe(
     filter(([ob1, ob2]) => !!ob1 && !!ob2),
     map(filterUsers)
   );
@@ -32,65 +30,58 @@ export class AdminService {
     });
   }
 
+  connectFilterObservable(observable: Observable<any>): Subscription {
+    return observable.subscribe((filterValue) => { this.filterSubject.next(filterValue); });
+  }
+
   disconnectObservable(subscription: Subscription): void {
     subscription.unsubscribe();
   }
 
-
-  connectFilterObservable(observable: Observable<any>): Subscription {
-    return observable.subscribe((filterValue) => { this.currentFilterSubject.next(filterValue); });
-  }
-
-  disconnectFilterObservable(subscription: Subscription): void {
-    subscription.unsubscribe();
-  }
-
   clearFilterObservable(): void {
-    this.currentFilterSubject.next({searchString : '', searchAuthLevel : ''});
+    this.filterSubject.next({searchString : '', searchAuthLevel : ''});
   }
 
   getFilterObservable() {
-    return this.currentFilter;
+    return this.filterSubject.asObservable();
   }
 
   public getUsers(): void {
-    this.http.get('http://localhost:3000/api/users').pipe(
+    this.http.get(`${apiAddress}/api/users`).pipe(
       retry(3),
       take(1),
     ).subscribe(users => {
-      this.usersBehaviourSubject.next(users);
+      this.usersSubject.next(users);
     });
   }
 
   deleteRequest(userId) {
-    this.http.delete<any>(`http://localhost:3000/api/users/${userId}`, { observe: 'response' }).pipe(
+    this.http.delete<any>(`${apiAddress}/api/users/${userId}`, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
       if (response.body.deletedCount === 1) {
         this.getUserObservable().pipe(take(1)).subscribe(currentUsersArray => {
           const updatedUsersArray = currentUsersArray.filter(user => user._id !== userId);
-          this.usersBehaviourSubject.next(updatedUsersArray);
+          this.usersSubject.next(updatedUsersArray);
         });
       }
     });
   }
 
   putRequest(userData) {
-    console.log('USERDATA', userData);
     const { token, email, _id, ...updateData } = userData;
-    this.http.put<any>(`http://localhost:3000/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
+    this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
       retry(3),
       take(1),
     ).subscribe((response: any) => {
       if (response.body.nModified === 1) {
-        console.log('SUCCESS UPDATED');
-        this.usersObservable.pipe(take(1)).subscribe(currentUserArray => {
+        this.usersSubject.asObservable().pipe(take(1)).subscribe(currentUserArray => {
           const updatedUserIndex = currentUserArray.findIndex(arrayElement => arrayElement._id === userData._id);
           const updatedArray = [...currentUserArray];
           updatedArray.splice(updatedUserIndex, 1, userData);
 
-          this.usersBehaviourSubject.next(updatedArray);
+          this.usersSubject.next(updatedArray);
         });
       }
     });

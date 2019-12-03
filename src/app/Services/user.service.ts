@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, Subscription } from 'rxjs';
 import { retry, take } from 'rxjs/operators';
+import { apiAddress } from '../config';
 
 const emptyUser = { _id: undefined };
 
@@ -47,7 +48,7 @@ export class UserService {
 
   putRequest(userData) {
     const { token, email, _id, ...updateData } = userData;
-    this.http.put<any>(`http://localhost:3000/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
+    this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {

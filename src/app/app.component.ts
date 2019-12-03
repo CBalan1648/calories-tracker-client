@@ -46,6 +46,10 @@ export class AppComponent implements OnInit, OnDestroy {
     return authLevel === 'USER_MANAGER' || authLevel === 'ADMIN';
   }
 
+  isAdmin(authLevel) {
+    return authLevel === 'ADMIN';
+  }
+
   ngOnDestroy() {
     this.userServiceSubscriptions.unsubscribe();
     this.filterValueSubscription.unsubscribe();
@@ -76,7 +80,7 @@ export class AppComponent implements OnInit, OnDestroy {
   openUserSearchDialog() {
     this.userSearchRef = this.snackBar.openFromComponent(SearchUserDialogComponent, {
       data: this.filterValue,
-      panelClass: ['user-search-dialog']
+      panelClass: 'user-search-dialog'
     });
   }
 

@@ -1,6 +1,6 @@
-<div class="search-user-container">
+<div>
     <form [formGroup]="searchUserForm" (ngSubmit)="close()">
-        Search for :
+        <span>Search for :</span>
 
         <mat-form-field>
             <input formControlName="searchString" matInput placeholder="FilterValue">

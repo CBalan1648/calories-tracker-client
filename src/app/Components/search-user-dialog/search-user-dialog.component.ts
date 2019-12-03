@@ -13,7 +13,6 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
 
   private inputFieldDataSubject = new BehaviorSubject({ searchString: '', searchAuthLevel: '' });
   private filterSubscription: Subscription;
-  private filterValueSubscription: Subscription;
   private formChangeSubscription: Subscription;
 
   constructor(
@@ -21,10 +20,7 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
     private adminService: AdminService,
     public dialogRef: MatSnackBarRef<SearchUserDialogComponent>,
     @Inject(MAT_SNACK_BAR_DATA) public data: { searchString: string, searchAuthLevel: string }
-  ) {
-    console.log({ data });
-
-  }
+  ) { }
 
   searchUserForm = this.formBuilder.group({
     searchString: [this.data.searchString],
@@ -37,7 +33,7 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.adminService.disconnectFilterObservable(this.filterSubscription);
+    this.adminService.disconnectObservable(this.filterSubscription);
     this.formChangeSubscription.unsubscribe();
   }
 
@@ -48,5 +44,4 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
   close() {
     this.dialogRef.dismiss();
   }
-
 }

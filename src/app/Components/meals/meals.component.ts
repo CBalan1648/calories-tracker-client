@@ -35,8 +35,8 @@ export class MealsComponent implements OnInit, OnDestroy {
   openEditDialog(meal: Meal, ownerId = this.user._id): void {
     const dialogRef = this.editMealDialog.open(EditMealDialogComponent, {
       width: '400px',
-      height : '500px',
-      panelClass : 'custom-dialog',
+      height: '500px',
+      panelClass: 'custom-dialog',
       data: { meal, ownerId },
     });
 

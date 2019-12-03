@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { retry, take, tap } from 'rxjs/operators';
+import { apiAddress } from '../config';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
 
@@ -24,7 +25,7 @@ export class LoginService {
   }
 
   postRequest(userData) {
-    this.http.post<any>('http://localhost:3000/api/users/login', userData).pipe(retry(3), take(1)).subscribe(response => {
+    this.http.post<any>(`${apiAddress}/api/users/login`, userData).pipe(retry(3), take(1)).subscribe(response => {
       const [responseUserData, valid] = getTokenData(response.access_token);
       if (valid) {
         responseUserData.token = response.access_token;

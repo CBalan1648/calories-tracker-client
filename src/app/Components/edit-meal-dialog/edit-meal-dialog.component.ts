@@ -36,7 +36,7 @@ export class EditMealDialogComponent {
         time: Date.parse(formValues.time.value) || this.data.meal.time,
       }, this.data.ownerId);
 
-      this.onClose()
+      this.onClose();
     }
   }
 

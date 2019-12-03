@@ -31,7 +31,7 @@
                 </button>
 
                 <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-add-button-active' : 'sidebar-add-button-hidden'"
-                        *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button (click)="addNewUser()">
+                        *ngIf="isAdmin(user && user.authLevel)" mat-stroked-button (click)="addNewUser()">
 
                         <i class="material-icons">person_add</i>
                         <br />

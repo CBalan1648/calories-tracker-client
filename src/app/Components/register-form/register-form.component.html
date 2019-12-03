@@ -19,13 +19,13 @@
         </mat-form-field>
 
         <mat-form-field>
-            <input type="password" matInput formControlName="password" placeholder="Your Password" required>
+            <input type="password" matInput formControlName="password" placeholder="Your Password" required autocomplete="new-password">
             <mat-error *ngIf="registerForm.controls.password.errors">Please insert a password</mat-error>
         </mat-form-field>
 
         <mat-form-field>
-            <input type="password" matInput formControlName="repeatPassword" placeholder="Your Password... again"
-                [errorStateMatcher]="errorStateMatcher">
+            <input type="password" matInput formControlName="repeatPassword" placeholder="Repeat your password"
+                [errorStateMatcher]="errorStateMatcher" autocomplete="new-password">
             <mat-error *ngIf="registerForm.errors?.passwordRepeatError">Passwords must match</mat-error>
         </mat-form-field>
 

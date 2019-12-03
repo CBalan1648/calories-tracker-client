@@ -3,7 +3,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
 import { AdminService } from 'src/app/Services/admin.service';
 
 @Component({

@@ -13,7 +13,6 @@ import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.compo
 })
 export class AddUserDialogComponent implements OnInit, OnDestroy {
 
-
   private observableSubject: Subject<any> = new Subject();
   private observableSubscription: Subscription;
 

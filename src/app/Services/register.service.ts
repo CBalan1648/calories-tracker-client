@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
 import { retry, take } from 'rxjs/operators';
 import { LoginService } from './login.service';
+import { apiAddress } from '../config';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +24,7 @@ export class RegisterService {
   }
 
   postRequest(userData, autologin = false) {
-    this.http.post<any>('http://localhost:3000/api/users/', userData, { observe: 'response' }).pipe(
+    this.http.post<any>(`${apiAddress}/api/users/`, userData, { observe: 'response' }).pipe(
       retry(3),
       take(1)
     ).subscribe(response => {
