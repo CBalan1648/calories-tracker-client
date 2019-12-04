@@ -1,0 +1,25 @@
+/* You can add global styles to this file, and also import other style files */
+@import "material.theme.scss";
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.custom-dialog .mat-dialog-container {
+  padding : 0;
+}
+
+.user-search-dialog {
+  min-width: 600px;
+  width: 600px;
+  background: linear-gradient(
+    to top,
+    mat-color($accent,700),
+    rgba(255, 255, 255, 0)
+  );
+}

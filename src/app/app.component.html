@@ -1,3 +1,66 @@
-<app-header></app-header>
+<app-top-notification></app-top-notification>
 
-<app-login-form></app-login-form>
+<mat-sidenav-container>
+        <mat-sidenav #sidenav mode="side" class = "home-sidebar">
+
+                <button [ngClass]="activeButton == 'HOME' ? 'sidebar-button-active' : 'sidebar-button'"
+                        mat-stroked-button (click)="redirectToHome()">
+
+                        <i class="material-icons">home</i>
+                        <br />
+                        Home
+
+                </button>
+
+                <button [ngClass]="activeButton == 'USER' ? 'sidebar-button-active' : 'sidebar-button'"
+                        mat-stroked-button (click)="redirectToUser()">
+
+                        <i class="material-icons">person</i>
+                        <br />
+                        Profile
+
+                </button>
+
+                <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-button-active' : 'sidebar-button'"
+                        *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button (click)="redirectToAdmin()">
+
+                        <i class="material-icons">people</i>
+                        <br />
+                        Admin
+
+                </button>
+
+                <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-add-button-active' : 'sidebar-add-button-hidden'"
+                        *ngIf="isAdmin(user && user.authLevel)" mat-stroked-button (click)="addNewUser()">
+
+                        <i class="material-icons">person_add</i>
+                        <br />
+                        Add User
+
+                </button>
+
+                <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-search-button-active' : 'sidebar-add-button-hidden'"
+                        *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button (click)="openUserSearchDialog()">
+
+                        <i class="material-icons">search</i>
+                        <br />
+                        Search
+
+                </button>
+
+                <button [ngClass]="activeButton == 'ADMIN' ? 'sidebar-search-button-active' : 'sidebar-add-button-hidden'"
+                        *ngIf="isSuperUser(user && user.authLevel)" mat-stroked-button (click)="clearFilters()">
+
+                        <i class="material-icons">format_clear</i>
+                        <br />
+                        Show all
+
+                </button>
+        </mat-sidenav>
+
+        <mat-sidenav-content class="home-content">
+                <app-header [sidenavRef]="sidenav" *ngIf="showSideBar"></app-header>
+                <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+</mat-sidenav-container>

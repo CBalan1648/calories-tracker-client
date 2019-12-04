@@ -1,0 +1,22 @@
+<div class="login-form-container">
+    <form [formGroup]="loginForm" (ngSubmit)="submitForm()">
+
+        <img src="../../assets/logo.png">
+
+        <mat-form-field>
+            <input matInput formControlName="email" placeholder="Your Email" required>
+            <mat-error *ngIf="loginForm.controls.email.errors">Invalid Email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="password" matInput formControlName="password" placeholder="Password" required>
+            <mat-error *ngIf="loginForm.controls.password.errors">Please insert a password</mat-error>
+        </mat-form-field>
+
+        <div class="login-button-group">
+            <button mat-raised-button type="submit">SUBMIT</button>
+            <a routerLink="/register" mat-raised-button>REGISTER</a>
+        </div>
+
+    </form>
+</div>

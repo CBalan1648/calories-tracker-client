@@ -1,0 +1,22 @@
+form {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+span {
+  flex-basis: 35%;
+}
+
+mat-form-field {
+  flex-basis: 80%;
+}
+
+mat-select {
+  text-align: center;
+  flex-basis: 60%;
+}
+
+button {
+  flex-basis: 40%;
+}

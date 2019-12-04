@@ -1,0 +1,40 @@
+<div class="user-profile-container">
+
+    <h1 class="user-profile-title">{{user.firstName}} {{user.lastName}}</h1>
+
+    <div class="user-profile-form-container">
+
+        <form [formGroup]="userProfileForm">
+            <mat-form-field>
+                <input matInput formControlName="firstName" placeholder="First Name" required>
+                <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput formControlName="lastName" placeholder="Last Name" required>
+                <mat-error *ngIf="userProfileForm.controls.lastName.errors">Please insert a last name</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput formControlName="email" placeholder="Your Email" required>
+                <mat-error *ngIf="userProfileForm.controls.email.errors">Invalid Email</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input type="number" matInput formControlName="calories" placeholder="Daily calories target" required>
+                <mat-error *ngIf="userProfileForm.controls.calories.errors">Please insert the daily calories target
+                </mat-error>
+            </mat-form-field>
+
+            <div class="user-profile-buttons">
+                <button class="edit-button" mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
+                <button *ngIf="editing" class="edit-button" (click)="abort()" mat-raised-button>Abort</button>
+            </div>
+
+        </form>
+    </div>
+
+    <h1>Total Meals : {{stats.totalMeals}}</h1>
+    <h1>Total Calories : {{stats.totalCalories}}</h1>
+    <h1>Average Calories: {{stats.averageCalories}}</h1>
+</div>

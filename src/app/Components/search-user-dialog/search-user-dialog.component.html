@@ -1,0 +1,18 @@
+<div>
+    <form [formGroup]="searchUserForm" (ngSubmit)="close()">
+        <span>Search for :</span>
+
+        <mat-form-field>
+            <input formControlName="searchString" matInput placeholder="FilterValue">
+        </mat-form-field>
+
+        <mat-select formControlName="searchAuthLevel" matNativeControl placeholder="User Role">
+                <mat-option value="">Any</mat-option>
+            <mat-option value="USER">User</mat-option>
+            <mat-option value="USER_MANAGER">User manager</mat-option>
+            <mat-option value="ADMIN">Admin</mat-option>
+        </mat-select>
+
+        <button class="edit-button" mat-raised-button (click)="close()">Dismiss</button>
+    </form>
+</div>

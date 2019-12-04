@@ -1,0 +1,15 @@
+<mat-toolbar>
+
+    <div class='header-main-title'>
+        <div>Calories Tracker</div>
+        <button *ngIf="!sidenavRef.opened" class="header-sidebar-button" mat-stroked-button (click)="sidenavRef.toggle()"><i
+                class="material-icons">vertical_split</i></button>
+    </div>
+
+    <div class='header-name-tag'>
+        Welcome, {{firstName}} {{lastName}}
+        <button mat-icon-button (click)="logout()">
+            <i class="material-icons"> exit_to_app</i>
+        </button>
+    </div>
+</mat-toolbar>

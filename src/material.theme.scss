@@ -1,0 +1,39 @@
+@import "~@angular/material/theming";
+
+$ct-light-primary: mat-palette($mat-light-green);
+$ct-light-accent: mat-palette($mat-teal);
+$ct-light-warn: mat-palette($mat-red);
+
+$ct-light-theme: mat-dark-theme(
+  $ct-light-primary,
+  $ct-light-accent,
+  $ct-light-warn
+);
+
+@include mat-core();
+@include angular-material-theme($ct-light-theme);
+
+$primary: map-get($ct-light-theme, primary);
+$accent: map-get($ct-light-theme, accent);
+$warn: map-get($ct-light-theme, warn);
+
+
+@mixin color-primary($shade) {
+  color: mat-color($primary, $shade);
+}
+
+@mixin bg-primary($shade) {
+  background-color: mat-color($primary, $shade);
+}
+
+@mixin border-color-primary($shade) {
+    border-left-color: mat-color($primary, $shade);
+}
+
+@mixin color-accent($shade) {
+  color: mat-color($accent, $shade);
+}
+
+@mixin bg-accent($shade) {
+  background-color: mat-color($accent, $shade);
+}

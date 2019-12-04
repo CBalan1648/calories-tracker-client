@@ -1,0 +1,26 @@
+@import "../../../styles.scss";
+
+mat-toolbar {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 60px;
+  justify-content: space-between;
+}
+
+.header-main-title {
+  @include color-primary(500);
+  font-size: larger;
+  font-weight: bold;
+  display: flex;
+  flex-direction: row;
+  height: 36px;
+}
+
+.header-name-tag {
+  justify-self: flex-end;
+}
+
+.header-sidebar-button {
+  margin-left: 30px;
+}

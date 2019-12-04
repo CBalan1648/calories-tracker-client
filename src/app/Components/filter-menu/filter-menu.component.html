@@ -1,0 +1,74 @@
+<div class="filter-menu-container">
+
+    <h3>
+        Filter by
+        <span *ngIf="!filterForm.pristine">
+            <button mat-flat-button (click)='clearFilters()'>
+                Nothing <i class="material-icons"> clear</i>
+            </button>
+        </span>
+    </h3>
+
+    <form [formGroup]="filterForm" (ngSubmit)="submitForm()">
+
+        <mat-form-field>
+            <input matInput formControlName="stringSearch" placeholder="Title / Description">
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-select formControlName="timeSpan" matNativeControl placeholder="Timespan">
+
+                <mat-option>Always</mat-option>
+                <mat-option value="SPAN_LAST_24_HOURS">Last 24 Hours</mat-option>
+                <mat-option value="SPAN_LAST_7_DAYS">Last 7 Days</mat-option>
+                <mat-option value="SPAN_LAST_30_DAYS">Last 30 Days</mat-option>
+                <mat-option value="SPAN_CUSTOM">Custom</mat-option>
+
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="filterForm.controls.timeSpan.value === 'SPAN_CUSTOM'" class="filter-menu-custom-date">
+
+            <mat-form-field class="filter-menu-custom-picker">
+                <input matInput formControlName="customDateFrom" [matDatepicker]="customDateFrom" placeholder="From"
+                    disabled>
+                <mat-datepicker-toggle matSuffix [for]="customDateFrom" disabled="false"></mat-datepicker-toggle>
+                <mat-datepicker #customDateFrom disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="filter-menu-custom-picker">
+                <input matInput formControlName="customDateTo" [matDatepicker]="customDateTo" placeholder="To" disabled>
+                <mat-datepicker-toggle matSuffix [for]="customDateTo" disabled="false"></mat-datepicker-toggle>
+                <mat-datepicker #customDateTo disabled="false"></mat-datepicker>
+            </mat-form-field>
+
+        </div>
+
+        <mat-form-field>
+            <mat-select formControlName="timeFrame" matNativeControl placeholder="TimeFrame">
+
+                <mat-option>None</mat-option>
+                <mat-option value="FRAME_BREAKFAST">Breakfast (7-9 AM)</mat-option>
+                <mat-option value="FRAME_LUNCH">Lunch (12-14 PM)</mat-option>
+                <mat-option value="FRAME_DINNER">Dinner (20-22 PM)</mat-option>
+                <mat-option value="FRAME_CUSTOM">Custom</mat-option>
+
+            </mat-select>
+        </mat-form-field>
+
+        <div *ngIf="filterForm.controls.timeFrame.value === 'FRAME_CUSTOM'" class="filter-menu-custom-date">
+
+            <mat-form-field class="filter-menu-custom-picker">
+                <span matPrefix>From &nbsp;</span>
+                <input matInput type="time" formControlName="frameBegin">
+            </mat-form-field>
+
+            <mat-form-field class="filter-menu-custom-picker">
+                <span matPrefix>To &nbsp;</span>
+                <input matInput type="time" formControlName="frameEnd">
+            </mat-form-field>
+
+        </div>
+
+    </form>
+</div>

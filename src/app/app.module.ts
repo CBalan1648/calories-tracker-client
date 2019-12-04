@@ -1,29 +1,21 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
-
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './header/header.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LoginFormComponent } from './login-form/login-form.component';
-import { MatInputModule} from '@angular/material/input';
-
+import { AppDeclarations, AppImports, EntryComponents } from './app.imports';
+import { JwtInterceptor } from './Helpers/jwt.interceptor';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HeaderComponent,
-    LoginFormComponent,
-  ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatToolbarModule,
-    ReactiveFormsModule,
-    MatInputModule,
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+  declarations: AppDeclarations,
+  imports: AppImports,
+  bootstrap: [AppComponent],
+  providers: [{
+    provide: HTTP_INTERCEPTORS,
+    useClass: JwtInterceptor,
+    multi: true
+  }],
+  entryComponents: EntryComponents
 })
+
+
+
 export class AppModule { }
