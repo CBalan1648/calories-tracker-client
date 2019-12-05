@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { getEditUserFormValues } from 'src/app/Helpers/functions.static';
+import { getEditUserFormValues, getProfileFormValues } from 'src/app/Helpers/functions.static';
 import { userProfileFormConfig } from 'src/app/Helpers/objects.static';
 import { User } from 'src/app/Models/user';
 import { MealsService } from 'src/app/Services/meals.service';
@@ -41,26 +41,26 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   enableFormEditing() {
     this.userProfileForm.controls.firstName.enable();
     this.userProfileForm.controls.lastName.enable();
-    this.userProfileForm.controls.calories.enable();
+    this.userProfileForm.controls.targetCalories.enable();
   }
 
   disableFormEditing() {
     this.userProfileForm.controls.firstName.disable();
     this.userProfileForm.controls.lastName.disable();
-    this.userProfileForm.controls.calories.disable();
+    this.userProfileForm.controls.targetCalories.disable();
   }
 
   resetForm(user) {
     this.userProfileForm.controls.firstName.setValue(user.firstName);
     this.userProfileForm.controls.lastName.setValue(user.lastName);
     this.userProfileForm.controls.email.setValue(user.email);
-    this.userProfileForm.controls.calories.setValue(user.targetCalories);
+    this.userProfileForm.controls.targetCalories.setValue(user.targetCalories);
   }
 
   save() {
     if (this.userProfileForm.status !== 'VALID') { return void 0; }
 
-    this.editUserObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.user));
+    this.editUserObservableSubject.next(getProfileFormValues(this.userProfileForm, this.user));
 
     this.disableFormEditing();
     this.editing = false;

@@ -7,3 +7,12 @@
 .dasboard-svg {
   border: 1px dotted purple;
 }
+
+mat-slider {
+  height: 300px;
+}
+
+.dashboard-data-container {
+  display: flex;
+  flex-direction: row;
+}

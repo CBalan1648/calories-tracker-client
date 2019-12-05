@@ -50,6 +50,19 @@ export const getEditUserFormValues = (form, userData) => {
     };
 };
 
+export const getProfileFormValues = (form, userData) => {
+    const formValues = form.controls;
+    return {
+        _id: userData._id,
+        authLevel: userData.authLevel,
+        token: userData.token,
+        firstName: formValues.firstName.value,
+        lastName: formValues.lastName.value,
+        email: formValues.email.value,
+        targetCalories: formValues.targetCalories.value,
+    };
+};
+
 
 export const getLoginFormValues = (form) => {
     const formValues = form.controls;

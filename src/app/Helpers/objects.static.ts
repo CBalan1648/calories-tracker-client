@@ -62,5 +62,5 @@ export const userProfileFormConfig = {
     firstName: [{ value: '', disabled: true }, Validators.required],
     lastName: [{ value: '', disabled: true }, Validators.required],
     email: [{ value: '', disabled: true }],
-    calories: [{ value: '', disabled: true }, [Validators.required]],
+    targetCalories: [{ value: '', disabled: true }, [Validators.required]],
   };

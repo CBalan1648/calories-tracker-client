@@ -190,7 +190,9 @@ const updateMealWithCalories = ([filteredMealsObservable, userObservable]) => {
     mergeMap((mealArray: Meal[]) => from(mealArray).pipe(
       groupBy((meal: Meal) => {
         const mealDate = new Date(meal.time);
-        return `${mealDate.getUTCDate()}-${mealDate.getUTCMonth()}-${mealDate.getUTCFullYear()}`;
+        const mealDay = `${mealDate.getUTCDate()}-${mealDate.getUTCMonth()+1}-${mealDate.getUTCFullYear()}`;
+        meal.day = mealDay
+        return mealDay
       }),
       mergeMap((groupedMealsObservable: Observable<any>) => groupedMealsObservable.pipe(
         reduce((acc, cur) => [...acc, cur], []),
