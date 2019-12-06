@@ -16,7 +16,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private svgElementIdentifier: ElementRef;
 
   private daysMap: Map<string, number>;
-  private observableSubscriptions: Subscription;
+  private mealsObservableSubscription: Subscription;
   private caloriesByDay: number[];
   private userCalories = 0;
   private userObservableSubscription: Subscription;
@@ -43,7 +43,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(private readonly userService: UserService, private readonly mealService: MealsService) { }
 
   ngOnInit() {
-    this.observableSubscriptions = this.mealService.getFilteredMealObservable().pipe(filter(meals => !!meals.length)).subscribe(meals => {
+    this.mealsObservableSubscription = this.mealService.getFilteredMealObservable().pipe(
+      filter(meals => !!meals.length)
+    ).subscribe(meals => {
       const daysMap = new Map();
 
       meals.forEach(meal => {
@@ -80,7 +82,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.observableSubscriptions.unsubscribe();
+    this.mealsObservableSubscription.unsubscribe();
     this.userObservableSubscription.unsubscribe();
     this.caloriesChangeSubscription.unsubscribe();
     this.daysChangeSubscription.unsubscribe();

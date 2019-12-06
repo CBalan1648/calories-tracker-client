@@ -1,9 +1,14 @@
+@import "../../../material.theme.scss";
+
 .filter-menu-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: solid greenyellow 3px;
+  border: solid mat-color($accent, 500) 2px;
+  border-top: 0;
+  border-bottom : 0;
+  
   width: 350px;
   height: 400px;
 }
