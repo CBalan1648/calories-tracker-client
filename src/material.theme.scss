@@ -16,24 +16,3 @@ $ct-light-theme: mat-dark-theme(
 $primary: map-get($ct-light-theme, primary);
 $accent: map-get($ct-light-theme, accent);
 $warn: map-get($ct-light-theme, warn);
-
-
-@mixin color-primary($shade) {
-  color: mat-color($primary, $shade);
-}
-
-@mixin bg-primary($shade) {
-  background-color: mat-color($primary, $shade);
-}
-
-@mixin border-color-primary($shade) {
-    border-left-color: mat-color($primary, $shade);
-}
-
-@mixin color-accent($shade) {
-  color: mat-color($accent, $shade);
-}
-
-@mixin bg-accent($shade) {
-  background-color: mat-color($accent, $shade);
-}

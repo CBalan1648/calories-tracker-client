@@ -4,4 +4,5 @@ export class Meal {
     description: string;
     time: number;
     calories: number;
+    day?: string;
 }

@@ -93,9 +93,29 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         totalMeals: 0,
         totalCalories: 0,
         averageCalories: '',
+
+        mealsAboveTarget: 0,
+        mealsBelowTarget: 0,
+
+        mostCaloricMealTitle: '',
+        mostCaloriMealCalories: -1,
+
+        leastCaloricMealTitle: '',
+        leastCaloricMealCalories: Infinity
       };
 
       calculatedStats = meals.reduce((statsCounter, currentValue) => {
+        if ( currentValue.calories > statsCounter.mostCaloriMealCalories) {
+          statsCounter.mostCaloriMealCalories = currentValue.calories;
+          statsCounter.mostCaloricMealTitle = currentValue.title;
+        }
+
+        if ( currentValue.calories < statsCounter.leastCaloricMealCalories) {
+          statsCounter.leastCaloricMealCalories = currentValue.calories;
+          statsCounter.leastCaloricMealTitle = currentValue.title;
+        }
+
+        currentValue.calories >= this.user.targetCalories ? statsCounter.mealsAboveTarget++ : statsCounter.mealsBelowTarget++;
         statsCounter.totalCalories += currentValue.calories;
         return statsCounter;
       }, calculatedStats);
@@ -104,6 +124,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       calculatedStats.averageCalories = Number(calculatedStats.totalCalories / calculatedStats.totalMeals).toFixed(2);
 
       this.stats = calculatedStats;
+
+      console.log(calculatedStats);
     });
   }
 

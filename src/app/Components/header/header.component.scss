@@ -9,7 +9,7 @@ mat-toolbar {
 }
 
 .header-main-title {
-  @include color-primary(500);
+  color: mat-color($primary, A400);
   font-size: larger;
   font-weight: bold;
   display: flex;

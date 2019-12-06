@@ -1,5 +1,5 @@
 <div class="dashboard-container">
-   
+
    <h3 class="dashboard-title">Last {{displayedTimeSpan}} Days - {{userCalories}} Calories</h3>
 
    <div class="dashboard-data-container">
@@ -12,17 +12,17 @@
             <linearGradient id="myGradient" gradientTransform="rotate(90)">
 
                <stop [attr.offset]="redGradientPart" stop-color="red" />
-               <stop [attr.offset]="greenGradientPart" stop-color="green" />
-               <stop offset="100%" stop-color="green" />
+               <stop [attr.offset]="greenGradientPart" stop-color="limegreen" />
+               <stop offset="100%" stop-color="limegreen" />
 
             </linearGradient>
          </defs>
       </svg>
 
-      <mat-slider class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical thumbLabel
+      <mat-slider color="primary" class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical thumbLabel
          [min]="sliderMinValue" [max]="sliderMaxValue" [value]="sliderValue"></mat-slider>
    </div>
 
-   <mat-slider class="days-slider" (input)="daysChangeSubject.next($event)" thumbLabel min="7" max="180" value="7">
+   <mat-slider color="primary" class="days-slider" (input)="daysChangeSubject.next($event)" thumbLabel min="7" max="180" value="7">
    </mat-slider>
 </div>

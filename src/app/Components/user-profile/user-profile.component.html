@@ -1,40 +1,56 @@
 <div class="user-profile-container">
 
-    <h1 class="user-profile-title">{{user.firstName}} {{user.lastName}}</h1>
+    <div>
 
-    <div class="user-profile-form-container">
+            <h1 class="user-profile-title">{{user.firstName}} {{user.lastName}}</h1>
 
-        <form [formGroup]="userProfileForm">
-            <mat-form-field>
-                <input matInput formControlName="firstName" placeholder="First Name" required>
-                <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput formControlName="lastName" placeholder="Last Name" required>
-                <mat-error *ngIf="userProfileForm.controls.lastName.errors">Please insert a last name</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-                <input matInput formControlName="email" placeholder="Your Email" required>
-                <mat-error *ngIf="userProfileForm.controls.email.errors">Invalid Email</mat-error>
-            </mat-form-field>
-
-            <mat-form-field>
-                <input type="number" matInput formControlName="targetCalories" placeholder="Daily calories target" required>
-                <mat-error *ngIf="userProfileForm.controls.targetCalories.errors">Please insert the daily calories target
-                </mat-error>
-            </mat-form-field>
-
-            <div class="user-profile-buttons">
-                <button class="edit-button" mat-raised-button (click)="editing ? save() : edit()">{{buttonMessage}}</button>
-                <button *ngIf="editing" class="edit-button" (click)="abort()" mat-raised-button>Abort</button>
+            <div class="user-profile-form-container">
+        
+                <form [formGroup]="userProfileForm">
+                    <mat-form-field>
+                        <input matInput formControlName="firstName" placeholder="First Name" required>
+                        <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <input matInput formControlName="lastName" placeholder="Last Name" required>
+                        <mat-error *ngIf="userProfileForm.controls.lastName.errors">Please insert a last name</mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <input matInput formControlName="email" placeholder="Your Email" required>
+                        <mat-error *ngIf="userProfileForm.controls.email.errors">Invalid Email</mat-error>
+                    </mat-form-field>
+        
+                    <mat-form-field>
+                        <input type="number" matInput formControlName="targetCalories" placeholder="Daily calories target"
+                            required>
+                        <mat-error *ngIf="userProfileForm.controls.targetCalories.errors">Please insert the daily calories
+                            target
+                        </mat-error>
+                    </mat-form-field>
+        
+                    <div class="user-profile-buttons">
+                        <button color="primary" class="edit-button" mat-raised-button
+                            (click)="editing ? save() : edit()">{{buttonMessage}}</button>
+                        <button color="primary" *ngIf="editing" class="edit-button" (click)="abort()" mat-raised-button>Abort</button>
+                    </div>
+        
+                </form>
             </div>
 
-        </form>
     </div>
 
-    <h1>Total Meals : {{stats.totalMeals}}</h1>
-    <h1>Total Calories : {{stats.totalCalories}}</h1>
-    <h1>Average Calories: {{stats.averageCalories}}</h1>
+    
+
+    <div class="user-profile-stats">
+        <h2>Total Meals : <span>{{stats.totalMeals}}</span></h2>
+        <h2>Total Calories : <span>{{stats.totalCalories}}</span> </h2>
+        <h2>Average Calories : <span>{{stats.averageCalories}}</span></h2>
+        <h2>Meals over the calories target (Bad) : <span>{{stats.mealsAboveTarget}}</span></h2>
+        <h2>Meals below the calories target (Good) : <span>{{stats.mealsBelowTarget}}</span></h2>
+        <h2>Most caloric Meal : <span>{{stats.mostCaloricMealTitle}}</span> - <span>{{stats.mostCaloriMealCalories}}</span> Calories</h2>
+        <h2>Most caloric Meal : <span>{{stats.leastCaloricMealTitle}}</span> - <span>{{stats.leastCaloricMealCalories}}</span> Calories</h2>
+    </div>
+
 </div>
