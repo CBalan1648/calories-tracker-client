@@ -1,23 +1,28 @@
 <div class="dashboard-container">
-   <div> Last 7 days </div>
-
+   
+   <h3 class="dashboard-title">Last {{displayedTimeSpan}} Days - {{userCalories}} Calories</h3>
 
    <div class="dashboard-data-container">
-      <svg width="600" height="300" class="dasboard-svg">
+      <svg class="dasboard-svg" #svgElementIdentifier>
          <svg:g>
             <svg:path [attr.d]="svgPath" stroke="url(#myGradient)" stroke-width="5" fill="none" />
             <svg:path [attr.d]="svgPathCalories" stroke="red" stroke-width="2" fill="none" />
          </svg:g>
          <defs>
             <linearGradient id="myGradient" gradientTransform="rotate(90)">
-           
+
                <stop [attr.offset]="redGradientPart" stop-color="red" />
-               <stop [attr.offset]="redGradientPart" stop-color="green" />
-        >
+               <stop [attr.offset]="greenGradientPart" stop-color="green" />
+               <stop offset="100%" stop-color="green" />
+
             </linearGradient>
          </defs>
       </svg>
 
-      <mat-slider (input)="sliderChange($event)" vertical thumbLabel [min]="sliderMinValue" [max]="sliderMaxValue" [value]="sliderValue"></mat-slider>
+      <mat-slider class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical thumbLabel
+         [min]="sliderMinValue" [max]="sliderMaxValue" [value]="sliderValue"></mat-slider>
    </div>
+
+   <mat-slider class="days-slider" (input)="daysChangeSubject.next($event)" thumbLabel min="7" max="180" value="7">
+   </mat-slider>
 </div>

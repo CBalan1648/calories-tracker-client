@@ -2,5 +2,15 @@
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
-  align-content: space-evenly;
+  width: 100%;
+  justify-content: center;
+}
+
+app-dashboard {
+  flex-grow: 2;
+  flex-basis: 500px;
+}
+.home-input-group {
+  display: flex;
+  flex-wrap: wrap;
 }

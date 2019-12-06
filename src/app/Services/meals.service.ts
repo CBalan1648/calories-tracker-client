@@ -16,7 +16,6 @@ export class MealsService {
   private observablesMap: Map<string, BehaviorSubject<any>> = new Map();
 
   private currentFilterSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
-  public currentFilter: Observable<Meal[]> = this.currentFilterSubject.asObservable();
 
   public currentFilteredMeals: Observable<any[]>;
 
@@ -25,7 +24,9 @@ export class MealsService {
   constructor(private http: HttpClient, userService: UserService) {
 
     userService.getUserObservable().subscribe(user => {
-      this.currentFilteredMeals = combineLatest(this.getRawObservable(user._id), this.currentFilter).pipe(map(filterMeals));
+      this.currentFilteredMeals = combineLatest(this.getRawObservable(user._id), this.currentFilterSubject.asObservable()).pipe(
+        map(filterMeals)
+        );
       this.user = user;
       this.currentFilteredAndGroupedMeals = combineLatest(this.currentFilteredMeals, userService.getUserObservable()).pipe(
         filter(([ob1, ob2]) => !!ob1 && !!ob2),
@@ -79,8 +80,12 @@ export class MealsService {
     return this.observablesMap.get(userId);
   }
 
-  getFilteredObservable() {
+  getFilteredMealObservable() {
     return this.currentFilteredAndGroupedMeals;
+  }
+
+  getFilterObservable() {
+    return this.currentFilterSubject.asObservable();
   }
 
   deleteMealRequest(mealId, userId = this.user._id): void {
@@ -190,9 +195,9 @@ const updateMealWithCalories = ([filteredMealsObservable, userObservable]) => {
     mergeMap((mealArray: Meal[]) => from(mealArray).pipe(
       groupBy((meal: Meal) => {
         const mealDate = new Date(meal.time);
-        const mealDay = `${mealDate.getUTCDate()}-${mealDate.getUTCMonth()+1}-${mealDate.getUTCFullYear()}`;
-        meal.day = mealDay
-        return mealDay
+        const mealDay = `${mealDate.getUTCDate()}-${mealDate.getUTCMonth() + 1}-${mealDate.getUTCFullYear()}`;
+        meal.day = mealDay;
+        return mealDay;
       }),
       mergeMap((groupedMealsObservable: Observable<any>) => groupedMealsObservable.pipe(
         reduce((acc, cur) => [...acc, cur], []),
