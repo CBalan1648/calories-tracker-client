@@ -4,18 +4,23 @@ export const getLastXDaysCalories = (days, daysMap: Map<string, number>) => {
     const caloriesByDay = [];
 
     for (let x = 0; x < days; x++) {
-        caloriesByDay.push(daysMap.get(`${date.getUTCDate()}-${date.getUTCMonth() + 1}-${date.getUTCFullYear()}`) || 0);
+        const time = date.getTime();
+        const day = `${date.getUTCDate()}-${date.getUTCMonth() + 1}-${date.getUTCFullYear()}`;
+        const calories = daysMap.get(day) || 0;
+
+
+        caloriesByDay.push([calories, time, day]);
         date.setDate(date.getDate() - 1);
     }
     return caloriesByDay.reverse();
 };
 
 export const normalizeDataHeight = (array, height) => {
-    const maxValue = Math.max(...array);
+    const maxValue = Math.max(...array.map(val => val[0]));
     const ajustedMax = maxValue + maxValue / 3;
 
     return array.map((value) => {
-        return Math.floor(height / ajustedMax * value);
+        return Math.floor(height / ajustedMax * value[0]);
     });
 };
 

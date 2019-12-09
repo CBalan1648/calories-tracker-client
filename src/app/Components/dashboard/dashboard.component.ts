@@ -40,6 +40,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private sliderMaxValue = 1;
   private sliderValue = 1;
 
+  private normalizedPositions: Array<Array<number>>;
+
   constructor(private readonly userService: UserService, private readonly mealService: MealsService) { }
 
   ngOnInit() {
@@ -100,7 +102,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   calculateSvgPathCalories() {
-    const maxCalories = Math.max(...this.caloriesByDay);
+    const maxCalories = Math.max(...this.caloriesByDay.map(caloriesData => caloriesData[0]));
     const normalizedCaloriesHeight = Math.floor(this.height / (maxCalories + maxCalories / 3) * this.userCalories);
     const reversedCaloriesHeight = this.height - normalizedCaloriesHeight;
 
@@ -124,6 +126,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   calculateSvgPath() {
     const normalizedData = reverseDataHeight(normalizeDataHeight(this.caloriesByDay, this.height), this.height);
     const normalizedPositions = (addNormalizedDataWidth(normalizedData, this.width));
+    this.normalizedPositions = normalizedPositions;
     this.svgPath = createSvgPath(normalizedPositions);
   }
 }
