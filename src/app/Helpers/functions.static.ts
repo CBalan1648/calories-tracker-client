@@ -25,6 +25,17 @@ export const getRegisterFormFormValues = (form) => {
     };
 };
 
+export const getRegisterFormFormValuesAdmin = (form) => {
+    const formValues = form.controls;
+    return {
+        firstName: formValues.firstName.value,
+        lastName: formValues.lastName.value,
+        email: formValues.email.value,
+        password: formValues.password.value,
+        authLevel: formValues.authLevel.value,
+    };
+};
+
 export const isAdmin = (user) => user && user.authLevel === 'ADMIN';
 
 export const getEditMealFormValues = (form, data) => {

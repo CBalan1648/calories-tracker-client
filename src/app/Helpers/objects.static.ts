@@ -12,6 +12,7 @@ export const addUserFormConfig = {
     lastName: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
     password: ['', [Validators.required, Validators.minLength(8)]],
+    authLevel: [''],
 };
 
 export const editMealFormConfig = (data) => {

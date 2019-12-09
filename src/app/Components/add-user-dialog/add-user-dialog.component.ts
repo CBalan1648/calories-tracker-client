@@ -2,7 +2,7 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { getRegisterFormFormValues } from 'src/app/Helpers/functions.static';
+import { getRegisterFormFormValuesAdmin } from 'src/app/Helpers/functions.static';
 import { addUserFormConfig } from 'src/app/Helpers/objects.static';
 import { AdminService } from 'src/app/Services/admin.service';
 import { RegisterService } from 'src/app/Services/register.service';
@@ -36,7 +36,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.registerForm.status === 'VALID') {
-      this.observableSubject.next([getRegisterFormFormValues(this.registerForm), false]);
+      this.observableSubject.next([getRegisterFormFormValuesAdmin(this.registerForm), false]);
       this.adminService.getUsers();
       this.onClose();
     }

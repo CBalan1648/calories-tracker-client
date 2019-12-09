@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
   addNewUser() {
    this.popupDialog.open(AddUserDialogComponent, {
       width: '400px',
-      height : '500px',
+      height : '550px',
       panelClass : 'custom-dialog',
       data: null,
     });

@@ -23,6 +23,14 @@
             <mat-error *ngIf="registerForm.controls.password.errors">Please insert a password</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button type="submit">Register</button>
+        <mat-form-field>
+            <mat-select formControlName="authLevel" matNativeControl placeholder="User Role">
+                <mat-option value="USER">User</mat-option>
+                <mat-option value="USER_MANAGER">User manager</mat-option>
+                <mat-option value="ADMIN">Admin</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-raised-button type="submit">Add New</button>
     </form>
 </div>

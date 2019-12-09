@@ -6,13 +6,17 @@ import { retry, take, tap } from 'rxjs/operators';
 import { apiAddress } from '../config';
 import { User } from '../Models/user';
 import { UserService } from './user.service';
+import { TopNotificationService } from './top-notification.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
 
-  constructor(private http: HttpClient, private router: Router, private userService: UserService) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private userService: UserService,
+              private notification: TopNotificationService) { }
 
   connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.pipe(
@@ -25,6 +29,7 @@ export class LoginService {
   }
 
   loginUserRequest(userData) {
+
     this.http.post<any>(`${apiAddress}/api/users/login`, userData).pipe(retry(3), take(1)).subscribe(response => {
 
       const [responseUserData, valid] = getTokenData(response.access_token);
