@@ -12,6 +12,7 @@ export const resetMealForm = (form) => {
     form.reset();
     form.controls.calories.setErrors(null);
     form.controls.title.setErrors(null);
+    form.status = 'INVALID';
 };
 
 export const getRegisterFormFormValues = (form) => {

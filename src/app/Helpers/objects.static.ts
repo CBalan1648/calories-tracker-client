@@ -14,12 +14,19 @@ export const addUserFormConfig = {
     password: ['', [Validators.required, Validators.minLength(8)]],
 };
 
-export const editMealFormConfig = (data) => ({
+export const editMealFormConfig = (data) => {
+    const date = new Date(data.meal.time);
+    const offset = date.getTimezoneOffset();
+    const additionalTime = -offset * 60000;
+    const localTime = data.meal.time + additionalTime;
+    const dateArray = new Date(localTime).toISOString().slice(0, -1).split(':');
+
+    return {
     title: [data.meal.title, Validators.required],
     description: [data.meal.description],
-    time: [new Date(data.meal.time).toISOString().slice(0, -1)],
+    time: [`${dateArray[0]}:${dateArray[1]}`],
     calories: [data.meal.calories, Validators.required]
-});
+}; };
 
 
 export const editUserFormConfig = (userData) => ({

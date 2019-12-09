@@ -37,6 +37,7 @@ import { SearchUserDialogComponent } from './Components/search-user-dialog/searc
 import { TopNotificationComponent } from './Components/top-notification/top-notification.component';
 import { UserProfileComponent } from './Components/user-profile/user-profile.component';
 import { AuthGuard } from './Helpers/auth.guard';
+import { WeekDayPipe } from './Helpers/week-day.pipe';
 
 const routes: Routes = [
     { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
@@ -66,7 +67,8 @@ export const AppDeclarations = [
     EditUserDialogComponent,
     AddUserDialogComponent,
     AddMealDialogComponent,
-    SearchUserDialogComponent
+    SearchUserDialogComponent,
+    WeekDayPipe,
 ];
 
 export const AppImports = [
