@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, Observable, Subscription } from 'rxjs';
-import { retry, take } from 'rxjs/operators';
+import { BehaviorSubject, Observable, ObservableInput, Subscription } from 'rxjs';
+import { catchError, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
+import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
+import { ResponseHandlerService } from './response-handler.service';
 
 const emptyUser = { _id: undefined };
 
@@ -13,7 +15,9 @@ const emptyUser = { _id: undefined };
 export class UserService {
   private currentUserSubject: BehaviorSubject<any> = new BehaviorSubject<any>(emptyUser);
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(private http: HttpClient,
+              private router: Router,
+              private responseHandlerService: ResponseHandlerService) { }
 
   public updateUser(user) {
     this.currentUserSubject.next(user);
@@ -35,25 +39,33 @@ export class UserService {
     });
   }
 
-  connectRequestObservable(observable: Observable<any>): Subscription {
+  private informUserOfError(error, caught): ObservableInput<any> {
+    this.responseHandlerService.handleResponseCode('meal', error.status);
+    throw error;
+  }
+
+  public connectRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(updateBody => {
       this.editUserRequest.call(this, updateBody);
     });
   }
 
-  disconnectRequestObservable(subscription: Subscription): void {
+  public disconnectRequestObservable(subscription: Subscription): void {
     subscription.unsubscribe();
   }
 
-  editUserRequest(userData) {
+  private handleEditUserResponse(userData, response) {
+    if (response.body.nModified === 1) {
+      this.updateUser(userData);
+    }
+  }
+
+  public editUserRequest(userData) {
     const { token, email, _id, ...updateData } = userData;
     this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
-      retry(3),
+      retryWhen(requestRetryStrategy()),
+      catchError(this.informUserOfError.bind(this)),
       take(1)
-    ).subscribe(response => {
-      if (response.body.nModified === 1) {
-        this.updateUser(userData);
-      }
-    });
+    ).subscribe(this.handleEditUserResponse.bind(this, userData));
   }
 }

@@ -9,12 +9,11 @@ export class TopNotificationService {
 
   constructor() { }
 
-  setMessage(message: string): void {
-    console.log("MESSAGE SET")
+  public setMessage(message: string): void {
     this.subject.next(message);
   }
 
-  getMessage(): Observable<any> {
+  public getMessage(): Observable<any> {
     return this.subject.asObservable();
   }
 }

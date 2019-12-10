@@ -11,7 +11,7 @@ export const addUserFormConfig = {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(12)]],
     authLevel: [''],
 };
 
@@ -23,11 +23,12 @@ export const editMealFormConfig = (data) => {
     const dateArray = new Date(localTime).toISOString().slice(0, -1).split(':');
 
     return {
-    title: [data.meal.title, Validators.required],
-    description: [data.meal.description],
-    time: [`${dateArray[0]}:${dateArray[1]}`],
-    calories: [data.meal.calories, Validators.required]
-}; };
+        title: [data.meal.title, Validators.required],
+        description: [data.meal.description],
+        time: [`${dateArray[0]}:${dateArray[1]}`],
+        calories: [data.meal.calories, Validators.required]
+    };
+};
 
 
 export const editUserFormConfig = (userData) => ({
@@ -57,18 +58,18 @@ export const registerFormConfig = {
     firstName: ['', Validators.required],
     lastName: ['', Validators.required],
     email: ['', [Validators.email, Validators.required]],
-    password: ['', [Validators.required, Validators.minLength(8)]],
+    password: ['', [Validators.required, Validators.minLength(12)]],
     repeatPassword: ['', Validators.required]
 };
 
 export const searchUserFormConfig = (data) => ({
     searchString: [data.searchString],
     searchAuthLevel: [data.searchAuthLevel],
-  });
+});
 
 export const userProfileFormConfig = {
     firstName: [{ value: '', disabled: true }, Validators.required],
     lastName: [{ value: '', disabled: true }, Validators.required],
     email: [{ value: '', disabled: true }],
     targetCalories: [{ value: '', disabled: true }, [Validators.required]],
-  };
+};

@@ -1,9 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
-import { filter, map, retry, take } from 'rxjs/operators';
+import { BehaviorSubject, combineLatest, Observable, ObservableInput, Subscription } from 'rxjs';
+import { catchError, filter, map, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
+import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
 import { User } from '../Models/user';
+import { ResponseHandlerService } from './response-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,80 +13,95 @@ import { User } from '../Models/user';
 export class AdminService {
 
   private usersSubject = new BehaviorSubject<any>(null);
-  private filterSubject: BehaviorSubject<any> = new BehaviorSubject<any>({ searchString: '', searchAuthLevel: '' });
+  private filterSubject = new BehaviorSubject<any>({ searchString: '', searchAuthLevel: '' });
 
   public currentFilteredUsers: Observable<any[]> = combineLatest(this.usersSubject.asObservable(), this.filterSubject.asObservable()).pipe(
-    filter(([ob1, ob2]) => !!ob1 && !!ob2),
+    filter(([userObservableData, filterObservableData]) => !!userObservableData && !!filterObservableData),
     map(filterUsers)
   );
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private responseHandlerService: ResponseHandlerService) { }
 
   public getUserObservable() {
     return this.currentFilteredUsers;
   }
 
-  connectEditUserRequestObservable(observable: Observable<any>): Subscription {
+  public connectEditUserRequestObservable(observable: Observable<any>): Subscription {
     return observable.subscribe(userData => {
       this.updateUserRequest.call(this, userData);
     });
   }
 
-  connectFilterObservable(observable: Observable<any>): Subscription {
+  public connectFilterObservable(observable: Observable<any>): Subscription {
     return observable.subscribe((filterValue) => { this.filterSubject.next(filterValue); });
   }
 
-  disconnectObservable(subscription: Subscription): void {
+  public disconnectObservable(subscription: Subscription): void {
     subscription.unsubscribe();
   }
 
-  clearFilterObservable(): void {
+  public clearFilterObservable(): void {
     this.filterSubject.next({ searchString: '', searchAuthLevel: '' });
   }
 
-  getFilterObservable() {
+  public getFilterObservable() {
     return this.filterSubject.asObservable();
+  }
+
+  private informUserOfError(error, caught): ObservableInput<any> {
+    this.responseHandlerService.handleResponseCode('user', error.status);
+    throw error;
+  }
+
+  private handleGetUserResponse(responseBody) {
+    this.usersSubject.next(responseBody);
+  }
+
+  private handleDeleteUserResponse(userId, response) {
+    if (response.body.deletedCount === 0) {return void 0; }
+
+    this.getUserObservable().pipe(take(1)).subscribe(currentUsersArray => {
+        const updatedUsersArray = currentUsersArray.filter(user => user._id !== userId);
+        this.usersSubject.next(updatedUsersArray);
+      });
+  }
+
+  private handleUpdateUserResponse(userData, response) {
+    if (response.body.nModified === 0) {return void 0; }
+
+    this.usersSubject.asObservable().pipe(take(1)).subscribe(currentUserArray => {
+        const updatedUserIndex = currentUserArray.findIndex(arrayElement => arrayElement._id === userData._id);
+        const updatedArray = [...currentUserArray];
+        updatedArray.splice(updatedUserIndex, 1, userData);
+
+        this.usersSubject.next(updatedArray);
+      });
   }
 
   public getUsers(): void {
     this.http.get(`${apiAddress}/api/users`).pipe(
-      retry(3),
+      retryWhen(requestRetryStrategy()),
+      catchError(this.informUserOfError.bind(this)),
       take(1),
-    ).subscribe(users => {
-      this.usersSubject.next(users);
-    });
+    ).subscribe(this.handleGetUserResponse.bind(this));
   }
 
-  deleteUserRequest(userId) {
+  public deleteUserRequest(userId) {
     this.http.delete<any>(`${apiAddress}/api/users/${userId}`, { observe: 'response' }).pipe(
-      retry(3),
+      retryWhen(requestRetryStrategy()),
+      catchError(this.informUserOfError.bind(this)),
       take(1)
-    ).subscribe(response => {
-      if (response.body.deletedCount === 1) {
-        this.getUserObservable().pipe(take(1)).subscribe(currentUsersArray => {
-          const updatedUsersArray = currentUsersArray.filter(user => user._id !== userId);
-          this.usersSubject.next(updatedUsersArray);
-        });
-      }
-    });
+    ).subscribe(this.handleDeleteUserResponse.bind(this, userId));
   }
 
-  updateUserRequest(userData) {
+  public updateUserRequest(userData) {
     const { token, email, _id, ...updateData } = userData;
     this.http.put<any>(`${apiAddress}/api/users/${userData._id}`, updateData, { observe: 'response' }).pipe(
-      retry(3),
+      retryWhen(requestRetryStrategy()),
+      catchError(this.informUserOfError.bind(this)),
       take(1),
-    ).subscribe((response: any) => {
-      if (response.body.nModified === 1) {
-        this.usersSubject.asObservable().pipe(take(1)).subscribe(currentUserArray => {
-          const updatedUserIndex = currentUserArray.findIndex(arrayElement => arrayElement._id === userData._id);
-          const updatedArray = [...currentUserArray];
-          updatedArray.splice(updatedUserIndex, 1, userData);
-
-          this.usersSubject.next(updatedArray);
-        });
-      }
-    });
+    ).subscribe(this.handleUpdateUserResponse.bind(this, userData));
   }
 }
 
