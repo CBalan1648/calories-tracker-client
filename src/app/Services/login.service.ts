@@ -44,7 +44,7 @@ export class LoginService {
   }
 
   public loginUserRequest(userData) {
-    this.http.post<any>(`${apiAddress}/api/users/login`, userData, { observe: 'response' }).pipe(
+    this.http.post<any>(`${apiAddress}/api/login`, userData, { observe: 'response' }).pipe(
       retryWhen(requestRetryStrategy()),
       catchError(this.informUserOfError.bind(this)),
       take(1)

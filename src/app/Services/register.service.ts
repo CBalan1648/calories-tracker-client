@@ -23,6 +23,13 @@ export class RegisterService {
     });
   }
 
+  public connectRequestObservableAdmin(observable: Observable<any>): Subscription {
+    return observable.subscribe(registerRequest => {
+      const [newUserData, autologin] = registerRequest;
+      this.registerUserRequestAdmin(newUserData, !!autologin);
+    });
+  }
+
   public disconnectRequestObservable(subscription: Subscription): void {
     subscription.unsubscribe();
   }
@@ -39,7 +46,15 @@ export class RegisterService {
   }
 
   public registerUserRequest(userData, autologin = false) {
-    this.http.post<any>(`${apiAddress}/api/users/`, userData, { observe: 'response' }).pipe(
+    this.http.post<any>(`${apiAddress}/api/new/`, userData, { observe: 'response' }).pipe(
+      retryWhen(requestRetryStrategy()),
+      catchError(this.informUserOfError.bind(this)),
+      take(1)
+    ).subscribe(this.handleRegisterUserResponse.bind(this, userData, autologin));
+  }
+
+  public registerUserRequestAdmin(userData, autologin = false) {
+    this.http.post<any>(`${apiAddress}/api/new/`, userData, { observe: 'response' }).pipe(
       retryWhen(requestRetryStrategy()),
       catchError(this.informUserOfError.bind(this)),
       take(1)

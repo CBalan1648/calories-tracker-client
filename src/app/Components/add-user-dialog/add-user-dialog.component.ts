@@ -27,7 +27,7 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
   registerForm = this.formBuilder.group(addUserFormConfig);
 
   ngOnInit() {
-    this.observableSubscription = this.registerService.connectRequestObservable(this.observableSubject);
+    this.observableSubscription = this.registerService.connectRequestObservableAdmin(this.observableSubject);
   }
 
   ngOnDestroy() {
