@@ -30,6 +30,9 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private width = 600;
   private height = 300;
   private redGradientPart: string;
+  /**
+   * daca documentez aici o sa vad usor oriunde vreau sa folosesc fara sa dau scroll sau sa deschid fisierul
+   */
   private greenGradientPart: string;
   private svgPath = 'M 0 0';
   private svgPathCalories = 'M 0 0';
@@ -38,6 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private sliderMinValue = 0 + 10;
   private sliderMaxValue = 1;
+  
   private sliderValue = 1;
 
   private normalizedPositions: Array<Array<number>>;
