@@ -3,11 +3,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarRef } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { AddUserDialogComponent } from './Components/add-user-dialog/add-user-dialog.component';
-import { SearchUserDialogComponent } from './Components/search-user-dialog/search-user-dialog.component';
-import { User } from './Models/user';
-import { AdminService } from './Services/admin.service';
-import { UserService } from './Services/user.service';
+import { AddUserDialogComponent } from './pages/admin/components/add-user-dialog/add-user-dialog.component';
+import { SearchUserDialogComponent } from './pages/admin/components/search-user-dialog/search-user-dialog.component';
+import { User } from './models/user';
+import { AdminService } from './services/admin.service';
+import { UserService } from './services/user.service';
 
 @Component({
   selector: 'app-root',
@@ -87,7 +87,7 @@ export class AppComponent implements OnInit, OnDestroy {
   addNewUser() {
    this.popupDialog.open(AddUserDialogComponent, {
       width: '400px',
-      height : '500px',
+      height : '550px',
       panelClass : 'custom-dialog',
       data: null,
     });

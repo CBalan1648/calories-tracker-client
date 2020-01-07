@@ -1,0 +1,38 @@
+<div class="profile-form-container">
+
+    <form [formGroup]="userProfileForm" (ngSubmit)="submitForm()">
+
+        <h2>Editing User</h2>
+
+        <mat-form-field>
+            <mat-select formControlName="authLevel" matNativeControl placeholder="User Role">
+                <mat-option value="USER">User</mat-option>
+                <mat-option value="USER_MANAGER">User manager</mat-option>
+                <mat-option value="ADMIN">Admin</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput formControlName="firstName" placeholder="First Name" required>
+            <mat-error *ngIf="userProfileForm.controls.firstName.errors">Please insert a first name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput formControlName="lastName" placeholder="Last Name" required>
+            <mat-error *ngIf="userProfileForm.controls.lastName.errors">Please insert a last name</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput formControlName="email" placeholder="Your Email" required>
+            <mat-error *ngIf="userProfileForm.controls.email.errors">Invalid Email</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input type="number" matInput formControlName="targetCalories" placeholder="Daily calories target" required>
+            <mat-error *ngIf="userProfileForm.controls.targetCalories.errors">Please insert the daily calories target
+            </mat-error>
+        </mat-form-field>
+
+        <button class="edit-button" mat-raised-button type="submit">Done</button>
+    </form>
+</div>

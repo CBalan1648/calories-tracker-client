@@ -1,0 +1,51 @@
+@import "../../../material.theme.scss";
+
+.profile-container {
+  margin-left: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.profile-title {
+  color: mat-color($primary, 500);
+}
+
+.edit-button {
+  width: 50px;
+}
+
+.profile-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.profile-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding-top: 40px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  padding-bottom: 20px;
+  min-width: 400px;
+}
+
+img {
+  width: 50%;
+  height: auto;
+  padding-bottom: 50px;
+}
+
+
+span {
+  color : mat-color($primary, A400)
+}

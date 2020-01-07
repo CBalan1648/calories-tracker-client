@@ -7,34 +7,34 @@ mat-sidenav-container {
 .home-sidebar {
   border: 0;
   width: 80px;
-  @include bg-accent(800);
+  background-color: mat-color($accent, 900);
 }
 
 .sidebar-button {
-  @include bg-accent(800);
+  background-color: mat-color($accent, 900);
   transition: color 0.4s ease-in-out;
-  @include color-primary(600);
+  color: mat-color($primary, 600)
 }
 
 .sidebar-button-active {
-  @include bg-primary(A300);
-  @include color-primary(A400);
+  background-color: mat-color($primary, A300);
+  color: mat-color($primary, A400);
   border-left: solid 4px;
   transition: color 0.4s ease-in-out;
 }
 
 .sidebar-add-button-active {
-  @include bg-primary(700);
+  background-color: mat-color($primary, 700);
   border-left: solid 4px;
-  @include color-accent(50);
+  color: mat-color($accent, 50);
   animation-name: flashingAnimationAdd;
   animation-duration: 1s;
 }
 
 .sidebar-search-button-active {
-  @include bg-primary(700);
+  background-color: mat-color($primary, 700);
   border-left: solid 4px;
-  @include color-accent(50);
+  color: mat-color($accent, 50);
   animation-name: flashingAnimationSearch;
   animation-duration: 1s;
 }
@@ -47,7 +47,7 @@ mat-sidenav-container {
     color: mat-color($primary, A200);
   }
   100% {
-    @include color-accent(50);
+    color: mat-color($accent, 50);
   }
 }
 
@@ -61,7 +61,7 @@ mat-sidenav-container {
     color: mat-color($primary, A200);
   }
   100% {
-    @include color-accent(50);
+    color: mat-color($accent, 50);
   }
 }
 

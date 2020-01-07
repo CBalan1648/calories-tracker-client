@@ -1,0 +1,65 @@
+<cdk-virtual-scroll-viewport class="user-scroll-viewport" role="table" itemSize="20">
+
+    <mat-expansion-panel *cdkVirtualFor="let user of users " (opened)="loadData(user._id)" cli>
+        <mat-expansion-panel-header class="admin-extension-panel">
+            <div class="flex-table-cell">
+                {{user.firstName}} {{user.lastName}}
+            </div>
+            <div class="flex-table-cell">
+                {{user.email}}
+            </div>
+            <div class="flex-table-cell">
+                {{user.authLevel}}
+            </div>
+
+        </mat-expansion-panel-header>
+        <ng-template matExpansionPanelContent>
+            <div>
+                <mat-list>
+                    <mat-list-item>
+
+                        <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)">
+                            <button mat-raised-button color="primary" (click)="openEditUserDialog(user)">
+                                <i class="material-icons">edit</i>
+                                Edit User
+                            </button>
+                        </div>
+
+                        <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)">
+                            <button mat-raised-button color="primary" (click)="deleteUser(user._id)">
+                                <i class="material-icons">delete_forever</i>
+                                Delete User
+                            </button>
+                        </div>
+
+                        <div class="flex-table-cell header-cell">
+                            <button mat-raised-button color="primary" (click)="openMealAddDialog(user._id)">
+                                <i class="material-icons"> library_add </i>
+                                New Meal
+                            </button>
+                        </div>
+
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <cdk-virtual-scroll-viewport class="meals-scroll-viewport flex-table" role="table" itemSize="20">
+                        <mat-list-item class="admin-list-item" *cdkVirtualFor="let meal of getData(user._id)">
+
+                            <div class="flex-table-cell title">{{meal.title}} </div>
+                            <div class="flex-table-cell time"> {{meal.time | weekday}} - {{meal.time | date:'short'}}
+                            </div>
+                            <div class="flex-table-cell description"> -- {{meal.description}}</div>
+                            <div class="flex-table-cell actions">
+                                <button mat-raised-button (click)="openEditDialog(meal, user._id)"><i
+                                        class="material-icons">edit</i></button>
+                                <button mat-raised-button (click)="deleteMeal(meal._id, user._id)"><i
+                                        class="material-icons">delete</i></button>
+                            </div>
+
+                        </mat-list-item>
+                    </cdk-virtual-scroll-viewport>
+                </mat-list>
+            </div>
+        </ng-template>
+    </mat-expansion-panel>
+
+</cdk-virtual-scroll-viewport>

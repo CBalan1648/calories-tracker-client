@@ -11,6 +11,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSliderModule } from '@angular/material/slider';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -18,24 +19,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { AddMealDialogComponent } from './Components/add-meal-dialog/add-meal-dialog.component';
-import { AddUserDialogComponent } from './Components/add-user-dialog/add-user-dialog.component';
-import { AdminComponent } from './Components/admin/admin.component';
-import { DashboardComponent } from './Components/dashboard/dashboard.component';
-import { EditMealDialogComponent } from './Components/edit-meal-dialog/edit-meal-dialog.component';
-import { EditUserDialogComponent } from './Components/edit-user-dialog/edit-user-dialog.component';
-import { FilterMenuComponent } from './Components/filter-menu/filter-menu.component';
-import { HeaderComponent } from './Components/header/header.component';
-import { HomeComponent } from './Components/home/home.component';
-import { LoginFormComponent } from './Components/login-form/login-form.component';
-import { MealFormComponent } from './Components/meal-form/meal-form.component';
-import { MealsComponent } from './Components/meals/meals.component';
-import { PageNotFoundComponent } from './Components/page-not-found/page-not-found.component';
-import { RegisterFormComponent } from './Components/register-form/register-form.component';
-import { SearchUserDialogComponent } from './Components/search-user-dialog/search-user-dialog.component';
-import { TopNotificationComponent } from './Components/top-notification/top-notification.component';
-import { UserProfileComponent } from './Components/user-profile/user-profile.component';
-import { AuthGuard } from './Helpers/auth.guard';
+import { AddMealDialogComponent } from './pages/admin/components/add-meal-dialog/add-meal-dialog.component';
+import { AddUserDialogComponent } from './pages/admin/components/add-user-dialog/add-user-dialog.component';
+import { AdminComponent } from './pages/admin/admin.component';
+import { DashboardComponent } from './pages/home/components/dashboard/dashboard.component';
+import { EditMealDialogComponent } from './pages/shared/edit-meal-dialog/edit-meal-dialog.component';
+import { EditUserDialogComponent } from './pages/admin/components/edit-user-dialog/edit-user-dialog.component';
+import { FilterMenuComponent } from './pages/home/components/filter-menu/filter-menu.component';
+import { HeaderComponent } from './pages/shared/header/header.component';
+import { HomeComponent } from './pages/home/home.component';
+import { LoginFormComponent } from './pages/login/login.component';
+import { MealFormComponent } from './pages/shared/meal-form/meal-form.component';
+import { MealsComponent } from './pages/home/components/meals/meals.component';
+import { PageNotFoundComponent } from './pages/not-found/not-found.component';
+import { RegisterFormComponent } from './pages/register/register.component';
+import { SearchUserDialogComponent } from './pages/admin/components/search-user-dialog/search-user-dialog.component';
+import { TopNotificationComponent } from './pages/shared/top-notification/top-notification.component';
+import { UserProfileComponent } from './pages/profile/profile.component';
+import { AuthGuard } from './helpers/auth.guard';
+import { WeekDayPipe } from './helpers/week-day.pipe';
 
 const routes: Routes = [
     { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
@@ -65,7 +67,8 @@ export const AppDeclarations = [
     EditUserDialogComponent,
     AddUserDialogComponent,
     AddMealDialogComponent,
-    SearchUserDialogComponent
+    SearchUserDialogComponent,
+    WeekDayPipe,
 ];
 
 export const AppImports = [
@@ -88,6 +91,7 @@ export const AppImports = [
     MatDividerModule,
     ScrollingModule,
     MatSnackBarModule,
+    MatSliderModule,
 ];
 
 export const EntryComponents = [
