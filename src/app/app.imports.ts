@@ -28,14 +28,14 @@ import { EditUserDialogComponent } from './pages/admin/components/edit-user-dial
 import { FilterMenuComponent } from './pages/home/components/filter-menu/filter-menu.component';
 import { HeaderComponent } from './pages/shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
-import { LoginFormComponent } from './pages/login-form/login-form.component';
+import { LoginFormComponent } from './pages/login/login.component';
 import { MealFormComponent } from './pages/home/components/meal-form/meal-form.component';
 import { MealsComponent } from './pages/home/components/meals/meals.component';
-import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
-import { RegisterFormComponent } from './pages/register-form/register-form.component';
+import { PageNotFoundComponent } from './pages/not-found/not-found.component';
+import { RegisterFormComponent } from './pages/register/register.component';
 import { SearchUserDialogComponent } from './pages/admin/components/search-user-dialog/search-user-dialog.component';
 import { TopNotificationComponent } from './pages/shared/top-notification/top-notification.component';
-import { UserProfileComponent } from './pages/user-profile/user-profile.component';
+import { UserProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { WeekDayPipe } from './helpers/week-day.pipe';
 

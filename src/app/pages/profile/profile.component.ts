@@ -10,9 +10,9 @@ import { UserService } from 'src/app/services/user.service';
 import { TopNotificationService } from '../../services/top-notification.service';
 
 @Component({
-  selector: 'app-user-profile',
-  templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss']
+  selector: 'app-profile',
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class UserProfileComponent implements OnInit, OnDestroy {
 

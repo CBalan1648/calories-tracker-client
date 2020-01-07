@@ -1,10 +1,10 @@
-<div class="user-profile-container">
+<div class="profile-container">
 
     <div>
 
-            <h1 class="user-profile-title">{{user.firstName}} {{user.lastName}}</h1>
+            <h1 class="profile-title">{{user.firstName}} {{user.lastName}}</h1>
 
-            <div class="user-profile-form-container">
+            <div class="profile-form-container">
         
                 <form [formGroup]="userProfileForm">
                     <mat-form-field>
@@ -30,7 +30,7 @@
                         </mat-error>
                     </mat-form-field>
         
-                    <div class="user-profile-buttons">
+                    <div class="profile-buttons">
                         <button color="primary" class="edit-button" mat-raised-button
                             (click)="editing ? save() : edit()">{{buttonMessage}}</button>
                         <button color="primary" *ngIf="editing" class="edit-button" (click)="abort()" mat-raised-button>Abort</button>
@@ -43,7 +43,7 @@
 
     
 
-    <div class="user-profile-stats">
+    <div class="profile-stats">
         <h2>Total Meals : <span>{{stats.totalMeals}}</span></h2>
         <h2>Total Calories : <span>{{stats.totalCalories}}</span> </h2>
         <h2>Average Calories : <span>{{stats.averageCalories}}</span></h2>

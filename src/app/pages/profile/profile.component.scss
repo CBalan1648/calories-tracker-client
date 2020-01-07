@@ -1,6 +1,6 @@
 @import "../../../material.theme.scss";
 
-.user-profile-container {
+.profile-container {
   margin-left: 50px;
   display: flex;
   flex-direction: row;
@@ -8,7 +8,7 @@
   align-items: center;
 }
 
-.user-profile-title {
+.profile-title {
   color: mat-color($primary, 500);
 }
 
@@ -16,13 +16,13 @@
   width: 50px;
 }
 
-.user-profile-buttons {
+.profile-buttons {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
 
-.user-profile-form-container {
+.profile-form-container {
   display: flex;
   flex-direction: column;
   width: 400px;

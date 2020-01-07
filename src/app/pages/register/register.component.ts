@@ -8,9 +8,9 @@ import { registerFormConfig } from 'src/app/helpers/objects.static';
 import { getRegisterFormFormValues } from 'src/app/helpers/functions.static';
 
 @Component({
-  selector: 'app-register-form',
-  templateUrl: './register-form.component.html',
-  styleUrls: ['./register-form.component.scss']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterFormComponent implements OnDestroy, OnInit {
 

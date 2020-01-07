@@ -6,9 +6,9 @@ import { loginFormConfig } from 'src/app/helpers/objects.static';
 import { getLoginFormValues } from 'src/app/helpers/functions.static';
 
 @Component({
-  selector: 'app-login-form',
-  templateUrl: './login-form.component.html',
-  styleUrls: ['./login-form.component.scss']
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss']
 })
 export class LoginFormComponent implements OnDestroy, OnInit {
 
