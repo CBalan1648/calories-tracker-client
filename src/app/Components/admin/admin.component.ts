@@ -2,15 +2,15 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
-import { Meal } from 'src/app/Models/meal';
-import { User } from 'src/app/Models/user';
-import { AdminService } from 'src/app/Services/admin.service';
-import { MealsService } from 'src/app/Services/meals.service';
+import { Meal } from 'src/app/models/meal';
+import { User } from 'src/app/models/user';
+import { AdminService } from 'src/app/services/admin.service';
+import { MealsService } from 'src/app/services/meals.service';
 import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
-import { UserService } from 'src/app/Services/user.service';
-import { isAdmin } from 'src/app/Helpers/functions.static';
+import { UserService } from 'src/app/services/user.service';
+import { isAdmin } from 'src/app/helpers/functions.static';
 
 @Component({
   selector: 'app-admin',

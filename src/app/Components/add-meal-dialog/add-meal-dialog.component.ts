@@ -2,9 +2,9 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { getMealFormValues } from 'src/app/Helpers/functions.static';
-import { mealFormConfig } from 'src/app/Helpers/objects.static';
-import { MealsService } from 'src/app/Services/meals.service';
+import { getMealFormValues } from 'src/app/helpers/functions.static';
+import { mealFormConfig } from 'src/app/helpers/objects.static';
+import { MealsService } from 'src/app/services/meals.service';
 
 @Component({
   selector: 'app-add-meal-dialog',

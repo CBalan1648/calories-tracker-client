@@ -2,12 +2,12 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { getEditUserFormValues, getProfileFormValues } from 'src/app/Helpers/functions.static';
-import { userProfileFormConfig } from 'src/app/Helpers/objects.static';
-import { User } from 'src/app/Models/user';
-import { MealsService } from 'src/app/Services/meals.service';
-import { UserService } from 'src/app/Services/user.service';
-import { TopNotificationService } from '../../Services/top-notification.service';
+import { getEditUserFormValues, getProfileFormValues } from 'src/app/helpers/functions.static';
+import { userProfileFormConfig } from 'src/app/helpers/objects.static';
+import { User } from 'src/app/models/user';
+import { MealsService } from 'src/app/services/meals.service';
+import { UserService } from 'src/app/services/user.service';
+import { TopNotificationService } from '../../services/top-notification.service';
 
 @Component({
   selector: 'app-user-profile',

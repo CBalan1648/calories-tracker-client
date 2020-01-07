@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { filterFormConfig } from 'src/app/Helpers/objects.static';
-import { MealsService } from 'src/app/Services/meals.service';
+import { filterFormConfig } from 'src/app/helpers/objects.static';
+import { MealsService } from 'src/app/services/meals.service';
 
 @Component({
   selector: 'app-filter-menu',

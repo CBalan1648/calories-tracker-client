@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, retryWhen, take, tap } from 'rxjs/operators';
 import { apiAddress } from '../config';
-import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
-import { User } from '../Models/user';
+import { requestRetryStrategy } from '../helpers/request-retry.strategy';
+import { User } from '../models/user';
 import { ResponseHandlerService } from './response-handler.service';
 import { UserService } from './user.service';
 

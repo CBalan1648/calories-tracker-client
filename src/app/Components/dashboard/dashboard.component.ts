@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef, AfterViewInit, HostListener } from '@angular/core';
-import { Subscription, Subject } from 'rxjs';
-import { filter, throttle, debounceTime } from 'rxjs/operators';
-import { MealsService } from 'src/app/Services/meals.service';
-import { UserService } from 'src/app/Services/user.service';
-import { getLastXDaysCalories, reverseDataHeight, addNormalizedDataWidth, normalizeDataHeight, createSvgPath } from './dashboard.static';
+import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subject, Subscription } from 'rxjs';
+import { filter } from 'rxjs/operators';
+import { MealsService } from 'src/app/services/meals.service';
+import { UserService } from 'src/app/services/user.service';
+import { addNormalizedDataWidth, createSvgPath, getLastXDaysCalories, normalizeDataHeight, reverseDataHeight } from './dashboard.static';
 
 @Component({
   selector: 'app-dashboard',
@@ -41,7 +41,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private sliderMinValue = 0 + 10;
   private sliderMaxValue = 1;
-  
+
   private sliderValue = 1;
 
   private normalizedPositions: Array<Array<number>>;
@@ -125,8 +125,6 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.userService.updateCalories(event);
   }
 
-
-
   calculateSvgPath() {
     const normalizedData = reverseDataHeight(normalizeDataHeight(this.caloriesByDay, this.height), this.height);
     const normalizedPositions = (addNormalizedDataWidth(normalizedData, this.width));
@@ -134,6 +132,3 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.svgPath = createSvgPath(normalizedPositions);
   }
 }
-
-
-

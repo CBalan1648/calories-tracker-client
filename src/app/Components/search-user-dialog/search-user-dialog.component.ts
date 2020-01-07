@@ -2,8 +2,8 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatSnackBarRef, MAT_SNACK_BAR_DATA } from '@angular/material/snack-bar';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { searchUserFormConfig } from 'src/app/Helpers/objects.static';
-import { AdminService } from 'src/app/Services/admin.service';
+import { searchUserFormConfig } from 'src/app/helpers/objects.static';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-search-user-dialog',

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
-import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
+import { requestRetryStrategy } from '../helpers/request-retry.strategy';
 import { LoginService } from './login.service';
 import { ResponseHandlerService } from './response-handler.service';
 

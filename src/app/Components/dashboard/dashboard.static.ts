@@ -1,4 +1,4 @@
-export const getLastXDaysCalories = (days, daysMap: Map<string, number>) => {
+export const getLastXDaysCalories = (days : number, daysMap: Map<string, number>) => {
 
     const date = new Date();
     const caloriesByDay = [];

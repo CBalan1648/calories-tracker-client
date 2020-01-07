@@ -8,8 +8,10 @@
             <svg:path [attr.d]="svgPath" stroke="url(#myGradient)" stroke-width="5" fill="none" />
             <svg:path [attr.d]="svgPathCalories" stroke="red" stroke-width="2" fill="none" />
 
-            <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]" [attr.cy]="data[1]" r="5" stroke-width="3" fill="white">
-              <title> {{caloriesByDay[idx][1] | weekday}} - {{caloriesByDay[idx][2]}} - {{caloriesByDay[idx][0]}} Calories</title>
+            <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]"
+               [attr.cy]="data[1]" r="5" stroke-width="3" fill="white">
+               <title> {{caloriesByDay[idx][1] | weekday}} - {{caloriesByDay[idx][2]}} - {{caloriesByDay[idx][0]}}
+                  Calories</title>
             </svg:circle>
 
          </svg:g>
@@ -22,10 +24,11 @@
          </defs>
       </svg>
 
-      <mat-slider color="primary" class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical thumbLabel
-         [min]="sliderMinValue" [max]="sliderMaxValue" [value]="sliderValue"></mat-slider>
+      <mat-slider color="primary" class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical
+         thumbLabel [min]="sliderMinValue" [max]="sliderMaxValue" [value]="sliderValue"></mat-slider>
    </div>
 
-   <mat-slider color="primary" class="days-slider" (input)="daysChangeSubject.next($event)" thumbLabel min="7" max="90" value="7">
+   <mat-slider color="primary" class="days-slider" (input)="daysChangeSubject.next($event)" thumbLabel min="7" max="90"
+      value="7">
    </mat-slider>
 </div>

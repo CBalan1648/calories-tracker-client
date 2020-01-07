@@ -3,9 +3,9 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, from, Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, filter, groupBy, map, mergeMap, reduce, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
-import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
-import { Meal } from '../Models/meal';
-import { User } from '../Models/user';
+import { requestRetryStrategy } from '../helpers/request-retry.strategy';
+import { Meal } from '../models/meal';
+import { User } from '../models/user';
 import { ResponseHandlerService } from './response-handler.service';
 import { UserService } from './user.service';
 

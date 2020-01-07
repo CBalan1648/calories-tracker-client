@@ -2,10 +2,10 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { getEditUserFormValues } from 'src/app/Helpers/functions.static';
-import { editUserFormConfig } from 'src/app/Helpers/objects.static';
-import { User } from 'src/app/Models/user';
-import { AdminService } from 'src/app/Services/admin.service';
+import { getEditUserFormValues } from 'src/app/helpers/functions.static';
+import { editUserFormConfig } from 'src/app/helpers/objects.static';
+import { User } from 'src/app/models/user';
+import { AdminService } from 'src/app/services/admin.service';
 
 @Component({
   selector: 'app-edit-user-dialog',

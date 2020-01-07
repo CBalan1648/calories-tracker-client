@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { UserService } from 'src/app/Services/user.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-header',

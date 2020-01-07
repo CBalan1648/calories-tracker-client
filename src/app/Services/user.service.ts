@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
-import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
+import { requestRetryStrategy } from '../helpers/request-retry.strategy';
 import { ResponseHandlerService } from './response-handler.service';
 
 const emptyUser = { _id: undefined };

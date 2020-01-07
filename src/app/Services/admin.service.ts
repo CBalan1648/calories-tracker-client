@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, filter, map, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
-import { requestRetryStrategy } from '../Helpers/request-retry.strategy';
-import { User } from '../Models/user';
+import { requestRetryStrategy } from '../helpers/request-retry.strategy';
+import { User } from '../models/user';
 import { ResponseHandlerService } from './response-handler.service';
 
 @Injectable({

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { LoginService } from '../../Services/login.service';
-import { loginFormConfig } from 'src/app/Helpers/objects.static';
-import { getLoginFormValues } from 'src/app/Helpers/functions.static';
+import { LoginService } from '../../services/login.service';
+import { loginFormConfig } from 'src/app/helpers/objects.static';
+import { getLoginFormValues } from 'src/app/helpers/functions.static';
 
 @Component({
   selector: 'app-login-form',

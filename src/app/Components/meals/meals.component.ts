@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import { Meal } from 'src/app/Models/meal';
-import { User } from 'src/app/Models/user';
-import { UserService } from 'src/app/Services/user.service';
-import { MealsService } from '../../Services/meals.service';
+import { Meal } from 'src/app/models/meal';
+import { User } from 'src/app/models/user';
+import { UserService } from 'src/app/services/user.service';
+import { MealsService } from '../../services/meals.service';
 import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
 
 @Component({

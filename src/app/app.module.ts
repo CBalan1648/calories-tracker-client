@@ -2,7 +2,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
 import { AppDeclarations, AppImports, EntryComponents } from './app.imports';
-import { JwtInterceptor } from './Helpers/jwt.interceptor';
+import { JwtInterceptor } from './helpers/jwt.interceptor';
 
 @NgModule({
   declarations: AppDeclarations,

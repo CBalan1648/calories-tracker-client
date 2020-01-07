@@ -1,10 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { MealsService } from 'src/app/Services/meals.service';
-import { Meal } from '../../Models/meal';
-import { editMealFormConfig } from 'src/app/Helpers/objects.static';
-import { getEditMealFormValues } from 'src/app/Helpers/functions.static';
+import { MealsService } from 'src/app/services/meals.service';
+import { Meal } from '../../models/meal';
+import { editMealFormConfig } from 'src/app/helpers/objects.static';
+import { getEditMealFormValues } from 'src/app/helpers/functions.static';
 
 @Component({
   selector: 'app-edit-meal-dialog',
