@@ -2,7 +2,7 @@ import { Component, Inject } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MealsService } from 'src/app/services/meals.service';
-import { Meal } from '../../models/meal';
+import { Meal } from '../../../models/meal';
 import { editMealFormConfig } from 'src/app/helpers/objects.static';
 import { getEditMealFormValues } from 'src/app/helpers/functions.static';
 

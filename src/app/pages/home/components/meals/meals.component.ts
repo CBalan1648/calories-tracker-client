@@ -4,8 +4,8 @@ import { Subscription } from 'rxjs';
 import { Meal } from 'src/app/models/meal';
 import { User } from 'src/app/models/user';
 import { UserService } from 'src/app/services/user.service';
-import { MealsService } from '../../services/meals.service';
-import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
+import { MealsService } from '../../../../services/meals.service';
+import { EditMealDialogComponent } from '../../../shared/edit-meal-dialog/edit-meal-dialog.component';
 
 @Component({
   selector: 'app-meals',

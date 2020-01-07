@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
-import { TopNotificationService } from '../../services/top-notification.service';
+import { TopNotificationService } from '../../../services/top-notification.service';
 
 @Component({
   selector: 'app-top-notification',

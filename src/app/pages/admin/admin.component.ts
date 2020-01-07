@@ -6,9 +6,9 @@ import { Meal } from 'src/app/models/meal';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/services/admin.service';
 import { MealsService } from 'src/app/services/meals.service';
-import { AddMealDialogComponent } from '../add-meal-dialog/add-meal-dialog.component';
-import { EditMealDialogComponent } from '../edit-meal-dialog/edit-meal-dialog.component';
-import { EditUserDialogComponent } from '../edit-user-dialog/edit-user-dialog.component';
+import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
+import { EditMealDialogComponent } from '../shared/edit-meal-dialog/edit-meal-dialog.component';
+import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 import { UserService } from 'src/app/services/user.service';
 import { isAdmin } from 'src/app/helpers/functions.static';
 
