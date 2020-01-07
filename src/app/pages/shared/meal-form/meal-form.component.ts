@@ -1,9 +1,7 @@
-import { Component, OnDestroy, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Subject, Subscription } from 'rxjs';
 import { getMealFormValues, resetMealForm } from 'src/app/helpers/functions.static';
 import { mealFormConfig } from 'src/app/helpers/objects.static';
-import { MealsService } from 'src/app/services/meals.service';
 import { Meal } from 'src/app/models/meal';
 
 @Component({
@@ -12,16 +10,14 @@ import { Meal } from 'src/app/models/meal';
   styleUrls: ['./meal-form.component.scss']
 })
 export class MealFormComponent {
-
+  @Input() hideBackground: boolean;
   @Input() meal: Meal;
   @Input() onSubmit: (meal: Meal) => void;
 
   constructor(private readonly formBuilder: FormBuilder,
-  ) { 
-    console.log(this.onSubmit)
+  ) {
+    console.log(this.hideBackground);
   }
-
- 
 
   mealForm = this.formBuilder.group(mealFormConfig);
 

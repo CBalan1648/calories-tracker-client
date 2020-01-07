@@ -3,8 +3,8 @@ import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { mealFormConfig } from 'src/app/helpers/objects.static';
-import { MealsService } from 'src/app/services/meals.service';
 import { Meal } from 'src/app/models/meal';
+import { MealsService } from 'src/app/services/meals.service';
 
 
 @Component({
