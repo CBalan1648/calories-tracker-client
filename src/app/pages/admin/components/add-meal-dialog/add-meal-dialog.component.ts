@@ -2,9 +2,10 @@ import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
-import { getMealFormValues } from 'src/app/helpers/functions.static';
 import { mealFormConfig } from 'src/app/helpers/objects.static';
 import { MealsService } from 'src/app/services/meals.service';
+import { Meal } from 'src/app/models/meal';
+
 
 @Component({
   selector: 'app-add-meal-dialog',
@@ -33,10 +34,8 @@ export class AddMealDialogComponent implements OnInit, OnDestroy {
     this.mealsService.disconnectRequestObservable(this.observableSubscription);
   }
 
-  submitForm() {
-    if (this.mealForm.status === 'VALID') {
-      this.observableSubject.next([getMealFormValues(this.mealForm), this.userId]);
-    }
+  onSubmitNewMeal(newMeal: Meal) {
+    this.observableSubject.next([newMeal, this.userId]);
   }
 
   onClose(): void {

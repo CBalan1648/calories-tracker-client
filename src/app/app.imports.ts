@@ -29,7 +29,7 @@ import { FilterMenuComponent } from './pages/home/components/filter-menu/filter-
 import { HeaderComponent } from './pages/shared/header/header.component';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginFormComponent } from './pages/login/login.component';
-import { MealFormComponent } from './pages/home/components/meal-form/meal-form.component';
+import { MealFormComponent } from './pages/shared/meal-form/meal-form.component';
 import { MealsComponent } from './pages/home/components/meals/meals.component';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
 import { RegisterFormComponent } from './pages/register/register.component';

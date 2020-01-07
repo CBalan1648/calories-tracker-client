@@ -2,7 +2,7 @@
     <app-dashboard></app-dashboard>
     <div class="home-input-group">
         <app-filter-menu></app-filter-menu>
-        <app-meal-form></app-meal-form>
+        <app-meal-form [onSubmit]="onSubmitNewMeal.bind(this)"></app-meal-form>
     </div>
 </div>
 
