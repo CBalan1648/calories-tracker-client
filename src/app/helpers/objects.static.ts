@@ -15,18 +15,19 @@ export const addUserFormConfig = {
     authLevel: [''],
 };
 
-export const editMealFormConfig = (data) => {
-    const date = new Date(data.meal.time);
+export const editMealFormConfig = (meal) => {
+    console.log("HELLO",meal)
+    const date = new Date(meal.time);
     const offset = date.getTimezoneOffset();
     const additionalTime = -offset * 60000;
-    const localTime = data.meal.time + additionalTime;
+    const localTime = meal.time + additionalTime;
     const dateArray = new Date(localTime).toISOString().slice(0, -1).split(':');
 
     return {
-        title: [data.meal.title, Validators.required],
-        description: [data.meal.description],
+        title: [meal.title, Validators.required],
+        description: [meal.description],
         time: [`${dateArray[0]}:${dateArray[1]}`],
-        calories: [data.meal.calories, Validators.required]
+        calories: [meal.calories, Validators.required]
     };
 };
 

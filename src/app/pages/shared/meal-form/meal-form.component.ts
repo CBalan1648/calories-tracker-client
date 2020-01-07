@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-import { getMealFormValues, resetMealForm } from 'src/app/helpers/functions.static';
-import { mealFormConfig } from 'src/app/helpers/objects.static';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { getMealFormValues, resetMealForm, getEditMealFormValues } from 'src/app/helpers/functions.static';
+import { mealFormConfig, editMealFormConfig } from 'src/app/helpers/objects.static';
 import { Meal } from 'src/app/models/meal';
 
 @Component({
@@ -9,21 +9,24 @@ import { Meal } from 'src/app/models/meal';
   templateUrl: './meal-form.component.html',
   styleUrls: ['./meal-form.component.scss']
 })
-export class MealFormComponent {
+export class MealFormComponent implements OnInit {
   @Input() hideBackground: boolean;
   @Input() meal: Meal;
   @Input() onSubmit: (meal: Meal) => void;
 
+  private mealForm: FormGroup;
+
   constructor(private readonly formBuilder: FormBuilder,
-  ) {
-    console.log(this.hideBackground);
+  ) { }
+
+  ngOnInit() {
+    this.mealForm = this.formBuilder.group(this.meal ? editMealFormConfig(this.meal) : mealFormConfig);
   }
 
-  mealForm = this.formBuilder.group(mealFormConfig);
-
   submitForm() {
+    console.log(this.meal);
     if (this.mealForm.status === 'VALID') {
-      this.onSubmit(getMealFormValues(this.mealForm));
+      this.onSubmit(this.meal ? getEditMealFormValues(this.mealForm, this.meal) : getMealFormValues(this.mealForm));
       resetMealForm(this.mealForm);
     }
   }

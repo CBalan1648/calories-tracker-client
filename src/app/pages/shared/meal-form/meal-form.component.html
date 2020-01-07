@@ -2,7 +2,7 @@
 
     <form [formGroup]="mealForm" (ngSubmit)="submitForm()">
 
-        <h3>Add new</h3>
+        <h3>{{meal ? "Edit Meal" : "Add new"}}</h3>
 
         <mat-form-field>
             <input matInput formControlName="title" placeholder="Title (e.g. Best lunch ever)" required>

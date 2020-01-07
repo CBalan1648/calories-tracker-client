@@ -38,14 +38,14 @@ export const getRegisterFormFormValuesAdmin = (form) => {
 
 export const isAdmin = (user) => user && user.authLevel === 'ADMIN';
 
-export const getEditMealFormValues = (form, data) => {
+export const getEditMealFormValues = (form, meal) => {
     const formValues = form.controls;
     return {
-        _id: data.meal._id,
+        _id: meal._id,
         title: formValues.title.value,
         description: formValues.description.value,
         calories: formValues.calories.value,
-        time: Date.parse(formValues.time.value) || this.data.meal.time,
+        time: Date.parse(formValues.time.value) || meal.time,
     };
 };
 
