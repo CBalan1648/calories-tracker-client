@@ -1,19 +1,18 @@
-import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MealsService } from 'src/app/services/meals.service';
 import { UserService } from 'src/app/services/user.service';
-import { addNormalizedDataWidth, createSvgPath, getLastXDaysCalories, normalizeDataHeight, reverseDataHeight } from './dashboard.static';
+import { getLastXDaysCalories } from './dashboard.static';
+
+const DEFAULT_TIME_SPAN = 7;
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
-export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
-
-  @ViewChild('svgElementIdentifier', { static: false })
-  private svgElementIdentifier: ElementRef;
+export class DashboardComponent implements OnInit, OnDestroy {
 
   private daysMap: Map<string, number>;
   private mealsObservableSubscription: Subscription;
@@ -24,20 +23,13 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   private caloriesChangeSubject = new Subject();
   private daysChangeSubject = new Subject();
 
+  private graphDataSubject = new Subject();
+  private targetCaloriesValueSubject = new Subject();
+
   private caloriesChangeSubscription: Subscription;
   private daysChangeSubscription: Subscription;
 
-  private width = 600;
-  private height = 300;
-  private redGradientPart: string;
-  /**
-   * daca documentez aici o sa vad usor oriunde vreau sa folosesc fara sa dau scroll sau sa deschid fisierul
-   */
-  private greenGradientPart: string;
-  private svgPath = 'M 0 0';
-  private svgPathCalories = 'M 0 0';
-
-  private displayedTimeSpan = 7;
+  private displayedTimeSpan = DEFAULT_TIME_SPAN;
 
   private sliderMinValue = 0 + 10;
   private sliderMaxValue = 1;
@@ -60,8 +52,8 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
       });
 
       this.daysMap = daysMap;
-      this.caloriesByDay = getLastXDaysCalories(7, daysMap);
-      this.calculateSvgGraph();
+      this.caloriesByDay = getLastXDaysCalories(DEFAULT_TIME_SPAN, daysMap);
+      this.graphDataSubject.next(this.caloriesByDay);
     });
 
     this.userObservableSubscription = this.userService.getUserObservable().subscribe(user => {
@@ -72,19 +64,12 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     this.daysChangeSubscription = this.daysChangeSubject.subscribe(this.sliderDaysChange.bind(this));
   }
 
-  @HostListener('window:resize')
-  onResize() {
-    this.width = this.svgElementIdentifier.nativeElement.clientWidth;
-    this.calculateSvgGraph();
+  setSliderValue(value: number) {
+    this.sliderValue = value;
   }
 
-  calculateSvgGraph() {
-    this.calculateSvgPath();
-    this.calculateSvgPathCalories();
-  }
-
-  ngAfterViewInit() {
-    this.width = this.svgElementIdentifier.nativeElement.clientWidth - 70;
+  setSliderMaxValue(maxValue: number) {
+    this.sliderMaxValue = maxValue;
   }
 
   ngOnDestroy() {
@@ -96,39 +81,16 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
 
   sliderChange(event) {
     this.userCalories = event.value;
-    this.calculateSvgPathCalories();
+    this.targetCaloriesValueSubject.next(this.userCalories);
   }
 
   sliderDaysChange(event) {
     this.caloriesByDay = getLastXDaysCalories(event.value, this.daysMap);
-    this.calculateSvgPath();
+    this.graphDataSubject.next(this.caloriesByDay);
     this.displayedTimeSpan = event.value;
-  }
-
-  calculateSvgPathCalories() {
-    const maxCalories = Math.max(...this.caloriesByDay.map(caloriesData => caloriesData[0]));
-    const normalizedCaloriesHeight = Math.floor(this.height / (maxCalories + maxCalories / 3) * this.userCalories);
-    const reversedCaloriesHeight = this.height - normalizedCaloriesHeight;
-
-    this.sliderMaxValue = Math.floor(maxCalories + maxCalories / 3);
-    this.sliderValue = this.userCalories;
-
-    const redGradientPart = Math.floor(reversedCaloriesHeight * 100 / this.height);
-
-    this.redGradientPart = `${redGradientPart - 20}%`;
-    this.greenGradientPart = `${redGradientPart + 20}%`;
-
-    this.svgPathCalories = `M 0 ${reversedCaloriesHeight}, ${this.width}, ${reversedCaloriesHeight}`;
   }
 
   updateCalories(event) {
     this.userService.updateCalories(event);
-  }
-
-  calculateSvgPath() {
-    const normalizedData = reverseDataHeight(normalizeDataHeight(this.caloriesByDay, this.height), this.height);
-    const normalizedPositions = (addNormalizedDataWidth(normalizedData, this.width));
-    this.normalizedPositions = normalizedPositions;
-    this.svgPath = createSvgPath(normalizedPositions);
   }
 }
