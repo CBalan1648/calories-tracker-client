@@ -72,7 +72,6 @@ export class GraphComponent implements OnInit, AfterViewInit {
     const normalizedCaloriesHeight = Math.floor(this.height / (maxCalories + maxCalories / 3) * this.userTargetCalories);
     const reversedCaloriesHeight = this.height - normalizedCaloriesHeight;
 
-
     this.setSliderMaxValue(Math.floor(maxCalories + maxCalories / 3));
     this.setSliderValue(this.userTargetCalories);
 

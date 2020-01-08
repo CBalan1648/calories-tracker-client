@@ -2,8 +2,9 @@
 
    <h3 class="dashboard-title">Last {{displayedTimeSpan}} Days - {{userCalories}} Calories</h3>
 
-   <app-graph class="graph" [userTargetCalories]="userCalories" [caloriesByDayObservable]="graphDataSubject.asObservable()"
-      [setSliderMaxValue]="setSliderMaxValue.bind(this)" [setSliderValue]="setSliderValue.bind(this)"
+   <app-graph class="graph" [userTargetCalories]="userCalories"
+      [caloriesByDayObservable]="graphDataSubject.asObservable()" [setSliderMaxValue]="setSliderMaxValue.bind(this)"
+      [setSliderValue]="setSliderValue.bind(this)"
       [targetCaloriesValueObservable]="targetCaloriesValueSubject.asObservable()"></app-graph>
 
    <mat-slider color="primary" class="calories-slider" (input)="caloriesChangeSubject.next($event)" vertical thumbLabel

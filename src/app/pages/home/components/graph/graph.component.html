@@ -1,22 +1,22 @@
 <div class="graph-data-container">
-    <svg class="graph-svg" #svgElementIdentifier>
-       <svg:g>
-          <svg:path [attr.d]="svgPath" stroke="url(#myGradient)" stroke-width="5" fill="none" />
-          <svg:path [attr.d]="svgPathCalories" stroke="red" stroke-width="2" fill="none" />
+   <svg class="graph-svg" #svgElementIdentifier>
+      <svg:g>
+         <svg:path [attr.d]="svgPath" stroke="url(#myGradient)" stroke-width="5" fill="none" />
+         <svg:path [attr.d]="svgPathCalories" stroke="red" stroke-width="2" fill="none" />
 
-          <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]"
-             [attr.cy]="data[1]" r="5" stroke-width="3" fill="white">
-             <title> {{caloriesByDay[idx][1] | weekday}} - {{caloriesByDay[idx][2]}} - {{caloriesByDay[idx][0]}}
-                Calories</title>
-          </svg:circle>
+         <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]" [attr.cy]="data[1]"
+            r="5" stroke-width="3" fill="white">
+            <title> {{caloriesByDay[idx][1] | weekday}} - {{caloriesByDay[idx][2]}} - {{caloriesByDay[idx][0]}}
+               Calories</title>
+         </svg:circle>
 
-       </svg:g>
-       <defs>
-          <linearGradient id="myGradient" gradientTransform="rotate(90)">
-             <stop [attr.offset]="redGradientPart" stop-color="red" />
-             <stop [attr.offset]="greenGradientPart" stop-color="limegreen" />
-             <stop offset="100%" stop-color="limegreen" />
-          </linearGradient>
-       </defs>
-    </svg>
- </div>
+      </svg:g>
+      <defs>
+         <linearGradient id="myGradient" gradientTransform="rotate(90)">
+            <stop [attr.offset]="redGradientPart" stop-color="red" />
+            <stop [attr.offset]="greenGradientPart" stop-color="limegreen" />
+            <stop offset="100%" stop-color="limegreen" />
+         </linearGradient>
+      </defs>
+   </svg>
+</div>
