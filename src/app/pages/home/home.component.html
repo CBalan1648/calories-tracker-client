@@ -1,9 +1,6 @@
-<div class="home-upper-component">
+<div class="home-component">
     <app-dashboard></app-dashboard>
-    <div class="home-input-group">
-        <app-filter-menu></app-filter-menu>
-        <app-meal-form [hideBackground]="true" [onSubmit]="onSubmitNewMeal.bind(this)"></app-meal-form>
-    </div>
+    <app-filter-menu></app-filter-menu>
+    <app-meal-form [hideBackground]="true" [onSubmit]="onSubmitNewMeal.bind(this)"></app-meal-form>
+    <app-meals></app-meals>
 </div>
-
-<app-meals></app-meals>

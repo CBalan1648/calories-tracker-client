@@ -1,18 +1,24 @@
-.home-upper-component {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
+.home-component {
+  display: grid;
+  grid-template-rows: 50% 50%;
+  grid-template-columns: auto 20% 20%;
+  grid-template-areas:
+    "dashboard filter-menu new-meal"
+    "meals meals meals";
 }
 
 app-dashboard {
-  flex-grow: 2;
-  flex-basis: 500px;
-}
-.home-input-group {
-  display: flex;
-  flex-wrap: wrap;
+  grid-area : dashboard
 }
 
+app-filter-menu {
+  grid-area: filter-menu
+}
 
+app-meal-form {
+  grid-area : new-meal
+}
+
+app-meals {
+ grid-area : meals
+}
