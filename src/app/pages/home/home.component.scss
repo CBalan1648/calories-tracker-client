@@ -1,24 +1,34 @@
 .home-component {
   display: grid;
-  grid-template-rows: 50% 50%;
-  grid-template-columns: auto 20% 20%;
+  grid-template-rows: 500px 500px 500px auto;
+
   grid-template-areas:
-    "dashboard filter-menu new-meal"
-    "meals meals meals";
+    "dashboard "
+    "new-meal"
+    "filter-menu"
+    "meals";
+
+  @media (min-width: 769px) {
+    grid-template-rows: 50% 50%;
+    grid-template-columns: auto 20% 20%;
+    grid-template-areas:
+      "dashboard filter-menu new-meal"
+      "meals meals meals";
+  }
 }
 
 app-dashboard {
-  grid-area : dashboard
+  grid-area: dashboard;
 }
 
 app-filter-menu {
-  grid-area: filter-menu
+  grid-area: filter-menu;
 }
 
 app-meal-form {
-  grid-area : new-meal
+  grid-area: new-meal;
 }
 
 app-meals {
- grid-area : meals
+  grid-area: meals;
 }

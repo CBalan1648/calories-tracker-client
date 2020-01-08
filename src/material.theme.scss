@@ -16,3 +16,33 @@ $ct-light-theme: mat-dark-theme(
 $primary: map-get($ct-light-theme, primary);
 $accent: map-get($ct-light-theme, accent);
 $warn: map-get($ct-light-theme, warn);
+
+.meal-container .mat-list-base .mat-list-item .mat-list-item-content {
+    display: grid;
+    grid-template-rows: 40px 30px 30px 50px;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: 
+    "title calories"
+    "time time"
+    "description description"
+    "actions actions"  ;
+    
+    border-bottom: 1px solid mat-color($accent,700);
+  @media (min-width: 769px) {
+    grid-template-rows: 100%;
+    grid-template-columns: 15% 15% 40% 10% 20%;
+    grid-template-areas: "title time description calories actions";
+  }
+}
+.meal-container .mat-list-base .mat-list-item .flex-table-header {
+  display: grid;
+  grid-template-columns: 15% 15% 40% 10% 20%;
+  grid-template-areas: "title time description calories actions";
+}
+
+.meal-container .mat-list-base .mat-list-item {
+  height:150px;
+  @media (min-width: 769px) {
+    height:revert;
+  }
+}

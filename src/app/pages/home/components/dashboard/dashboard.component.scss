@@ -23,12 +23,24 @@
 
 .dashboard-container {
   display: grid;
-  grid-template-rows: 5% 90% auto;
-  grid-template-columns: 95% auto;
+  grid-template-rows: 5% 85% 5%;
+  grid-template-columns: auto 40px;
   grid-template-areas:
-    "title . "
+    "title title"
     "graph calories-slider"
-    "days-slider . ";
+    "days-slider days-slider";
+
+  
+    @media (min-width: 769px) {
+      display: grid;
+      grid-template-rows: 5% 90% auto;
+      grid-template-columns: 95% auto;
+      grid-template-areas:
+        "title . "
+        "graph calories-slider"
+        "days-slider . ";
+    }
+    
 }
 
 

@@ -5,11 +5,10 @@
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
-  border: solid mat-color($accent, 500) 2px;
   border-top: 0;
   border-bottom : 0;
   
-  width: 350px;
+  min-width: 350px;
   height: 400px;
 }
 
