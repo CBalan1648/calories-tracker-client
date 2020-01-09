@@ -18,7 +18,11 @@ mat-toolbar {
 }
 
 .header-name-tag {
-  justify-self: flex-end;
+  display: none;
+  @media (min-width: 769px) {
+    justify-self: flex-end;
+    display: initial;
+  }
 }
 
 .header-sidebar-button {

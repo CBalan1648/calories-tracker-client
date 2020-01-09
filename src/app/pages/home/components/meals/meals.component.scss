@@ -69,7 +69,7 @@ div {
   display: flex;
   justify-content: center;
   @media (min-width: 769px) {
-    justify-content: revert;
+    justify-content: initial;
   }
 }
 

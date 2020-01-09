@@ -30,7 +30,8 @@
 
 app-dashboard {
   grid-area: dashboard;
-  padding-left:10px
+  padding-left:10px;
+  overflow: hidden;
 }
 
 app-filter-menu {
