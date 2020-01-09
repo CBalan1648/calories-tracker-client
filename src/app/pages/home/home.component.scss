@@ -8,7 +8,18 @@
     "filter-menu"
     "meals";
 
+
+
   @media (min-width: 769px) {
+    grid-template-rows: 33% 33% auto;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      "dashboard dashboard "
+      "filter-menu new-meal"
+      "meals meals";
+  }
+
+  @media (min-width: 1440px) {
     grid-template-rows: 50% 50%;
     grid-template-columns: auto 20% 20%;
     grid-template-areas:
@@ -19,6 +30,7 @@
 
 app-dashboard {
   grid-area: dashboard;
+  padding-left:10px
 }
 
 app-filter-menu {

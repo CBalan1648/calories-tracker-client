@@ -41,18 +41,14 @@ mat-table {
 }
 
 .meals-scroll-viewport {
-  height: 480px;
+  height: 900px;
+  @media (min-width: 769px) {
+    height: 480px;
+  }
 }
 
 div {
   box-sizing: border-box;
-}
-
-.mat-list-base .mat-list-item .mat-list-item-content {
-  color: blue;
-  display: grid;
-  grid-template-columns: 10% 25% 25% 10% 30%;
-  grid-template-areas: "title time description calories actions";
 }
 
 .flex-table {

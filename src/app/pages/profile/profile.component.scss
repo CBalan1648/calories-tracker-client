@@ -1,11 +1,41 @@
 @import "../../../material.theme.scss";
 
 .profile-container {
-  margin-left: 50px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
+  display: grid;
+  grid-template-columns: 100%;
+  grid-template-areas:
+    "edit-profile"
+    "profile-stats";
+  grid-template-rows: 50% 50%;
+
+  @media (min-width: 769px) {
+    margin-left: 50px;
+    grid-template-rows: 100%;
+    grid-template-columns: 50% 50%;
+    grid-template-areas: "edit-profile profile-stats";
+  }
+}
+
+.edit-profile {
+  grid-area: edit-profile;
+  width: 80%;
+  margin: auto;
+
+  @media (min-width: 769px) {
+    width: 55%;
+    margin: auto;
+  }
+}
+
+.profile-stats {
+  grid-area: profile-stats;
+  margin: 5%;
+  font-size: small;
+
+  @media (min-width: 769px) {
+    margin: auto;
+    font-size: revert;
+  }
 }
 
 .profile-title {
@@ -25,7 +55,6 @@
 .profile-form-container {
   display: flex;
   flex-direction: column;
-  width: 400px;
   padding-top: 40px;
 }
 
@@ -36,7 +65,7 @@ form {
 
 mat-form-field {
   padding-bottom: 20px;
-  min-width: 400px;
+  min-width: 90%;
 }
 
 img {
@@ -45,7 +74,6 @@ img {
   padding-bottom: 50px;
 }
 
-
 span {
-  color : mat-color($primary, A400)
+  color: mat-color($primary, A400);
 }

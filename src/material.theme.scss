@@ -19,19 +19,19 @@ $warn: map-get($ct-light-theme, warn);
 
 .meal-container .mat-list-base .mat-list-item .mat-list-item-content {
   display: grid;
-  grid-template-rows: 40px 30px 30px 50px;
-  grid-template-columns: 50% 50%;
+  grid-template-rows: 40px 30px 50px;
+  grid-template-columns: 20% 20% auto;
   grid-template-areas:
-    "title calories"
-    "time time"
-    "description description"
-    "actions actions";
+    "title calories time"
+    "description description description"
+    "actions actions actions" ;
 
   border-bottom: 1px solid mat-color($accent, 700);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
-    grid-template-columns: 15% 15% 40% 10% 20%;
+    grid-template-columns: 15% 20% 35% 10% 20%;
     grid-template-areas: "title time description calories actions";
+    height:42px
   }
 }
 .meal-container .mat-list-base .mat-list-item .flex-table-header {
@@ -41,7 +41,7 @@ $warn: map-get($ct-light-theme, warn);
 }
 
 .meal-container .mat-list-base .mat-list-item {
-  height: 150px;
+  height: 120px;
   @media (min-width: 769px) {
     height: revert;
   }
