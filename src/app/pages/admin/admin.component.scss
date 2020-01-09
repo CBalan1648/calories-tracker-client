@@ -18,12 +18,15 @@
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  overflow: hidden;
   text-overflow: ellipsis;
   list-style: none;
   text-align: center;
   align-items: center;
   display: flex;
+  justify-content: center;
+  @media (min-width: 769px) {
+    justify-content: revert;
+  }
 }
 
 .admin-list-item {
@@ -42,23 +45,40 @@
 }
 
 .title {
-  flex-grow: 2;
+  grid-area: title;
 }
 
 .description {
-  flex-grow: 2;
+  grid-area: description;
 }
 
 .time {
-  flex-grow: 2;
+  grid-area: time;
+}
+
+.calories {
+  grid-area: calories;
 }
 
 .actions {
-  flex-grow: 1;
-  flex-shrink: 1.1;
   justify-content: space-evenly;
+  grid-area: actions;
 }
 
 .admin-extension-panel {
   background-color: rgba(112, 128, 144, 0.226);
+}
+
+.header-button{
+  width: 80%;
+  @media (min-width: 769px) {
+    width: revert;
+  }
+}
+
+.admin-extension-panel {
+  height: 90px;
+  @media (min-width: 769px) {
+    height: revert;
+  }
 }

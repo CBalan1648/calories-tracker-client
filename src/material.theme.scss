@@ -24,24 +24,89 @@ $warn: map-get($ct-light-theme, warn);
   grid-template-areas:
     "title calories time"
     "description description description"
-    "actions actions actions" ;
+    "actions actions actions";
 
   border-bottom: 1px solid mat-color($accent, 700);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
     grid-template-columns: 15% 20% 35% 10% 20%;
     grid-template-areas: "title time description calories actions";
-    height:42px
+    height: 42px;
   }
-}
-.meal-container .mat-list-base .mat-list-item .flex-table-header {
-  display: grid;
-  grid-template-columns: 15% 15% 40% 10% 20%;
-  grid-template-areas: "title time description calories actions";
 }
 
 .meal-container .mat-list-base .mat-list-item {
   height: 120px;
+  @media (min-width: 769px) {
+    height: revert;
+  }
+}
+
+.meal-container .mat-list-base .mat-list-item .mat-list-item-content {
+  display: grid;
+  grid-template-rows: 40px 30px 50px;
+  grid-template-columns: 20% 20% auto;
+  grid-template-areas:
+    "title calories time"
+    "description description description"
+    "actions actions actions";
+
+  border-bottom: 1px solid mat-color($accent, 700);
+  @media (min-width: 769px) {
+    grid-template-rows: 100%;
+    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-areas: "title time description calories actions";
+    height: 42px;
+  }
+}
+
+.meal-container .mat-list-base .mat-list-item {
+  height: 120px;
+  @media (min-width: 769px) {
+    height: revert;
+  }
+}
+
+.user-scroll-viewport .mat-list-base .mat-list-item {
+  height: 120px;
+  @media (min-width: 769px) {
+    height: revert;
+  }
+}
+
+.user-scroll-viewport .mat-list-base .mat-list-item .mat-list-item-content {
+  display: grid;
+  grid-template-rows: 40px 30px 50px;
+  grid-template-columns: 20% 20% auto;
+  grid-template-areas:
+    "title calories time"
+    "description description description"
+    "actions actions actions";
+
+  border-bottom: 1px solid mat-color($accent, 700);
+  @media (min-width: 769px) {
+    grid-template-rows: 100%;
+    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-areas: "title time description calories actions";
+    height: 42px;
+  }
+}
+
+.user-scroll-viewport .mat-list-base .header-row .mat-list-item-content {
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 769px) {
+    flex-direction: row;
+    justify-content: space-evenly;
+    flex-wrap: nowrap;
+  }
+}
+
+
+
+.user-scroll-viewport .mat-expansion-panel .admin-extension-panel {
+  height: 90px;
   @media (min-width: 769px) {
     height: revert;
   }
