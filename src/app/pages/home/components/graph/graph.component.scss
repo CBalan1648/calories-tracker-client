@@ -13,5 +13,5 @@
 .graph-svg {
   width: 100%;
   height: 300px;
-  border: 1px dotted mat-color($accent, 800);
+  border-bottom: 2px solid mat-color($custom, custom-theme-light-blue);
 }

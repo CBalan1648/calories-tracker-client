@@ -125,7 +125,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
       this.stats = calculatedStats;
 
-      console.log(calculatedStats);
     });
   }
 

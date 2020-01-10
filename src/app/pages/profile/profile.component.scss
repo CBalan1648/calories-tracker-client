@@ -39,7 +39,7 @@
 }
 
 .profile-title {
-  color: mat-color($primary, 500);
+  color: mat-color($custom, custom-theme-dark-blue);
 }
 
 .edit-button {
@@ -75,5 +75,5 @@ img {
 }
 
 span {
-  color: mat-color($primary, A400);
+  color: mat-color($custom, custom-theme-dark-blue);
 }

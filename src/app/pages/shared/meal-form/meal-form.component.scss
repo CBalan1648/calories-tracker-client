@@ -2,9 +2,8 @@
 
 .meal-form-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-
   height: 100%;
 }
 
@@ -14,6 +13,10 @@
     mat-color($primary, 900),
     rgb(255, 255, 255, 0)
   );
+}
+
+h2 {
+  color : mat-color($custom, custom-theme-dark-blue);
 }
 
 form {
@@ -28,7 +31,6 @@ mat-form-field {
 }
 form {
   width: 100%;
-  height: 100%;
 }
 
 .mat-flat-button {

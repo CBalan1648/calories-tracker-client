@@ -31,14 +31,11 @@
 
 .admin-list-item {
   &:hover {
-    background: linear-gradient(
-      to left,
-      mat-color($accent,700),
-      rgba(255, 255, 255, 0)
-    );
+    background: rgba(mat-color($custom, custom-theme-light-blue), 0.3);
+    transition: 1s;
+    font-weight: 900;
   }
 }
-
 
 .header-cell {
   justify-content: center;
@@ -66,10 +63,13 @@
 }
 
 .admin-extension-panel {
-  background-color: rgba(112, 128, 144, 0.226);
+  background: white;
+  border-bottom: solid 1px mat-color($custom, custom-theme-light-blue);
+  color: mat-color($custom, custom-theme-dark-blue);
+  font-weight: bold;
 }
 
-.header-button{
+.header-button {
   width: 80%;
   @media (min-width: 769px) {
     width: initial;
@@ -81,4 +81,8 @@
   @media (min-width: 769px) {
     height: initial;
   }
+}
+
+button .material-icons {
+  color: white;
 }

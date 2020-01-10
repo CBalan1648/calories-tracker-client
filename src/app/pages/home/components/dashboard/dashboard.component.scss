@@ -15,6 +15,10 @@
   margin: auto;
 }
 
+h2 {
+ color : mat-color($custom, custom-theme-dark-blue)
+}
+
 .dashboard-title {
   grid-area: title;
   font-weight: bold;

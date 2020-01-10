@@ -46,7 +46,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.width = this.svgElementIdentifier.nativeElement.clientWidth - 70;
+    this.width = this.svgElementIdentifier.nativeElement.clientWidth;
   }
 
   @HostListener('window:resize')
@@ -77,8 +77,8 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     const redGradientPart = Math.floor(reversedCaloriesHeight * 100 / this.height);
 
-    this.redGradientPart = `${redGradientPart - 20}%`;
-    this.greenGradientPart = `${redGradientPart + 20}%`;
+    this.redGradientPart = `${redGradientPart - 40}%`;
+    this.greenGradientPart = `${redGradientPart + 40}%`;
 
     this.svgPathCalories = `M 0 ${reversedCaloriesHeight}, ${this.width}, ${reversedCaloriesHeight}`;
   }

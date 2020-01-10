@@ -1,45 +1,62 @@
 @import "~@angular/material/theming";
 
-$ct-light-primary: mat-palette($mat-light-green);
-$ct-light-accent: mat-palette($mat-teal);
+$ct-light-primary: mat-palette($mat-light-blue);
+$ct-light-accent: mat-palette($mat-orange);
 $ct-light-warn: mat-palette($mat-red);
 
-$ct-light-theme: mat-dark-theme(
+$ct-light-theme: mat-light-theme(
   $ct-light-primary,
   $ct-light-accent,
   $ct-light-warn
 );
 
+$custom-collection: (
+  custom-theme-dark-blue: #8393ca,
+  custom-theme-light-blue: #cad6f1,
+  custom-theme-light-orange: #ffc66a,
+  contrast: (
+    warning: #000000,
+    success: #ffffff,
+    danger: #ffffff
+  )
+);
+
+$my-app-custom: mat-palette($custom-collection, custom);
+
+$ct-light-theme: map_merge(
+  $ct-light-theme,
+  (
+    custom: $my-app-custom
+  )
+);
+
+$custom-typography: mat-typography-config(
+  $font-family: "Montserrat, sans-serif",
+  $headline: mat-typography-level(32px, 48px, 700),
+  $body-1: mat-typography-level(16px, 24px, 500)
+);
+
 @include mat-core();
 @include angular-material-theme($ct-light-theme);
+@include angular-material-typography($custom-typography);
 
 $primary: map-get($ct-light-theme, primary);
 $accent: map-get($ct-light-theme, accent);
 $warn: map-get($ct-light-theme, warn);
+$custom: map-get($ct-light-theme, custom);
 
-.meal-container .mat-list-base .mat-list-item .mat-list-item-content {
-  display: grid;
-  grid-template-rows: 40px 30px 50px;
-  grid-template-columns: 20% 20% auto;
-  grid-template-areas:
-    "title calories time"
-    "description description description"
-    "actions actions actions";
-
-  border-bottom: 1px solid mat-color($accent, 700);
-  @media (min-width: 769px) {
-    grid-template-rows: 100%;
-    grid-template-columns: 15% 20% 35% 10% 20%;
-    grid-template-areas: "title time description calories actions";
-    height: 42px;
-  }
+.mat-darkblue {
+  background-color: mat-color($custom, custom-theme-dark-blue);
+  color: mat-color($custom, success-contrast);
 }
 
-.meal-container .mat-list-base .mat-list-item {
-  height: 120px;
-  @media (min-width: 769px) {
-    height: initial;
-  }
+.mat-lightblue {
+  background-color: mat-color($custom, custom-theme-light-blue);
+  color: mat-color($custom, success-contrast);
+}
+.mat-lightorange {
+  background-color: mat-color($custom, custom-theme-light-orange);
+  color: mat-color($custom, success-contrast);
 }
 
 .meal-container .mat-list-base .mat-list-item .mat-list-item-content {
@@ -51,7 +68,7 @@ $warn: map-get($ct-light-theme, warn);
     "description description description"
     "actions actions actions";
 
-  border-bottom: 1px solid mat-color($accent, 700);
+  border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
     grid-template-columns: 15% 20% 35% 10% 20%;
@@ -60,18 +77,43 @@ $warn: map-get($ct-light-theme, warn);
   }
 }
 
+.meal-container .mat-list-base .mat-list-item .mat-list-item-content {
+  display: grid;
+  grid-template-rows: 40px 30px 50px;
+  grid-template-columns: 20% 20% auto;
+  grid-template-areas:
+    "title calories time"
+    "description description description"
+    "actions actions actions";
+
+  border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
+  @media (min-width: 769px) {
+    grid-template-rows: 100%;
+    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-areas: "title time description calories actions";
+    height: 55px;
+  }
+}
+
 .meal-container .mat-list-base .mat-list-item {
   height: 120px;
   @media (min-width: 769px) {
-    height: initial;
+    height: 55px;
   }
+  color: mat-color($custom, custom-theme-dark-blue);
+}
+
+.meal-container .mat-list-base .flex-table-header {
+  color: white;
+  font-weight: 900;
 }
 
 .user-scroll-viewport .mat-list-base .mat-list-item {
   height: 120px;
   @media (min-width: 769px) {
-    height: initial;
+    height: 55px;
   }
+  color: mat-color($custom, custom-theme-dark-blue);
 }
 
 .user-scroll-viewport .mat-list-base .mat-list-item .mat-list-item-content {
@@ -83,12 +125,12 @@ $warn: map-get($ct-light-theme, warn);
     "description description description"
     "actions actions actions";
 
-  border-bottom: 1px solid mat-color($accent, 700);
+  border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
     grid-template-columns: 15% 20% 35% 10% 20%;
     grid-template-areas: "title time description calories actions";
-    height: 42px;
+    height: 55px;
   }
 }
 
@@ -102,8 +144,6 @@ $warn: map-get($ct-light-theme, warn);
     flex-wrap: nowrap;
   }
 }
-
-
 
 .user-scroll-viewport .mat-expansion-panel .admin-extension-panel {
   height: 90px;

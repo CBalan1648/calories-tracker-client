@@ -11,6 +11,10 @@
   height: 400px;
 }
 
+h2 {
+  color : mat-color($custom, custom-theme-dark-blue);
+}
+
 form {
   display: flex;
   flex-direction: column;

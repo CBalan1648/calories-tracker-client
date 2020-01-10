@@ -11,20 +11,20 @@ mat-sidenav-container {
     width: 80px;
    
   }
-  background-color: mat-color($accent, 900);
+   background-color: mat-color($custom, custom-theme-light-blue);
 }
 
 .sidebar-button {
-  background-color: mat-color($accent, 900);
+  background-color: mat-color($custom, custom-theme-light-blue);
   transition: color 0.4s ease-in-out;
-  color: mat-color($primary, 600);
+  color: rgb(255,255,255);
   width:100%;
   
 }
 
 .sidebar-button-active {
-  background-color: mat-color($primary, A300);
-  color: mat-color($primary, A400);
+  background-color: mat-color($custom, custom-theme-dark-blue);
+  color: rgb(255,255,255);
   border-left: solid 4px;
   transition: color 0.4s ease-in-out;
 }
