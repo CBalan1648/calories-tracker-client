@@ -8,11 +8,11 @@ body {
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
-  font-family: 'Concert One', cursive;
+  font-family: "Concert One", cursive;
 }
 
 .custom-dialog .mat-dialog-container {
-  padding : 0;
+  padding: 0;
 }
 
 .user-search-dialog {
@@ -20,8 +20,15 @@ body {
   width: 600px;
   background: linear-gradient(
     to top,
-    mat-color($accent,700),
-    rgba(50, 50, 50, 0.9)
+    mat-color($custom, custom-theme-light-blue),
+    rgba(255, 255, 255, 0.9)
   );
+  span {
+    color: mat-color($custom, custom-theme-dark-blue);
+  }
+  button {
+    span {
+      color: white;
+    }
+  }
 }
-

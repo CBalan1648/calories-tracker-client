@@ -6,7 +6,7 @@
 }
 
 .red-bg {
-  background: mat-color($accent, 100);
+  background: rgba(mat-color($custom, custom-theme-light-red), 0.5);
   transition: 1s;
 }
 
@@ -85,7 +85,8 @@ button .material-icons {
 }
 
 button {
-  width : 30px
+  min-width: 40px;
+  padding: 0px;
 }
 
 .flex-table-header {

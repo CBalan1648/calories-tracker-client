@@ -10,13 +10,21 @@
 .background {
   background: linear-gradient(
     to top,
-    mat-color($primary, 900),
+    rgba(mat-color($custom, custom-theme-light-blue), 0.3),
     rgb(255, 255, 255, 0)
   );
+  form {
+    height: 100%;
+  }
 }
 
 h2 {
-  color : mat-color($custom, custom-theme-dark-blue);
+  color: mat-color($custom, custom-theme-dark-blue);
+  width: 90%;
+}
+
+button .material-icons {
+  color: white;
 }
 
 form {

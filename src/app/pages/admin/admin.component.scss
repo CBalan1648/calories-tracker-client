@@ -60,6 +60,11 @@
 .actions {
   justify-content: space-evenly;
   grid-area: actions;
+
+  button {
+    min-width: 40px;
+    padding: 0px;
+  }
 }
 
 .admin-extension-panel {
@@ -85,4 +90,10 @@
 
 button .material-icons {
   color: white;
+}
+
+.header-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
 }

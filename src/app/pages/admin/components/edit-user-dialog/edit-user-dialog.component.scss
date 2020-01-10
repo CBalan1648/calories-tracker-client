@@ -7,7 +7,7 @@
   min-height: 100%;
   background: linear-gradient(
     to top,
-    mat-color($accent, 500),
+    rgba(mat-color($custom, custom-theme-light-blue), 0.3),
     rgb(255, 255, 255, 0)
   );
 }
@@ -21,6 +21,10 @@ form {
 
 mat-form-field {
   width: 90%;
+}
+
+h2 {
+  color: mat-color($custom, custom-theme-light-blue);
 }
 
 form {

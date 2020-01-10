@@ -9,12 +9,12 @@
   background: #16222a; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,
-    mat-color($accent,900),
+    mat-color($custom, custom-theme-light-blue),
     rgb(255, 255, 255, 0)
-  ); /* Chrome 10-25, Safari 5.1-6 */
+  );
   background: linear-gradient(
     to top,
-    mat-color($accent,900),
+    mat-color($custom, custom-theme-light-blue),
     rgba(255, 255, 255, 0)
   );
 }

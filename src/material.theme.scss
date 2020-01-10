@@ -14,6 +14,7 @@ $custom-collection: (
   custom-theme-dark-blue: #8393ca,
   custom-theme-light-blue: #cad6f1,
   custom-theme-light-orange: #ffc66a,
+  custom-theme-light-red:#fb7b7e,
   contrast: (
     warning: #000000,
     success: #ffffff,
@@ -59,6 +60,11 @@ $custom: map-get($ct-light-theme, custom);
   color: mat-color($custom, success-contrast);
 }
 
+.mat-lightred {
+  background-color: mat-color($custom, custom-theme-light-red);
+  color: mat-color($custom, success-contrast);
+}
+
 .meal-container .mat-list-base .mat-list-item .mat-list-item-content {
   display: grid;
   grid-template-rows: 40px 30px 50px;
@@ -71,7 +77,7 @@ $custom: map-get($ct-light-theme, custom);
   border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
-    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-columns: 20% 20% 35% 15% 10%;
     grid-template-areas: "title time description calories actions";
     height: 42px;
   }
@@ -89,7 +95,7 @@ $custom: map-get($ct-light-theme, custom);
   border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
-    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-columns: 20% 20% 35% 15% 10%;
     grid-template-areas: "title time description calories actions";
     height: 55px;
   }
@@ -128,7 +134,7 @@ $custom: map-get($ct-light-theme, custom);
   border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
   @media (min-width: 769px) {
     grid-template-rows: 100%;
-    grid-template-columns: 15% 20% 35% 10% 20%;
+    grid-template-columns: 20% 20% 35% 15% 10%;
     grid-template-areas: "title time description calories actions";
     height: 55px;
   }

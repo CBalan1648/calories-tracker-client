@@ -16,7 +16,8 @@
 }
 
 h2 {
- color : mat-color($custom, custom-theme-dark-blue)
+  color: mat-color($custom, custom-theme-dark-blue);
+  width: 90%;
 }
 
 .dashboard-title {

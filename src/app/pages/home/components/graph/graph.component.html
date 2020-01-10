@@ -5,10 +5,16 @@
          <svg:path [attr.d]="svgPathCalories" stroke="#cad6f1" stroke-width="2" fill="none" />
 
          <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]" [attr.cy]="data[1]"
+         r="6" stroke-width="3" fill="#8393ca">
+         </svg:circle>
+
+         <svg:circle *ngFor="let data of normalizedPositions; let idx = index" [attr.cx]="data[0]" [attr.cy]="data[1]"
             r="5" stroke-width="3" fill="#cad6f1">
             <title> {{caloriesByDay[idx][1] | weekday}} - {{caloriesByDay[idx][2]}} - {{caloriesByDay[idx][0]}}
                Calories</title>
          </svg:circle>
+
+       
 
       </svg:g>
       <defs>

@@ -8,9 +8,13 @@
 
   background: linear-gradient(
     to top,
-    mat-color($accent, 900),
+    rgba(mat-color($custom, custom-theme-light-blue), 0.3),
     rgb(255, 255, 255, 0)
   );
+
+  h2 {
+    color: mat-color($custom, custom-theme-dark-blue);
+  }
 }
 
 .mat-dialog-container {
