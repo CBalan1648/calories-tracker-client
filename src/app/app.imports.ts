@@ -38,7 +38,7 @@ import { TopNotificationComponent } from './pages/shared/top-notification/top-no
 import { UserProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { WeekDayPipe } from './helpers/week-day.pipe';
-import { GraphComponent } from './pages/home/components/graph/graph.component'; 
+import { GraphComponent } from './pages/home/components/graph/graph.component';
 
 const routes: Routes = [
     { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },

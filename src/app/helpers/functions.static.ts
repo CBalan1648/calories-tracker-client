@@ -1,3 +1,5 @@
+import { User } from '../models/user';
+
 export const getMealFormValues = (form) => {
     const formValues = form.controls;
     return {
@@ -84,3 +86,20 @@ export const getLoginFormValues = (form) => {
     };
 };
 
+export const getTokenData = (token: string): [User | null, boolean] => {
+    try {
+        const tokenInfoJson = atob(token.split('.')[1]);
+        const tokenInfo = JSON.parse(tokenInfoJson);
+        return [tokenInfo.user, true];
+    } catch (e) {
+        return [null, false];
+    }
+};
+
+export const saveToken = (token) => {
+    localStorage.setItem('token', token);
+};
+
+export const deleteToken = () => {
+    localStorage.removeItem('token');
+};

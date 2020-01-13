@@ -16,7 +16,6 @@ export const addUserFormConfig = {
 };
 
 export const editMealFormConfig = (meal) => {
-    console.log("HELLO",meal)
     const date = new Date(meal.time);
     const offset = date.getTimezoneOffset();
     const additionalTime = -offset * 60000;

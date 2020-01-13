@@ -17,3 +17,5 @@ export class TopNotificationService {
     return this.subject.asObservable();
   }
 }
+
+export const JWT_LOGIN_NOTIFICATION = 'Signing in, please wait';
