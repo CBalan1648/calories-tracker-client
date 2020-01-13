@@ -8,7 +8,7 @@
   background: linear-gradient(
     to top,
     mat-color($custom, custom-theme-dark-blue),
-    rgb(255, 255, 255, 0)
+    mat-color($custom, custom-theme-light-blue)
   );
 }
 
@@ -20,11 +20,30 @@ form {
 
 mat-form-field {
   padding-bottom: 20px;
-  min-width: 300px;
+  min-width: 270px;
 }
 
 img {
-  width: 100%;
+  width: 50%;
   height: auto;
-  padding-bottom: 50px;
+}
+
+span {
+  font-size: 70px;
+  color: white;
+  font-weight: normal;
+}
+
+.title-lower-row {
+  font-family: Montserrat, sans-serif;
+  margin-top: -20px;
+  margin-bottom: 30px;
+}
+
+form {
+  button {
+    font-weight: 700;
+    color: white;
+    width: 45%;
+  }
 }

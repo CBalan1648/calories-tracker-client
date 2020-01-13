@@ -14,7 +14,8 @@ $custom-collection: (
   custom-theme-dark-blue: #8393ca,
   custom-theme-light-blue: #cad6f1,
   custom-theme-light-orange: #ffc66a,
-  custom-theme-light-red:#fb7b7e,
+  custom-theme-light-red: #fb7b7e,
+  custom-theme-white: #fff,
   contrast: (
     warning: #000000,
     success: #ffffff,
@@ -65,6 +66,11 @@ $custom: map-get($ct-light-theme, custom);
   color: mat-color($custom, success-contrast);
 }
 
+.mat-white {
+  background-color: mat-color($custom, custom-theme-white);
+  color: mat-color($custom, success-contrast);
+}
+
 .meal-container .mat-list-base .mat-list-item .mat-list-item-content {
   display: grid;
   grid-template-rows: 40px 30px 50px;
@@ -85,11 +91,11 @@ $custom: map-get($ct-light-theme, custom);
 
 .meal-container .mat-list-base .mat-list-item .mat-list-item-content {
   display: grid;
-  grid-template-rows: 40px 30px 50px;
+  grid-template-rows: 40px 40px 50px;
   grid-template-columns: 20% 20% auto;
   grid-template-areas:
-    "title calories time"
-    "description description description"
+    "title title time"
+    "description description calories"
     "actions actions actions";
 
   border-bottom: 1px solid mat-color($custom, custom-theme-light-blue);
@@ -102,7 +108,7 @@ $custom: map-get($ct-light-theme, custom);
 }
 
 .meal-container .mat-list-base .mat-list-item {
-  height: 120px;
+  height: 130px;
   @media (min-width: 769px) {
     height: 55px;
   }
@@ -115,7 +121,7 @@ $custom: map-get($ct-light-theme, custom);
 }
 
 .user-scroll-viewport .mat-list-base .mat-list-item {
-  height: 120px;
+  height: 150px;
   @media (min-width: 769px) {
     height: 55px;
   }
@@ -124,7 +130,7 @@ $custom: map-get($ct-light-theme, custom);
 
 .user-scroll-viewport .mat-list-base .mat-list-item .mat-list-item-content {
   display: grid;
-  grid-template-rows: 40px 30px 50px;
+  grid-template-rows: 60px 45px 45px;
   grid-template-columns: 20% 20% auto;
   grid-template-areas:
     "title calories time"
@@ -155,5 +161,85 @@ $custom: map-get($ct-light-theme, custom);
   height: 90px;
   @media (min-width: 769px) {
     height: initial;
+  }
+}
+
+.meal-form-container {
+  form {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        label {
+          color: mat-color($custom, custom-theme-dark-blue);
+        }
+        color: mat-color($custom, custom-theme-dark-blue);
+      }
+      .mat-form-field-underline {
+        background-color: mat-color($custom, custom-theme-dark-blue);
+      }
+    }
+  }
+}
+
+.filter-menu-container {
+  form {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        label {
+          color: mat-color($custom, custom-theme-dark-blue);
+        }
+        color: mat-color($custom, custom-theme-dark-blue);
+      }
+      .mat-form-field-underline {
+        background-color: mat-color($custom, custom-theme-dark-blue);
+      }
+    }
+  }
+}
+
+.profile-form-container {
+  form {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        label {
+          color: mat-color($custom, custom-theme-dark-blue);
+        }
+        color: mat-color($custom, custom-theme-dark-blue);
+      }
+      .mat-form-field-underline {
+        background-color: mat-color($custom, custom-theme-dark-blue);
+      }
+    }
+  }
+}
+
+.register-form-container {
+  form {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        label {
+          color: mat-color($custom, custom-theme-white);
+        }
+        color: mat-color($custom, custom-theme-white);
+      }
+      .mat-form-field-underline {
+        background-color: mat-color($custom, custom-theme-white);
+      }
+    }
+  }
+}
+
+.login-form-container {
+  form {
+    mat-form-field {
+      .mat-form-field-wrapper {
+        label {
+          color: mat-color($custom, custom-theme-white);
+        }
+        color: mat-color($custom, custom-theme-white);
+      }
+      .mat-form-field-underline {
+        background-color: mat-color($custom, custom-theme-white);
+      }
+    }
   }
 }

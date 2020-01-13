@@ -3,15 +3,35 @@
 .green-bg {
   background: white;
   transition: 1s;
+
+  .actions {
+    button {
+      color : white;
+      background-color: mat-color($custom, custom-theme-dark-blue);
+    }
+  
+  }
 }
 
 .red-bg {
-  background: rgba(mat-color($custom, custom-theme-light-red), 0.5);
+  background: rgba(mat-color($custom, custom-theme-light-red), 0.8);
   transition: 1s;
+  font-weight: 900;
+  div {
+    color : rgba(red,0.5)
+  }
+  
+  .actions {
+    button {
+      color : red;
+      background-color: mat-color($custom, custom-theme-light-red);
+    }
+  
+  }
 }
 
 .red-bg:hover {
-  background: rgba(mat-color($custom, custom-theme-light-blue), 0.3);
+  background: rgba(mat-color($custom, custom-theme-light-red), 0.5);
   transition: 1s;
   font-weight: 900;
 }

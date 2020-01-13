@@ -50,6 +50,10 @@
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  button {
+    color: white;
+    min-width: 105px;
+  }
 }
 
 .profile-form-container {
@@ -74,6 +78,11 @@ img {
   padding-bottom: 50px;
 }
 
+.mat-title {
+  color : mat-color($custom, custom-theme-dark-blue);
+}
+
 span {
-  color: mat-color($custom, custom-theme-dark-blue);
+  color: mat-color($custom, custom-theme-light-orange);
+  font-weight: 900;
 }

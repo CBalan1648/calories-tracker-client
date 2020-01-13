@@ -18,10 +18,10 @@
                 <div class="flex-table-cell description">{{meal.description}}</div>
                 <div class="flex-table-cell calories">{{meal.calories}}</div>
                 <div class="flex-table-cell actions">
-                    <button color = "darkblue" mat-raised-button (click)="openEditDialog(meal)">
+                    <button mat-raised-button (click)="openEditDialog(meal)">
                         <i class="material-icons">edit</i>
                     </button>
-                    <button color = "darkblue" mat-raised-button (click)="deleteMeal(meal._id)">
+                    <button mat-raised-button (click)="deleteMeal(meal._id)">
                         <i class="material-icons">delete</i>
                     </button>
                 </div>

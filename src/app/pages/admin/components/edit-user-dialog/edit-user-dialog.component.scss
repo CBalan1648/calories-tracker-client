@@ -30,6 +30,11 @@ h2 {
 form {
   width: 100%;
   height: 100%;
+
+  button {
+    background-color: mat-color($custom, custom-theme-dark-blue);
+    color: white;
+  }
 }
 
 .mat-flat-button {

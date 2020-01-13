@@ -1,7 +1,9 @@
 <div class="register-form-container">
     <form [formGroup]="registerForm" (ngSubmit)="submitForm()">
 
-        <img src="../../assets/logo.png">
+        <img src="../../assets/flame_1.svg">
+        <span class="title-upper-row">CALORIES</span>
+        <span class="title-lower-row">tracker</span>
 
         <mat-form-field>
             <input matInput formControlName="firstName" placeholder="First Name" required>
@@ -29,6 +31,6 @@
             <mat-error *ngIf="registerForm.errors?.passwordRepeatError">Passwords must match</mat-error>
         </mat-form-field>
 
-        <button mat-raised-button type="submit">Register</button>
+        <button color="lightorange" mat-raised-button type="submit">REGISTER</button>
     </form>
 </div>

@@ -23,10 +23,16 @@ h2 {
   width: 90%;
 }
 
-button .material-icons {
-  color: white;
-}
+form {
 
+  button {
+    background-color: mat-color($custom, custom-theme-dark-blue);
+
+    .material-icons {
+      color: white;
+    }
+  }
+}
 form {
   display: flex;
   flex-direction: column;

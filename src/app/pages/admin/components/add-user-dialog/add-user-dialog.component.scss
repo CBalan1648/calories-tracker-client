@@ -8,8 +8,8 @@
 
   background: linear-gradient(
     to top,
-    rgba(mat-color($custom, custom-theme-light-blue), 0.3),
-    rgb(255, 255, 255, 0)
+    mat-color($custom, custom-theme-dark-blue),
+    mat-color($custom, custom-theme-light-blue),
   );
 
   h2 {
@@ -37,4 +37,11 @@ img {
   width: 50%;
   height: auto;
   padding-bottom: 50px;
+}
+
+form {
+  button {
+    background-color: mat-color($custom, custom-theme-dark-blue);
+    color: white;
+  }
 }
