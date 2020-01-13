@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
+import { Subject, Subscription, BehaviorSubject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { MealsService } from 'src/app/services/meals.service';
 import { UserService } from 'src/app/services/user.service';
@@ -16,14 +16,20 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private daysMap: Map<string, number>;
   private mealsObservableSubscription: Subscription;
-  private caloriesByDay: number[];
+  private caloriesByDay: number[][];
   private userCalories = 0;
   private userObservableSubscription: Subscription;
 
   private caloriesChangeSubject = new Subject();
   private daysChangeSubject = new Subject();
 
-  private graphDataSubject = new Subject();
+  // TODO :Just random literals to prevent startup errors of SVG, extract in a constant
+  private graphDataSubject = new BehaviorSubject([
+    [0, 144, '5-10-2019'],
+    [1, 144, '5-10-2019'],
+    [2, 144, '5-10-2019'],
+    [3, 144, '5-10-2019']
+  ]);
   private targetCaloriesValueSubject = new Subject();
 
   private caloriesChangeSubscription: Subscription;
@@ -31,6 +37,7 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private displayedTimeSpan = DEFAULT_TIME_SPAN;
 
+  // TODO : Extract into constant
   private sliderMinValue = 0 + 10;
   private sliderMaxValue = 1;
 

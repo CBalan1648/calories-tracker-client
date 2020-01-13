@@ -18,7 +18,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
   @ViewChild('svgElementIdentifier', { static: false })
   private svgElementIdentifier: ElementRef;
 
-  private width = 600;
+  private width = 1000;
   private height = 300;
 
   private redGradientPart: string;
