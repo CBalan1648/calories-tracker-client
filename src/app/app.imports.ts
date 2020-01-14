@@ -41,7 +41,7 @@ import { WeekDayPipe } from './helpers/week-day.pipe';
 import { GraphComponent } from './pages/home/components/graph/graph.component';
 
 const routes: Routes = [
-    { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
+    { path: 'login', component: LoginFormComponent },
     { path: 'register', component: RegisterFormComponent },
     { path: 'home', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: HomeComponent },
     { path: 'user', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: UserProfileComponent },
