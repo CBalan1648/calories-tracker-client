@@ -1,17 +1,16 @@
-import { TestBed, async } from '@angular/core/testing';
-import { AppComponent } from './app.component';
-import { TopNotificationComponent } from './pages/shared/top-notification/top-notification.component';
-import { MatSidenavContainer, MatSidenavModule } from '@angular/material/sidenav';
-import { MatDialogContainer, MatDialogModule } from '@angular/material/dialog';
-import { HeaderComponent } from './pages/shared/header/header.component';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { RouterModule, Router } from '@angular/router';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterTestingModule } from '@angular/router/testing';
 import { APP_BASE_HREF } from '@angular/common';
-import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { async, TestBed } from '@angular/core/testing';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppComponent } from './app.component';
+import { HeaderComponent } from './pages/shared/header/header.component';
+import { TopNotificationComponent } from './pages/shared/top-notification/top-notification.component';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -29,8 +28,8 @@ describe('AppComponent', () => {
         provide: Router,
         useClass: class { navigate = jasmine.createSpy('navigate'); }
       },
-    {provide : APP_BASE_HREF, useValue: '/'}],
-  
+      { provide: APP_BASE_HREF, useValue: '/' }],
+
     }).compileComponents();
   }));
 
@@ -38,13 +37,5 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
     expect(app).toBeTruthy();
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
-    console.log(fixture)
-    const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('calories-tracker-FE app is running!');
   });
 });
