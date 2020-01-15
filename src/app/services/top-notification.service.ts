@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TopNotificationService {
-  private subject = new Subject<any>();
+  readonly subject = new Subject<any>();
 
   constructor() { }
 
@@ -14,7 +14,7 @@ export class TopNotificationService {
   }
 
   public getMessage(): Observable<any> {
-    return this.subject.asObservable();
+    return this.subject;
   }
 }
 
