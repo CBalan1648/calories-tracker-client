@@ -112,7 +112,6 @@ const filterUsers = ([usersArray, filterData]) => {
     return (filterData.searchString ? containString(user.firstName, user.lastName, user.email, filterData.searchString) : true) &&
       (filterData.searchAuthLevel ? filterLevel(user.authLevel, filterData.searchAuthLevel) : true);
   });
-
 };
 
 const containString = (testFirstName, testLastName, testEmail, searchString) => {

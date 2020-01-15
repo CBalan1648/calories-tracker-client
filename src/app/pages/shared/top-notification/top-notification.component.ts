@@ -34,5 +34,4 @@ export class TopNotificationComponent implements OnInit, OnDestroy {
   hideMessage() {
     this.message = null;
   }
-
 }

@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
+import { getRegisterFormFormValues } from 'src/app/helpers/functions.static';
+import { registerFormConfig } from 'src/app/helpers/objects.static';
 import { RegisterService } from 'src/app/services/register.service';
 import { TopNotificationService } from '../../services/top-notification.service';
-import { registerFormConfig } from 'src/app/helpers/objects.static';
-import { getRegisterFormFormValues } from 'src/app/helpers/functions.static';
 
 @Component({
   selector: 'app-register',

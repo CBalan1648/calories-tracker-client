@@ -10,7 +10,48 @@ import * as staticFunctions from 'src/app/helpers/functions.static';
 import * as staticObjects from 'src/app/helpers/objects.static';
 import { MealFormComponent } from './meal-form.component';
 
+const MISSING_TITLE_FORM_VALUES = {
+    title: void 0,
+    description: 'description-string',
+    time: 1123123123123,
+    calories: 120,
+};
 
+const MISSING_DESCRIPTION_FORM_VALUES = {
+    title: 'title-string',
+    description: void 0,
+    time: 1123123123123,
+    calories: 120,
+};
+
+const MISSING_TIME_FORM_VALUES = {
+    title: 'title-string',
+    description: 'description-string',
+    time: void 0,
+    calories: 120,
+};
+
+const MISSING_CALORIES_FORM_VALUES = {
+    title: 'title-string',
+    description: 'description-string',
+    time: 1123123123123,
+    calories: void 0,
+};
+
+const VALID_FORM_VALUES = {
+    title: 'title-string',
+    description: 'description-string',
+    time: 1123123123123,
+    calories: 120,
+};
+
+
+const setMealFormControls = (mealForm, targetObject) => {
+    mealForm.controls.title.setValue(targetObject.title);
+    mealForm.controls.description.setValue(targetObject.description);
+    mealForm.controls.time.setValue(targetObject.time);
+    mealForm.controls.calories.setValue(targetObject.calories);
+};
 
 
 describe('MealFormComponent Template', () => {
@@ -56,10 +97,7 @@ describe('MealFormComponent Template', () => {
     it('MealForm should be invalid because missing title', () => {
         fixture.detectChanges();
 
-        component.mealForm.controls.title.setValue('');
-        component.mealForm.controls.description.setValue('test');
-        component.mealForm.controls.time.setValue(1912412124);
-        component.mealForm.controls.calories.setValue(1111);
+        setMealFormControls(component.mealForm, MISSING_TITLE_FORM_VALUES);
 
         expect(component.mealForm.controls.title.errors).toBeTruthy();
         expect(component.mealForm.controls.description.errors).toBeFalsy();
@@ -71,10 +109,7 @@ describe('MealFormComponent Template', () => {
     it('MealForm should be valid because desciption is optional', () => {
         fixture.detectChanges();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('');
-        component.mealForm.controls.time.setValue(1912412124);
-        component.mealForm.controls.calories.setValue(1111);
+        setMealFormControls(component.mealForm, MISSING_DESCRIPTION_FORM_VALUES);
 
         expect(component.mealForm.controls.title.errors).toBeFalsy();
         expect(component.mealForm.controls.description.errors).toBeFalsy();
@@ -86,11 +121,7 @@ describe('MealFormComponent Template', () => {
 
     it('MealForm should be valid because time is optional', () => {
         fixture.detectChanges();
-
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(null);
-        component.mealForm.controls.calories.setValue(1111);
+        setMealFormControls(component.mealForm, MISSING_TIME_FORM_VALUES);
 
         expect(component.mealForm.controls.title.errors).toBeFalsy();
         expect(component.mealForm.controls.description.errors).toBeFalsy();
@@ -102,10 +133,7 @@ describe('MealFormComponent Template', () => {
     it('MealForm should be invalid because calories is missing', () => {
         fixture.detectChanges();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(null);
+        setMealFormControls(component.mealForm, MISSING_CALORIES_FORM_VALUES);
 
         expect(component.mealForm.controls.title.errors).toBeFalsy();
         expect(component.mealForm.controls.description.errors).toBeFalsy();
@@ -119,10 +147,7 @@ describe('MealFormComponent Template', () => {
         fixture.detectChanges();
         spyOn(component, 'onSubmit');
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(123);
+        setMealFormControls(component.mealForm, VALID_FORM_VALUES);
 
         const submitButton = fixture.debugElement.query(By.css('button')).nativeElement;
 
@@ -139,10 +164,7 @@ describe('MealFormComponent Template', () => {
         fixture.detectChanges();
         spyOn(component, 'onSubmit');
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(null);
+        setMealFormControls(component.mealForm, MISSING_CALORIES_FORM_VALUES);
 
         const submitButton = fixture.debugElement.query(By.css('button')).nativeElement;
 
@@ -306,10 +328,7 @@ describe('MealFormComponent', () => {
 
         component.ngOnInit();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(null);
+        setMealFormControls(component.mealForm, MISSING_CALORIES_FORM_VALUES);
 
         expect(component.mealForm.valid).toBeFalsy();
 
@@ -336,10 +355,7 @@ describe('MealFormComponent', () => {
 
         component.ngOnInit();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(123);
+        setMealFormControls(component.mealForm, VALID_FORM_VALUES);
 
         expect(component.mealForm.valid).toBeTruthy();
 
@@ -359,10 +375,7 @@ describe('MealFormComponent', () => {
 
         component.ngOnInit();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(123);
+        setMealFormControls(component.mealForm, VALID_FORM_VALUES);
 
         expect(component.mealForm.valid).toBeTruthy();
 
@@ -381,19 +394,14 @@ describe('MealFormComponent', () => {
 
         component.ngOnInit();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(123);
+        setMealFormControls(component.mealForm, VALID_FORM_VALUES);
 
         expect(component.mealForm.valid).toBeTruthy();
 
         // Necessary because the original object is modified in submitForm()
-        const copyMealForm = new FormBuilder().group(staticObjects.mealFormConfig)
-        copyMealForm.controls.title.setValue('hello');
-        copyMealForm.controls.description.setValue('hello');
-        copyMealForm.controls.time.setValue(112312312);
-        copyMealForm.controls.calories.setValue(123);
+        const copyMealForm = new FormBuilder().group(staticObjects.mealFormConfig);
+
+        setMealFormControls(copyMealForm, VALID_FORM_VALUES);
 
         component.submitForm();
 
@@ -411,10 +419,7 @@ describe('MealFormComponent', () => {
 
         component.ngOnInit();
 
-        component.mealForm.controls.title.setValue('hello');
-        component.mealForm.controls.description.setValue('hello');
-        component.mealForm.controls.time.setValue(112312312);
-        component.mealForm.controls.calories.setValue(123);
+        setMealFormControls(component.mealForm, VALID_FORM_VALUES);
 
         expect(component.mealForm.valid).toBeTruthy();
 

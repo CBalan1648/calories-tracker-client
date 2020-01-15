@@ -18,8 +18,6 @@ export class LoginFormComponent implements OnDestroy, OnInit {
 
   constructor(private formBuilder: FormBuilder, readonly loginService: LoginService) { }
 
-
-
   ngOnInit() {
     this.observableSubscription = this.loginService.connectRequestObservable(this.observableSubject);
     this.loginForm = this.formBuilder.group(loginFormConfig);

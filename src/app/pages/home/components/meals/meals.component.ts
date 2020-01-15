@@ -32,7 +32,7 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   openEditDialog(meal: Meal, ownerId = this.user._id): void {
-   this.editMealDialog.open(EditMealDialogComponent, {
+    this.editMealDialog.open(EditMealDialogComponent, {
       width: '400px',
       height: '500px',
       panelClass: 'custom-dialog',
