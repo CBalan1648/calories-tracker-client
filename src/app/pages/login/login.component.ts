@@ -12,11 +12,11 @@ import { LoginService } from '../../services/login.service';
 })
 export class LoginFormComponent implements OnDestroy, OnInit {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  public observableSubject: Subject<any> = new Subject();
+  public observableSubscription: Subscription;
   public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
+  constructor(private formBuilder: FormBuilder, readonly loginService: LoginService) { }
 
 
 
