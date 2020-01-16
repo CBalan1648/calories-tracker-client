@@ -10,12 +10,12 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  private userServiceSubscriptions: Subscription;
-  private firstName: string;
-  private lastName: string;
-  private logout;
+  public userServiceSubscriptions: Subscription;
+  public firstName: string;
+  public lastName: string;
+  public logout;
 
-  @Input() private sidenavRef: any;
+  @Input() public sidenavRef: any;
 
   constructor(private userService: UserService) {
     this.logout = userService.logoutUser.bind(this.userService);
