@@ -1,4 +1,5 @@
 import { User } from '../models/user';
+import { ValidatorFn, FormGroup, ValidationErrors } from '@angular/forms';
 
 export const getMealFormValues = (form) => {
     const formValues = form.controls;
@@ -103,3 +104,12 @@ export const saveToken = (token) => {
 export const deleteToken = () => {
     localStorage.removeItem('token');
 };
+
+
+export const samePasswordValidator: ValidatorFn = (form: FormGroup): ValidationErrors | null => {
+    const password = form.get('password');
+    const repeatedPassword = form.get('repeatPassword');
+
+    return password.value !== repeatedPassword.value ? { passwordRepeatError: true } : null;
+};
+

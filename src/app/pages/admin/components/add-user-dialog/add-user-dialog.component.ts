@@ -18,11 +18,12 @@ export class AddUserDialogComponent implements OnInit, OnDestroy {
   private observableSubject: Subject<any> = new Subject();
   private observableSubscription: Subscription;
 
-  constructor(private formBuilder: FormBuilder,
-              private registerService: RegisterService,
-              private adminService: AdminService,
-              public dialogRef: MatDialogRef<AddMealDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: any, ) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private registerService: RegisterService,
+    private adminService: AdminService,
+    public dialogRef: MatDialogRef<AddMealDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any, ) { }
 
   registerForm = this.formBuilder.group(addUserFormConfig);
 

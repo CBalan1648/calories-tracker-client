@@ -19,3 +19,4 @@ export class TopNotificationService {
 }
 
 export const JWT_LOGIN_NOTIFICATION = 'Signing in, please wait';
+export const AUTO_LOGIN_NOTIFICATION = 'Hello, this is a notification form - Register Form';

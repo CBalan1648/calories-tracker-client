@@ -36,7 +36,6 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
 
   submitForm() {
     if (this.userProfileForm.status === 'VALID') {
-
       this.userObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.userData));
       this.onClose();
     }

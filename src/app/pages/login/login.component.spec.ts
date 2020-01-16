@@ -111,8 +111,6 @@ describe('LoginFormComponent Template', () => {
     const registerLink = fixture.debugElement.query(By.css('.login-button-group a')).nativeElement.getAttribute('routerlink');
 
     expect(registerLink).toEqual('/register');
-
-
   });
 
 });
@@ -167,7 +165,7 @@ describe('LoginFormComponent', () => {
     expect(mockFormBuilder.group).toHaveBeenCalledWith(loginFormConfig);
   });
 
-  it('Should call loginService.disconnectRequestObservable on ngOnInit', () => {
+  it('Should call loginService.disconnectRequestObservable on ngOnDestroy', () => {
     spyOn(mockLoginService, 'disconnectRequestObservable');
 
     expect(mockLoginService.disconnectRequestObservable).toHaveBeenCalledTimes(0);
@@ -206,6 +204,7 @@ describe('LoginFormComponent', () => {
 
     expect(component.observableSubject.next).toHaveBeenCalledTimes(0);
   });
+  
 
 });
 

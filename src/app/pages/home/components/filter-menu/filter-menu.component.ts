@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { filterFormConfig } from 'src/app/helpers/objects.static';
 import { MealsService } from 'src/app/services/meals.service';
@@ -12,12 +12,12 @@ import { MealsService } from 'src/app/services/meals.service';
 export class FilterMenuComponent implements OnInit, OnDestroy {
 
   private filterSubscription: Subscription;
+  public filterForm: FormGroup;
 
   constructor(private readonly formBuilder: FormBuilder, private readonly mealService: MealsService) { }
 
-  filterForm = this.formBuilder.group(filterFormConfig);
-
   ngOnInit() {
+    this.filterForm = this.formBuilder.group(filterFormConfig);
     this.filterSubscription = this.mealService.connectFilterObservable(this.filterForm.valueChanges);
   }
 
