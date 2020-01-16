@@ -90,7 +90,6 @@ export class AdminComponent implements OnInit, OnDestroy {
       panelClass: 'custom-dialog',
     });
   }
-
 }
 
 export class RefactorDataSource extends DataSource<string> {

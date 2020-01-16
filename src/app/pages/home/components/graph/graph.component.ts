@@ -2,6 +2,10 @@ import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, View
 import { Observable } from 'rxjs';
 import { addNormalizedDataWidth, createSvgPath, normalizeDataHeight, reverseDataHeight } from '../dashboard/dashboard.static';
 
+const DEFAULT_GRAPH_WIDTH = 1000;
+const DEFAULT_GRAPH_HEIGHT = 300;
+const GRADIENT_CHANGE_ZONE = 40;
+
 @Component({
   selector: 'app-graph',
   templateUrl: './graph.component.html',
@@ -18,8 +22,8 @@ export class GraphComponent implements OnInit, AfterViewInit {
   @ViewChild('svgElementIdentifier', { static: false })
   private svgElementIdentifier: ElementRef;
 
-  private width = 1000;
-  private height = 300;
+  private width = DEFAULT_GRAPH_WIDTH;
+  private height = DEFAULT_GRAPH_HEIGHT;
 
   private redGradientPart: string;
   private greenGradientPart: string;
@@ -77,11 +81,9 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     const redGradientPart = Math.floor(reversedCaloriesHeight * 100 / this.height);
 
-    this.redGradientPart = `${redGradientPart - 40}%`;
-    this.greenGradientPart = `${redGradientPart + 40}%`;
+    this.redGradientPart = `${redGradientPart - GRADIENT_CHANGE_ZONE}%`;
+    this.greenGradientPart = `${redGradientPart + GRADIENT_CHANGE_ZONE}%`;
 
     this.svgPathCalories = `M 0 ${reversedCaloriesHeight}, ${this.width}, ${reversedCaloriesHeight}`;
   }
 }
-
-

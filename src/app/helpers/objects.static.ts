@@ -73,3 +73,19 @@ export const userProfileFormConfig = {
     email: [{ value: '', disabled: true }],
     targetCalories: [{ value: '', disabled: true }, [Validators.required]],
 };
+
+
+export const initialMealStats: MealsStats = {
+    totalMeals: 0,
+    totalCalories: 0,
+    averageCalories: '',
+
+    mealsAboveTarget: 0,
+    mealsBelowTarget: 0,
+
+    mostCaloricMealTitle: '',
+    mostCaloriMealCalories: -1,
+
+    leastCaloricMealTitle: '',
+    leastCaloricMealCalories: Infinity
+};
