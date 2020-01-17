@@ -33,13 +33,11 @@
                 <div class="profile-buttons">
                     <button color="darkblue" class="edit-button" mat-raised-button
                         (click)="editing ? save() : edit()">{{buttonMessage}}</button>
-                    <button color="darkblue" *ngIf="editing" class="edit-button" (click)="abort()"
-                        mat-raised-button>Abort</button>
+                    <button color="darkblue" *ngIf="editing" class="abort-button" (click)="abort()"
+                        mat-raised-button>{{abortButtonMessage}}</button>
                 </div>
-
             </form>
         </div>
-
     </div>
 
     <div class="profile-stats">
@@ -49,7 +47,7 @@
         <h2 class="mat-title">Meals over the calories target (Bad) : <span>{{stats.mealsAboveTarget}}</span></h2>
         <h2 class="mat-title">Meals below the calories target (Good) : <span>{{stats.mealsBelowTarget}}</span></h2>
         <h2 class="mat-title">Most caloric Meal : <span>{{stats.mostCaloricMealTitle}}</span> -
-            <span>{{stats.mostCaloriMealCalories}}</span> Calories</h2>
+            <span>{{stats.mostCaloricMealCalories}}</span> Calories</h2>
         <h2 class="mat-title">Least caloric Meal : <span>{{stats.leastCaloricMealTitle}}</span> -
             <span>{{stats.leastCaloricMealCalories}}</span> Calories</h2>
     </div>

@@ -3,6 +3,7 @@ import { Meal } from '../models/meal';
 import { User } from '../models/user';
 import { from, Observable } from 'rxjs';
 import { mergeMap, groupBy, reduce, map } from 'rxjs/operators';
+import { MealsStats } from './interfaces';
 
 export const getMealFormValues = (form) => {
     const formValues = form.controls;
@@ -117,8 +118,8 @@ export const samePasswordValidator: ValidatorFn = (form: FormGroup): ValidationE
 };
 
 export const mealStatsReducer = (statsCounter, currentValue) => {
-    if (currentValue.calories > statsCounter.mostCaloriMealCalories) {
-        statsCounter.mostCaloriMealCalories = currentValue.calories;
+    if (currentValue.calories > statsCounter.mostCaloricMealCalories) {
+        statsCounter.mostCaloricMealCalories = currentValue.calories;
         statsCounter.mostCaloricMealTitle = currentValue.title;
     }
 

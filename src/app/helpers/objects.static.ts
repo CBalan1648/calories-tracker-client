@@ -1,4 +1,5 @@
 import { Validators } from '@angular/forms';
+import { MealsStats } from './interfaces';
 
 export const mealFormConfig = {
     title: ['', Validators.required],
@@ -84,7 +85,7 @@ export const initialMealStats: MealsStats = {
     mealsBelowTarget: 0,
 
     mostCaloricMealTitle: '',
-    mostCaloriMealCalories: -1,
+    mostCaloricMealCalories: -1,
 
     leastCaloricMealTitle: '',
     leastCaloricMealCalories: Infinity

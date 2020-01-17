@@ -1,4 +1,4 @@
-interface MealsStats {
+export interface MealsStats {
     totalMeals: number;
     totalCalories: number;
     averageCalories: string;
@@ -7,7 +7,7 @@ interface MealsStats {
     mealsBelowTarget: number;
 
     mostCaloricMealTitle: string;
-    mostCaloriMealCalories: number;
+    mostCaloricMealCalories: number;
 
     leastCaloricMealTitle: string;
     leastCaloricMealCalories: number;

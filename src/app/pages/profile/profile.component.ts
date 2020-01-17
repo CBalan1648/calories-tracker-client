@@ -2,30 +2,31 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { getProfileFormValues, generateMealStats } from 'src/app/helpers/functions.static';
+import { generateMealStats, getProfileFormValues } from 'src/app/helpers/functions.static';
 import { userProfileFormConfig } from 'src/app/helpers/objects.static';
 import { User } from 'src/app/models/user';
 import { MealsService } from 'src/app/services/meals.service';
 import { UserService } from 'src/app/services/user.service';
-import { mealStatsReducer } from '../../helpers/functions.static';
 import { initialMealStats } from '../../helpers/objects.static';
-import { TopNotificationService } from '../../services/top-notification.service';
+import { ABORT_STRING, EDIT_STRING, SAVE_STRING } from '../../helpers/string';
+import { TopNotificationService, PROFILE_UPDATE_SUCCESSFUL } from '../../services/top-notification.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  private mealsObservableSubscription: Subscription;
-  private userObservableSubscription: Subscription;
+  public mealsObservableSubscription: Subscription;
+  public userObservableSubscription: Subscription;
 
-  private editUserObservableSubject: Subject<any> = new Subject();
-  private editUserObservableSubscription: Subscription;
+  public editUserObservableSubject: Subject<any> = new Subject();
+  public editUserObservableSubscription: Subscription;
 
-  private user: User;
-  public buttonMessage = 'Edit';
+  public user: User;
+  public buttonMessage = EDIT_STRING;
+  public abortButtonMessage = ABORT_STRING;
   public editing = false;
   public stats = { ...initialMealStats };
   public userProfileForm: FormGroup;
@@ -78,20 +79,20 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     this.disableFormEditing();
     this.editing = false;
-    this.buttonMessage = 'Edit';
-    this.topNotification.setMessage('Something something update successful');
+    this.buttonMessage = EDIT_STRING;
+    this.topNotification.setMessage(PROFILE_UPDATE_SUCCESSFUL);
   }
 
   edit() {
     this.enableFormEditing();
-    this.buttonMessage = 'Save';
+    this.buttonMessage = SAVE_STRING;
     this.editing = true;
   }
 
   abort() {
     this.disableFormEditing();
     this.resetForm(this.user);
-    this.buttonMessage = 'Edit';
+    this.buttonMessage = EDIT_STRING;
     this.editing = false;
   }
 
