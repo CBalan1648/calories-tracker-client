@@ -72,7 +72,6 @@ describe('SearchUserDialogComponent Template', () => {
         expect(component.close).toHaveBeenCalledTimes(1);
     });
 
-
 });
 
 class MockAdminService {

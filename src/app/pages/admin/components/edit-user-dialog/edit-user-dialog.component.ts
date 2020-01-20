@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { getEditUserFormValues } from 'src/app/helpers/functions.static';
@@ -16,6 +16,7 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
 
   private userObservableSubject: Subject<any> = new Subject();
   private userObservableSubscription: Subscription;
+  public userProfileForm: FormGroup;
 
   constructor(
     private readonly adminService: AdminService,
@@ -24,9 +25,8 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public userData: User,
   ) { }
 
-  userProfileForm = this.formBuilder.group(editUserFormConfig(this.userData));
-
   ngOnInit() {
+    this.userProfileForm = this.formBuilder.group(editUserFormConfig(this.userData));
     this.userObservableSubscription = this.adminService.connectEditUserRequestObservable(this.userObservableSubject);
   }
 
