@@ -6,10 +6,9 @@
 
   .actions {
     button {
-      color : white;
+      color: white;
       background-color: mat-color($custom, custom-theme-dark-blue);
     }
-  
   }
 }
 
@@ -18,15 +17,14 @@
   transition: 1s;
   font-weight: 900;
   div {
-    color : rgba(red,0.5)
+    color: rgba(red, 0.5);
   }
-  
+
   .actions {
     button {
-      color : red;
+      color: red;
       background-color: mat-color($custom, custom-theme-light-red);
     }
-  
   }
 }
 

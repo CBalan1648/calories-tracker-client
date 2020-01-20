@@ -10,8 +10,8 @@ import { MealsService } from 'src/app/services/meals.service';
 })
 export class AddMealDialogComponent implements OnInit, OnDestroy {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  public observableSubject: Subject<any> = new Subject();
+  public observableSubscription: Subscription;
 
   constructor(
     private readonly mealsService: MealsService,

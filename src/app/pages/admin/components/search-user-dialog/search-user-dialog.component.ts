@@ -12,19 +12,19 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class SearchUserDialogComponent implements OnInit, OnDestroy {
 
-  private inputFieldDataSubject = new BehaviorSubject({ searchString: '', searchAuthLevel: '' });
-  private filterSubscription: Subscription;
-  private formChangeSubscription: Subscription;
+  public inputFieldDataSubject = new BehaviorSubject({ searchString: '', searchAuthLevel: '' });
+  public filterSubscription: Subscription;
+  public formChangeSubscription: Subscription;
   public searchUserForm: FormGroup;
   public onChange = this.inputFieldDataSubject.next.bind(this.inputFieldDataSubject);
 
   constructor(
     private formBuilder: FormBuilder,
     private adminService: AdminService,
-    public dialogRef: MatSnackBarRef<SearchUserDialogComponent>,
+    public snackBarRef: MatSnackBarRef<SearchUserDialogComponent>,
     @Inject(MAT_SNACK_BAR_DATA) public data: { searchString: string, searchAuthLevel: string }
   ) { }
-  
+
   ngOnInit() {
     this.searchUserForm = this.formBuilder.group(searchUserFormConfig(this.data));
     this.filterSubscription = this.adminService.connectFilterObservable(this.inputFieldDataSubject.asObservable());
@@ -37,6 +37,6 @@ export class SearchUserDialogComponent implements OnInit, OnDestroy {
   }
 
   close() {
-    this.dialogRef.dismiss();
+    this.snackBarRef.dismiss();
   }
 }

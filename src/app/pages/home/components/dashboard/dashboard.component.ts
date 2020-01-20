@@ -4,6 +4,7 @@ import { filter } from 'rxjs/operators';
 import { MealsService } from 'src/app/services/meals.service';
 import { UserService } from 'src/app/services/user.service';
 import { getLastXDaysCalories } from './dashboard.static';
+import { Meal } from 'src/app/models/meal';
 
 const DEFAULT_TIME_SPAN = 7;
 
@@ -55,15 +56,8 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.mealsObservableSubscription = this.mealService.getFilteredMealObservable().pipe(
       filter(meals => !!meals.length)
     ).subscribe(meals => {
-      const daysMap = new Map();
-
-      meals.forEach(meal => {
-        const currentValue = daysMap.get(meal.day);
-        daysMap.set(meal.day, currentValue ? currentValue + meal.calories : meal.calories);
-      });
-
-      this.daysMap = daysMap;
-      this.caloriesByDay = getLastXDaysCalories(DEFAULT_TIME_SPAN, daysMap);
+      this.daysMap = mapMealsToDays(meals);
+      this.caloriesByDay = getLastXDaysCalories(DEFAULT_TIME_SPAN, this.daysMap);
       this.graphDataSubject.next(this.caloriesByDay);
     });
 
@@ -105,3 +99,14 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this.userService.updateCalories(event);
   }
 }
+
+const mapMealsToDays = (meals: Meal[]): Map<string, number> => {
+  const daysMap = new Map();
+
+  meals.forEach(meal => {
+    const currentValue = daysMap.get(meal.day);
+    daysMap.set(meal.day, currentValue ? currentValue + meal.calories : meal.calories);
+  });
+
+  return daysMap;
+};
