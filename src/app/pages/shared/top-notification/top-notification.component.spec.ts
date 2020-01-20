@@ -3,7 +3,7 @@ import { By } from '@angular/platform-browser';
 import { TopNotificationService } from 'src/app/services/top-notification.service';
 import { TopNotificationComponent } from './top-notification.component';
 
-const testString = 'testString'
+const testString = 'testString';
 
 describe('TopNotificationComponent Template', () => {
     let component: TopNotificationComponent;

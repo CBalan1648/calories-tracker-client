@@ -14,19 +14,19 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class EditUserDialogComponent implements OnInit, OnDestroy {
 
-  private userObservableSubject: Subject<any> = new Subject();
-  private userObservableSubscription: Subscription;
-  public userProfileForm: FormGroup;
+  public userObservableSubject: Subject<any> = new Subject();
+  public userObservableSubscription: Subscription;
+  public editUserForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private readonly adminService: AdminService,
     public dialogRef: MatDialogRef<EditUserDialogComponent>,
-    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public userData: User,
   ) { }
 
   ngOnInit() {
-    this.userProfileForm = this.formBuilder.group(editUserFormConfig(this.userData));
+    this.editUserForm = this.formBuilder.group(editUserFormConfig(this.userData));
     this.userObservableSubscription = this.adminService.connectEditUserRequestObservable(this.userObservableSubject);
   }
 
@@ -35,8 +35,8 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    if (this.userProfileForm.status === 'VALID') {
-      this.userObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.userData));
+    if (this.editUserForm.status === 'VALID') {
+      this.userObservableSubject.next(getEditUserFormValues(this.editUserForm, this.userData));
       this.onClose();
     }
   }

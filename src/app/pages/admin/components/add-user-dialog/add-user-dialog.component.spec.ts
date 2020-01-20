@@ -16,11 +16,9 @@ import { AdminService } from 'src/app/services/admin.service';
 import { RegisterService } from 'src/app/services/register.service';
 import { AddUserDialogComponent } from './add-user-dialog.component';
 
-
 describe('AddUserDialogComponent Template', () => {
     let component: AddUserDialogComponent;
     let fixture: ComponentFixture<AddUserDialogComponent>;
-
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
@@ -198,7 +196,6 @@ describe('AddUserDialogComponent Template', () => {
         expect(component.addUserForm.valid).toBeTruthy();
     });
 
-
     it('AddUserForm should be submitted on button click', () => {
         fixture.detectChanges();
 
@@ -210,7 +207,6 @@ describe('AddUserDialogComponent Template', () => {
 
         expect(component.submitForm).toHaveBeenCalledTimes(1);
     });
-
 });
 
 class MockRegisterService {
@@ -235,7 +231,6 @@ class MockAdminService {
 class MockDialogRef {
     close = () => void 0;
 }
-
 
 describe('AddUserDialogComponent', () => {
     let component: AddUserDialogComponent;
@@ -262,7 +257,6 @@ describe('AddUserDialogComponent', () => {
         expect(mockFormBuilder.group).toHaveBeenCalledTimes(1);
         expect(mockFormBuilder.group).toHaveBeenCalledWith(addUserFormConfig);
     });
-
 
     it('Should call registerService.connectRequestObservableAdmin on ngOnInit', () => {
 
@@ -296,7 +290,6 @@ describe('AddUserDialogComponent', () => {
         expect(component.observableSubject.next).toHaveBeenCalledTimes(1);
         expect(component.observableSubject.next).toHaveBeenCalledWith([getRegisterFormFormValuesAdmin(component.addUserForm), false]);
     });
-
 
     it('Should call adminService.getUsers() on submitForm(VALID)', () => {
         component.ngOnInit();

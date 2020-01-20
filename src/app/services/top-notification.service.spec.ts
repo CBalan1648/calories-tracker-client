@@ -26,6 +26,6 @@ describe('TopNotificationService', () => {
 
     expect(returnedObservable).toBeTruthy();
     expect(returnedObservable instanceof Observable).toBeTruthy();
-    expect(returnedObservable).toEqual(topNotificationService.subject)
+    expect(returnedObservable).toEqual(topNotificationService.subject);
   });
 });

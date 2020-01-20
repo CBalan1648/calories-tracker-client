@@ -11,11 +11,9 @@ import { loginFormConfig } from 'src/app/helpers/objects.static';
 import { LoginService } from 'src/app/services/login.service';
 import { LoginFormComponent } from './login.component';
 
-
 describe('LoginFormComponent Template', () => {
   let component: LoginFormComponent;
   let fixture: ComponentFixture<LoginFormComponent>;
-
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -28,8 +26,6 @@ describe('LoginFormComponent Template', () => {
       ]
     })
       .compileComponents();
-
-
   }));
 
   beforeEach(() => {
@@ -86,7 +82,6 @@ describe('LoginFormComponent Template', () => {
     expect(component.loginForm.valid).toBeTruthy();
   });
 
-
   it('LoginForm submit should be called', () => {
     fixture.detectChanges();
 
@@ -112,7 +107,6 @@ describe('LoginFormComponent Template', () => {
 
     expect(registerLink).toEqual('/register');
   });
-
 });
 
 class MockLoginService {
@@ -123,16 +117,6 @@ class MockLoginService {
 
   disconnectRequestObservable = (subscription: Subscription) => { subscription.unsubscribe(); };
 }
-
-
-class MockFormBuilder {
-  public receivedValue: any;
-  group = (value) => {
-    this.receivedValue = value;
-    return new FormBuilder().group(value);
-  }
-}
-
 
 describe('LoginFormComponent', () => {
   let component: LoginFormComponent;
@@ -204,10 +188,4 @@ describe('LoginFormComponent', () => {
 
     expect(component.observableSubject.next).toHaveBeenCalledTimes(0);
   });
-  
-
 });
-
-
-
-

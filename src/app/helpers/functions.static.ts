@@ -174,59 +174,59 @@ export const filterLevel = (userAuthLevel, searchAuthLevel) => userAuthLevel ===
 export const isInTimeSpan = (targetDate, [fromDate, toDate]) => targetDate >= fromDate && targetDate <= toDate;
 
 export const isInTimeFrame = (targetTime, [frameBegin, frameEnd]) => {
-  const date = new Date(targetTime);
-  const targetHour = date.getHours();
-  const targetMinute = date.getMinutes();
+    const date = new Date(targetTime);
+    const targetHour = date.getHours();
+    const targetMinute = date.getMinutes();
 
-  const [frameBeginHour, frameBeginMinute] = frameBegin.split(':').map(Number);
-  const [frameEndHour, frameEndMinute] = frameEnd.split(':').map(Number);
+    const [frameBeginHour, frameBeginMinute] = frameBegin.split(':').map(Number);
+    const [frameEndHour, frameEndMinute] = frameEnd.split(':').map(Number);
 
-  return (targetHour > frameBeginHour ||
-    targetHour === frameBeginHour && targetMinute > frameBeginMinute) &&
-    (targetHour < frameEndHour ||
-      targetHour === frameEndHour && targetMinute < frameEndMinute);
+    return (targetHour > frameBeginHour ||
+        targetHour === frameBeginHour && targetMinute > frameBeginMinute) &&
+        (targetHour < frameEndHour ||
+            targetHour === frameEndHour && targetMinute < frameEndMinute);
 
 };
 
 export const updateMealWithCalories = ([filteredMealsObservable, userObservable]) => {
-  const tagetCalories = userObservable.targetCalories;
+    const tagetCalories = userObservable.targetCalories;
 
-  return from([filteredMealsObservable]).pipe(
-    mergeMap((mealArray: Meal[]) => from(mealArray).pipe(
-      groupBy((meal: Meal) => {
-        const mealDate = new Date(meal.time);
-        const mealDay = `${mealDate.getUTCDate()}-${mealDate.getUTCMonth() + 1}-${mealDate.getUTCFullYear()}`;
-        meal.day = mealDay;
-        return mealDay;
-      }),
-      mergeMap((groupedMealsObservable: Observable<any>) => groupedMealsObservable.pipe(
-        reduce((acc, cur) => [...acc, cur], []),
-      )),
-      map(groupedMeals => {
-        const totCal = groupedMeals.reduce((totCalories, meal) => totCalories += meal.calories, 0);
-        return groupedMeals.map(meal => ({ ...meal, overCal: totCal > tagetCalories }));
-      }),
-      reduce((acc, cur) => [...acc, ...cur], []),
-    ))
-  );
+    return from([filteredMealsObservable]).pipe(
+        mergeMap((mealArray: Meal[]) => from(mealArray).pipe(
+            groupBy((meal: Meal) => {
+                const mealDate = new Date(meal.time);
+                const mealDay = `${mealDate.getUTCDate()}-${mealDate.getUTCMonth() + 1}-${mealDate.getUTCFullYear()}`;
+                meal.day = mealDay;
+                return mealDay;
+            }),
+            mergeMap((groupedMealsObservable: Observable<any>) => groupedMealsObservable.pipe(
+                reduce((acc, cur) => [...acc, cur], []),
+            )),
+            map(groupedMeals => {
+                const totCal = groupedMeals.reduce((totCalories, meal) => totCalories += meal.calories, 0);
+                return groupedMeals.map(meal => ({ ...meal, overCal: totCal > tagetCalories }));
+            }),
+            reduce((acc, cur) => [...acc, ...cur], []),
+        ))
+    );
 };
 
 export const getTimeSpan = (timeSpan, customDateFrom, customDateTo) => {
     const timeSpanOptions = {
-      SPAN_LAST_24_HOURS: [Date.now() - 86400000, Date.now()],
-      SPAN_LAST_7_DAYS: [Date.now() - 86400000 * 7, Date.now()],
-      SPAN_LAST_30_DAYS: [Date.now() - 86400000 * 30, Date.now()],
-      SPAN_CUSTOM: [Date.parse(customDateFrom) || 0, Date.parse(customDateTo) || Date.now()]
+        SPAN_LAST_24_HOURS: [Date.now() - 86400000, Date.now()],
+        SPAN_LAST_7_DAYS: [Date.now() - 86400000 * 7, Date.now()],
+        SPAN_LAST_30_DAYS: [Date.now() - 86400000 * 30, Date.now()],
+        SPAN_CUSTOM: [Date.parse(customDateFrom) || 0, Date.parse(customDateTo) || Date.now()]
     };
     return timeSpanOptions[timeSpan];
-  };
-  
+};
+
 export const getTimeFrame = (timeFrame: string, frameBegin: string, frameEnd: string) => {
     const timeSpanOptions = {
-      FRAME_BREAKFAST: ['07:00', '09:00'],
-      FRAME_LUNCH: ['12:00', '14:00'],
-      FRAME_DINNER: ['20:00', '22:00'],
-      FRAME_CUSTOM: [frameBegin || '00:00', frameEnd || '23:59']
+        FRAME_BREAKFAST: ['07:00', '09:00'],
+        FRAME_LUNCH: ['12:00', '14:00'],
+        FRAME_DINNER: ['20:00', '22:00'],
+        FRAME_CUSTOM: [frameBegin || '00:00', frameEnd || '23:59']
     };
     return timeSpanOptions[timeFrame];
-  };
+};
