@@ -90,3 +90,10 @@ export const initialMealStats: MealsStats = {
     leastCaloricMealTitle: '',
     leastCaloricMealCalories: Infinity
 };
+
+export const editMealDialogConfig = (meal, ownerId) => ({
+    width: '400px',
+    height: '500px',
+    panelClass: 'custom-dialog',
+    data: { meal, ownerId },
+});
