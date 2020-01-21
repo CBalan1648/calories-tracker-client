@@ -26,9 +26,7 @@ export class MealsComponent implements OnInit, OnDestroy {
               private readonly editMealDialog: MatDialog,
               private readonly userService: UserService) {
 
-    this.mealsObservable = this.mealsService.getFilteredMealObservable();
-    this.mealsService.getMeals();
-    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
+
   }
 
   openEditDialog(meal: Meal, ownerId = this.user._id): void {
@@ -41,6 +39,9 @@ export class MealsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.mealsObservable = this.mealsService.getFilteredMealObservable();
+    this.mealsService.getMeals();
+    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
     this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.user = user);
     this.mealsObservableSubscription = this.mealsService.getFilteredMealObservable().subscribe(meals => this.meals = meals);
   }

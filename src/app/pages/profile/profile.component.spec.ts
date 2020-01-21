@@ -442,7 +442,7 @@ describe('ProfileComponent', () => {
 
         (mockMealsService as unknown as MockMealsService).subject.next(mockMealsValue);
 
-        expect(staticFunctions.generateMealStats).toHaveBeenCalledWith(mockMealsValue, initialMealStats);
+        expect(staticFunctions.generateMealStats).toHaveBeenCalledWith(mockMealsValue, initialMealStats, component.user.targetCalories);
 
         expect(component.stats).toEqual(returnedMealStats);
     });

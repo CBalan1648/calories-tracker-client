@@ -32,17 +32,16 @@ export class AdminComponent implements OnInit, OnDestroy {
 
   constructor(private readonly adminService: AdminService,
               private readonly mealsService: MealsService,
-              private readonly editMealDialog: MatDialog,
+              private readonly dialog: MatDialog,
               private readonly userService: UserService,
-  ) {
-
-    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
-    this.deleteUser = this.adminService.deleteUserRequest.bind(this.adminService);
-    this.usersObservable = adminService.getUserObservable();
-    this.adminService.getUsers();
-  }
+  ) { }
 
   ngOnInit() {
+    this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
+    this.deleteUser = this.adminService.deleteUserRequest.bind(this.adminService);
+    this.usersObservable = this.adminService.getUserObservable();
+    this.adminService.getUsers();
+
     this.usersSubscription = this.usersObservable.subscribe(users => this.users = users);
     this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.activeUser = user);
   }
@@ -64,7 +63,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   openEditDialog(meal: Meal, ownerId: string): void {
-    this.editMealDialog.open(EditMealDialogComponent, {
+    this.dialog.open(EditMealDialogComponent, {
       width: '400px',
       height: '500px',
       data: { meal, ownerId },
@@ -73,7 +72,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   openMealAddDialog(userId) {
-    this.editMealDialog.open(AddMealDialogComponent, {
+    this.dialog.open(AddMealDialogComponent, {
       width: '400px',
       height: '500px',
       data: userId,
@@ -83,7 +82,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   openEditUserDialog(user): void {
-    this.editMealDialog.open(EditUserDialogComponent, {
+    this.dialog.open(EditUserDialogComponent, {
       width: '400px',
       height: '500px',
       data: user,

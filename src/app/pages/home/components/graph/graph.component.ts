@@ -1,10 +1,15 @@
 import { AfterViewInit, Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
-import { addNormalizedDataWidth, createSvgPath, normalizeDataHeight, reverseDataHeight } from '../dashboard/dashboard.static';
+import {
+  addNormalizedDataWidth,
+  calculateGradient, createSvgPath,
+  getMaxCalories, getSvgLinePath,
+  normalizeDataHeight, reverseDataHeight
+} from '../dashboard/dashboard.static';
 
 const DEFAULT_GRAPH_WIDTH = 1000;
 const DEFAULT_GRAPH_HEIGHT = 300;
-const GRADIENT_CHANGE_ZONE = 40;
+
 
 @Component({
   selector: 'app-graph',
@@ -33,8 +38,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
   private caloriesByDay: number[];
 
-  constructor() {
-  }
+  constructor() { }
 
   ngOnInit() {
     this.caloriesByDayObservable.subscribe(caloriesByDay => {
@@ -45,7 +49,7 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
     this.targetCaloriesValueObservable.subscribe(newCaloriesValue => {
       this.userTargetCalories = newCaloriesValue;
-      this.calculateSvgPathCalories();
+      this.calculateSvgTargetCaloriesLinePath();
     });
   }
 
@@ -61,29 +65,31 @@ export class GraphComponent implements OnInit, AfterViewInit {
 
   calculateSvgGraph() {
     this.calculateSvgPath();
-    this.calculateSvgPathCalories();
+    this.calculateSvgTargetCaloriesLinePath();
   }
 
   calculateSvgPath() {
     const normalizedData = reverseDataHeight(normalizeDataHeight(this.caloriesByDay, this.height), this.height);
-    const normalizedPositions = (addNormalizedDataWidth(normalizedData, this.width));
-    this.normalizedPositions = normalizedPositions;
-    this.svgPath = createSvgPath(normalizedPositions);
+    this.normalizedPositions = addNormalizedDataWidth(normalizedData, this.width);
+    this.svgPath = createSvgPath(this.normalizedPositions);
   }
 
-  calculateSvgPathCalories() {
-    const maxCalories = Math.max(...this.caloriesByDay.map(caloriesData => caloriesData[0]));
-    const normalizedCaloriesHeight = Math.floor(this.height / (maxCalories + maxCalories / 3) * this.userTargetCalories);
-    const reversedCaloriesHeight = this.height - normalizedCaloriesHeight;
+  calculateSvgTargetCaloriesLinePath() {
+    const maxCalories = getMaxCalories(this.caloriesByDay);
+    const normalizedLineHeight = Math.floor(this.height / (maxCalories + maxCalories / 3) * this.userTargetCalories);
+    const reverserdLineHeight = this.height - normalizedLineHeight;
 
     this.setSliderMaxValue(Math.floor(maxCalories + maxCalories / 3));
     this.setSliderValue(this.userTargetCalories);
 
-    const redGradientPart = Math.floor(reversedCaloriesHeight * 100 / this.height);
+    this.calculateSvgGradients(reverserdLineHeight);
+    this.svgPathCalories = getSvgLinePath(reverserdLineHeight, this.height);
+  }
 
-    this.redGradientPart = `${redGradientPart - GRADIENT_CHANGE_ZONE}%`;
-    this.greenGradientPart = `${redGradientPart + GRADIENT_CHANGE_ZONE}%`;
-
-    this.svgPathCalories = `M 0 ${reversedCaloriesHeight}, ${this.width}, ${reversedCaloriesHeight}`;
+  calculateSvgGradients(reversedCaloriesHeight) {
+    const gradients = calculateGradient(reversedCaloriesHeight, this.height);
+    this.redGradientPart = gradients.redGradientPart;
+    this.greenGradientPart = gradients.greenGradientPart;
   }
 }
+

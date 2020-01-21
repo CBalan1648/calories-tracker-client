@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
 
     this.mealsObservableSubscription = this.mealsService.getRawObservable(this.user._id).subscribe(meals => {
-      this.stats = generateMealStats(meals, initialMealStats);
+      this.stats = generateMealStats(meals, initialMealStats, this.user.targetCalories);
     });
   }
 

@@ -1,8 +1,8 @@
 import { FormGroup, ValidationErrors, ValidatorFn } from '@angular/forms';
+import { from, Observable } from 'rxjs';
+import { groupBy, map, mergeMap, reduce } from 'rxjs/operators';
 import { Meal } from '../models/meal';
 import { User } from '../models/user';
-import { from, Observable } from 'rxjs';
-import { mergeMap, groupBy, reduce, map } from 'rxjs/operators';
 import { MealsStats } from './interfaces';
 
 export const getMealFormValues = (form) => {
@@ -117,7 +117,7 @@ export const samePasswordValidator: ValidatorFn = (form: FormGroup): ValidationE
     return password.value !== repeatedPassword.value ? { passwordRepeatError: true } : null;
 };
 
-export const mealStatsReducer = (statsCounter, currentValue) => {
+export const mealStatsReducer = (targetCalories, statsCounter, currentValue) => {
     if (currentValue.calories > statsCounter.mostCaloricMealCalories) {
         statsCounter.mostCaloricMealCalories = currentValue.calories;
         statsCounter.mostCaloricMealTitle = currentValue.title;
@@ -128,15 +128,15 @@ export const mealStatsReducer = (statsCounter, currentValue) => {
         statsCounter.leastCaloricMealTitle = currentValue.title;
     }
 
-    currentValue.calories >= this.user.targetCalories ? statsCounter.mealsAboveTarget++ : statsCounter.mealsBelowTarget++;
+    currentValue.calories >= targetCalories ? statsCounter.mealsAboveTarget++ : statsCounter.mealsBelowTarget++;
     statsCounter.totalCalories += currentValue.calories;
     return statsCounter;
 };
 
-export const generateMealStats = (meals: Meal[], initialMealStats: MealsStats) => {
+export const generateMealStats = (meals: Meal[], initialMealStats: MealsStats, targetCalories: number) => {
     let calculatedStats = { ...initialMealStats };
 
-    calculatedStats = meals.reduce(mealStatsReducer, calculatedStats);
+    calculatedStats = meals.reduce(mealStatsReducer.bind(null, targetCalories), calculatedStats);
     calculatedStats.totalMeals = meals.length;
     calculatedStats.averageCalories = Number(calculatedStats.totalCalories / calculatedStats.totalMeals).toFixed(2);
 
@@ -230,3 +230,16 @@ export const getTimeFrame = (timeFrame: string, frameBegin: string, frameEnd: st
     };
     return timeSpanOptions[timeFrame];
 };
+
+
+export const reduceCaloriesToDays = (meals: Meal[]): Map<string, number> => {
+    const daysMap = new Map();
+
+    meals.forEach(meal => {
+        const currentValue = daysMap.get(meal.day);
+        daysMap.set(meal.day, currentValue ? currentValue + meal.calories : meal.calories);
+    });
+
+    return daysMap;
+};
+
