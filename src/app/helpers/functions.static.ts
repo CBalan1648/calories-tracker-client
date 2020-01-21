@@ -5,7 +5,7 @@ import { Meal } from '../models/meal';
 import { User } from '../models/user';
 import { MealsStats } from './interfaces';
 
-export const getMealFormValues = (form) => {
+export const getMealFormValues = (form: FormGroup) => {
     const formValues = form.controls;
     return {
         title: formValues.title.value,
@@ -15,14 +15,16 @@ export const getMealFormValues = (form) => {
     };
 };
 
-export const resetMealForm = (form) => {
+export const resetMealForm = (form: FormGroup) => {
     form.reset();
     form.controls.calories.setErrors(null);
     form.controls.title.setErrors(null);
-    form.status = 'INVALID';
+
+    // TODO : Verify if this has any effect
+    // form.status = 'INVALID';
 };
 
-export const getRegisterFormFormValues = (form) => {
+export const getRegisterFormFormValues = (form: FormGroup) => {
     const formValues = form.controls;
     return {
         firstName: formValues.firstName.value,
@@ -32,7 +34,7 @@ export const getRegisterFormFormValues = (form) => {
     };
 };
 
-export const getRegisterFormFormValuesAdmin = (form) => {
+export const getRegisterFormFormValuesAdmin = (form: FormGroup) => {
     const formValues = form.controls;
     return {
         firstName: formValues.firstName.value,
@@ -43,9 +45,9 @@ export const getRegisterFormFormValuesAdmin = (form) => {
     };
 };
 
-export const isAdmin = (user) => user && user.authLevel === 'ADMIN';
+export const isAdmin = (user: User) => user && user.authLevel === 'ADMIN';
 
-export const getEditMealFormValues = (form, meal) => {
+export const getEditMealFormValues = (form: FormGroup, meal: Meal) => {
     const formValues = form.controls;
     return {
         _id: meal._id,
@@ -56,7 +58,7 @@ export const getEditMealFormValues = (form, meal) => {
     };
 };
 
-export const getEditUserFormValues = (form, userData) => {
+export const getEditUserFormValues = (form: FormGroup, userData: User) => {
     const formValues = form.controls;
     return {
         _id: userData._id,
@@ -69,7 +71,7 @@ export const getEditUserFormValues = (form, userData) => {
     };
 };
 
-export const getProfileFormValues = (form, userData) => {
+export const getProfileFormValues = (form: FormGroup, userData: User) => {
     const formValues = form.controls;
     return {
         _id: userData._id,
@@ -83,7 +85,7 @@ export const getProfileFormValues = (form, userData) => {
 };
 
 
-export const getLoginFormValues = (form) => {
+export const getLoginFormValues = (form: FormGroup) => {
     const formValues = form.controls;
     return {
         email: formValues.email.value,
@@ -91,6 +93,7 @@ export const getLoginFormValues = (form) => {
     };
 };
 
+// TODO: Test this
 export const getTokenData = (token: string): [User | null, boolean] => {
     try {
         const tokenInfoJson = atob(token.split('.')[1]);
