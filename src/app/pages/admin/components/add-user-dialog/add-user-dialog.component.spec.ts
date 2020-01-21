@@ -55,7 +55,7 @@ describe('AddUserDialogComponent Template', () => {
         component = fixture.componentInstance;
     });
 
-    it('should create', () => {
+    it('Should create', () => {
         fixture.detectChanges();
         expect(component).toBeTruthy();
     });

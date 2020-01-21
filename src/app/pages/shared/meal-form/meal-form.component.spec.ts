@@ -89,7 +89,7 @@ describe('MealFormComponent Template', () => {
         component.meal = undefined;
     });
 
-    it('should create', () => {
+    it('Should create', () => {
         fixture.detectChanges();
         expect(component).toBeTruthy();
     });
