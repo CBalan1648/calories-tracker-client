@@ -12,3 +12,10 @@ export interface MealsStats {
     leastCaloricMealTitle: string;
     leastCaloricMealCalories: number;
 }
+
+export interface MatDialogConfiguration {
+    width: string;
+    height: string;
+    panelClass: string;
+    data: any;
+}

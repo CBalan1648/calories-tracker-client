@@ -2,15 +2,16 @@ import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Observable, Subscription } from 'rxjs';
+import { isAdmin } from 'src/app/helpers/functions.static';
+import { addMealDialogConfig, editMealDialogConfig, editUserDialogConfig } from 'src/app/helpers/objects.static';
 import { Meal } from 'src/app/models/meal';
 import { User } from 'src/app/models/user';
 import { AdminService } from 'src/app/services/admin.service';
 import { MealsService } from 'src/app/services/meals.service';
-import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
-import { EditMealDialogComponent } from '../shared/edit-meal-dialog/edit-meal-dialog.component';
-import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 import { UserService } from 'src/app/services/user.service';
-import { isAdmin } from 'src/app/helpers/functions.static';
+import { EditMealDialogComponent } from '../shared/edit-meal-dialog/edit-meal-dialog.component';
+import { AddMealDialogComponent } from './components/add-meal-dialog/add-meal-dialog.component';
+import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user-dialog.component';
 
 @Component({
   selector: 'app-admin',
@@ -29,7 +30,6 @@ export class AdminComponent implements OnInit, OnDestroy {
   private isAdmin = isAdmin.bind(null);
   private deleteUser: (userId: string) => void;
 
-
   constructor(private readonly adminService: AdminService,
               private readonly mealsService: MealsService,
               private readonly dialog: MatDialog,
@@ -46,14 +46,14 @@ export class AdminComponent implements OnInit, OnDestroy {
     this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.activeUser = user);
   }
 
-  loadData(userId) {
+  loadData(userId: string) {
     if (!this.data[userId]) {
       this.data[userId] = new RefactorDataSource(this.mealsService.getRawObservable(userId));
       this.mealsService.getMeals(userId);
     }
   }
 
-  getData(userId) {
+  getData(userId: string): RefactorDataSource {
     return this.data[userId];
   }
 
@@ -63,31 +63,16 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   openEditDialog(meal: Meal, ownerId: string): void {
-    this.dialog.open(EditMealDialogComponent, {
-      width: '400px',
-      height: '500px',
-      data: { meal, ownerId },
-      panelClass: 'custom-dialog',
-    });
+    this.dialog.open(EditMealDialogComponent, editMealDialogConfig(meal, ownerId));
   }
 
-  openMealAddDialog(userId) {
-    this.dialog.open(AddMealDialogComponent, {
-      width: '400px',
-      height: '500px',
-      data: userId,
-      panelClass: 'custom-dialog',
-    });
+  openMealAddDialog(userId: string): void {
+    this.dialog.open(AddMealDialogComponent, addMealDialogConfig(userId));
 
   }
 
-  openEditUserDialog(user): void {
-    this.dialog.open(EditUserDialogComponent, {
-      width: '400px',
-      height: '500px',
-      data: user,
-      panelClass: 'custom-dialog',
-    });
+  openEditUserDialog(user: User): void {
+    this.dialog.open(EditUserDialogComponent, editUserDialogConfig(user));
   }
 }
 

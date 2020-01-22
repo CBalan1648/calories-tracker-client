@@ -1,5 +1,8 @@
 import { Validators } from '@angular/forms';
-import { MealsStats } from './interfaces';
+import { DIALOG_CUSTOM_CLASS, DIALOG_HEIGHT, DIALOG_WIDTH } from '../config';
+import { Meal } from '../models/meal';
+import { User } from '../models/user';
+import { MatDialogConfiguration, MealsStats } from './interfaces';
 
 export const mealFormConfig = {
     title: ['', Validators.required],
@@ -30,7 +33,6 @@ export const editMealFormConfig = (meal) => {
         calories: [meal.calories, Validators.required]
     };
 };
-
 
 export const editUserFormConfig = (userData) => ({
     firstName: [userData.firstName, Validators.required],
@@ -75,7 +77,6 @@ export const userProfileFormConfig = {
     targetCalories: [{ value: '', disabled: true }, [Validators.required]],
 };
 
-
 export const initialMealStats: MealsStats = {
     totalMeals: 0,
     totalCalories: 0,
@@ -91,9 +92,23 @@ export const initialMealStats: MealsStats = {
     leastCaloricMealCalories: Infinity
 };
 
-export const editMealDialogConfig = (meal, ownerId) => ({
-    width: '400px',
-    height: '500px',
-    panelClass: 'custom-dialog',
+export const editMealDialogConfig = (meal: Meal, ownerId: string): MatDialogConfiguration => ({
+    width: DIALOG_WIDTH,
+    height: DIALOG_HEIGHT,
+    panelClass: DIALOG_CUSTOM_CLASS,
     data: { meal, ownerId },
+});
+
+export const addMealDialogConfig = (userId: string): MatDialogConfiguration => ({
+    width: DIALOG_WIDTH,
+    height: DIALOG_HEIGHT,
+    panelClass: DIALOG_CUSTOM_CLASS,
+    data: userId,
+});
+
+export const editUserDialogConfig = (user: User): MatDialogConfiguration => ({
+    width: DIALOG_WIDTH,
+    height: DIALOG_HEIGHT,
+    panelClass: DIALOG_CUSTOM_CLASS,
+    data: user,
 });
