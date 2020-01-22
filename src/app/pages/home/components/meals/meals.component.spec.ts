@@ -100,7 +100,6 @@ describe('MealsComponent Template', () => {
         expect(greenListItem).toBeTruthy();
     }));
 
-
     it('Should render the meal title in the table row', fakeAsync(() => {
         fixture.detectChanges();
         tick(100);

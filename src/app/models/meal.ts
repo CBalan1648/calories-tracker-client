@@ -5,4 +5,5 @@ export class Meal {
     time: number;
     calories: number;
     day?: string;
+    overCal?: boolean;
 }

@@ -20,15 +20,14 @@ import { EditUserDialogComponent } from './components/edit-user-dialog/edit-user
 })
 export class AdminComponent implements OnInit, OnDestroy {
 
-  private usersObservable: Observable<User[]>;
-  private usersSubscription: Subscription;
-  private userServiceSubscription: Subscription;
-  private users: User[] = null;
-  private activeUser: User;
-  private data: any = {};
-  private deleteMeal: any;
-  private isAdmin = isAdmin.bind(null);
-  private deleteUser: (userId: string) => void;
+  public usersSubscription: Subscription;
+  public userServiceSubscription: Subscription;
+  public users: User[] = null;
+  public activeUser: User;
+  public data: any = {};
+  public deleteMeal: any;
+  public isAdmin = isAdmin.bind(null);
+  public deleteUser: (userId: string) => void;
 
   constructor(private readonly adminService: AdminService,
               private readonly mealsService: MealsService,
@@ -37,13 +36,11 @@ export class AdminComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
+    this.adminService.getUsers();
+    this.usersSubscription = this.adminService.getUserObservable().subscribe(users => this.users = users);
+    this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.activeUser = user);
     this.deleteMeal = this.mealsService.deleteMealRequest.bind(this.mealsService);
     this.deleteUser = this.adminService.deleteUserRequest.bind(this.adminService);
-    this.usersObservable = this.adminService.getUserObservable();
-    this.adminService.getUsers();
-
-    this.usersSubscription = this.usersObservable.subscribe(users => this.users = users);
-    this.userServiceSubscription = this.userService.getUserObservable().subscribe(user => this.activeUser = user);
   }
 
   loadData(userId: string) {
@@ -54,6 +51,7 @@ export class AdminComponent implements OnInit, OnDestroy {
   }
 
   getData(userId: string): RefactorDataSource {
+    console.log("HELLO", this.data)
     return this.data[userId];
   }
 

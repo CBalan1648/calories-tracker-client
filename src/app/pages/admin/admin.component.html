@@ -19,21 +19,21 @@
                     <mat-list-item class="header-row">
 
                         <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)">
-                            <button color="lightblue" class="header-button" mat-raised-button  (click)="openEditUserDialog(user)">
+                            <button color="lightblue" class="header-button edit" mat-raised-button  (click)="openEditUserDialog(user)">
                                 <i class="material-icons">edit</i>
                                 Edit User
                             </button>
                         </div>
 
                         <div class="flex-table-cell header-cell" *ngIf="isAdmin(activeUser)">
-                            <button color="lightblue" class="header-button"  mat-raised-button  (click)="deleteUser(user._id)">
+                            <button color="lightblue" class="header-button delete"  mat-raised-button  (click)="deleteUser(user._id)">
                                 <i class="material-icons">delete_forever</i>
                                 Delete User
                             </button>
                         </div>
 
                         <div class="flex-table-cell header-cell">
-                            <button color="lightblue" class="header-button"  mat-raised-button  (click)="openMealAddDialog(user._id)">
+                            <button color="lightblue" class="header-button new"  mat-raised-button  (click)="openMealAddDialog(user._id)">
                                 <i class="material-icons"> library_add </i>
                                 New Meal
                             </button>
