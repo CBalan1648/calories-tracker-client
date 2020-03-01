@@ -1,11 +1,10 @@
----
-    kind: pipeline
-    type: docker
-    name: default
-    
-    - name: test
-      image: node
-      commands:
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: node
+    commands:
       - npm install
       - npm install -g "@angular/cli" --silent
-      - npm run test
+      - npm test
