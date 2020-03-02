@@ -1,4 +1,4 @@
-export const getLastXDaysCalories = (days : number, daysMap: Map<string, number>) => {
+export const getLastXDaysCalories = (days: number, daysMap: Map<string, number>) => {
 
     const date = new Date();
     const caloriesByDay = [];
@@ -72,4 +72,19 @@ export const createSvgPath = (array) => {
         svgPath += bezierCommand(value, index, currentArray);
     });
     return svgPath;
+};
+
+const GRADIENT_CHANGE_ZONE = 40;
+
+export const getSvgLinePath = (height: number, width: number) => `M 0 ${height}, ${width}, ${height}`;
+
+export const getMaxCalories = (caloriesByDay) => Math.max(...caloriesByDay.map(caloriesData => caloriesData[0]));
+
+export const calculateGradient = (reversedCaloriesHeight, height) => {
+  const gradientChangeHeight = Math.floor(reversedCaloriesHeight * 100 / height);
+
+  const redGradientPart = `${gradientChangeHeight - GRADIENT_CHANGE_ZONE}%`;
+  const greenGradientPart = `${gradientChangeHeight + GRADIENT_CHANGE_ZONE}%`;
+
+  return { redGradientPart, greenGradientPart };
 };

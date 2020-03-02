@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, filter, map, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
+import { filterUsers, updateUserInArray } from '../helpers/functions.static';
 import { requestRetryStrategy } from '../helpers/request-retry.strategy';
-import { User } from '../models/user';
 import { ResponseHandlerService } from './response-handler.service';
 
 @Injectable({
@@ -59,24 +59,11 @@ export class AdminService {
   }
 
   private handleDeleteUserResponse(userId, response) {
-    if (response.body.deletedCount === 0) {return void 0; }
+    if (response.body.deletedCount === 0) { return void 0; }
 
-    this.getUserObservable().pipe(take(1)).subscribe(currentUsersArray => {
-        const updatedUsersArray = currentUsersArray.filter(user => user._id !== userId);
-        this.usersSubject.next(updatedUsersArray);
-      });
-  }
-
-  private handleUpdateUserResponse(userData, response) {
-    if (response.body.nModified === 0) {return void 0; }
-
-    this.usersSubject.asObservable().pipe(take(1)).subscribe(currentUserArray => {
-        const updatedUserIndex = currentUserArray.findIndex(arrayElement => arrayElement._id === userData._id);
-        const updatedArray = [...currentUserArray];
-        updatedArray.splice(updatedUserIndex, 1, userData);
-
-        this.usersSubject.next(updatedArray);
-      });
+    this.getUserObservable().pipe(take(1)).subscribe((currentUserArray) => {
+      this.usersSubject.next(currentUserArray.filter(user => user._id !== userId));
+    });
   }
 
   public getUsers(): void {
@@ -103,25 +90,12 @@ export class AdminService {
       take(1),
     ).subscribe(this.handleUpdateUserResponse.bind(this, userData));
   }
+
+  private handleUpdateUserResponse(userData, response) {
+    if (response.body.nModified === 0) { return void 0; }
+    this.usersSubject.asObservable().pipe(take(1)).subscribe((currentUserArray) => {
+      this.usersSubject.next(updateUserInArray(userData, currentUserArray));
+    });
+  }
 }
 
-const filterUsers = ([usersArray, filterData]) => {
-  if (!filterData) { return usersArray; }
-
-  return usersArray.filter((user: User) => {
-    return (filterData.searchString ? containString(user.firstName, user.lastName, user.email, filterData.searchString) : true) &&
-      (filterData.searchAuthLevel ? filterLevel(user.authLevel, filterData.searchAuthLevel) : true);
-  });
-
-};
-
-const containString = (testFirstName, testLastName, testEmail, searchString) => {
-
-  const lowerCaseSearch = searchString.toLowerCase();
-
-  return testFirstName.toLowerCase().includes(lowerCaseSearch) ||
-    testLastName.toLowerCase().includes(lowerCaseSearch) ||
-    testEmail.toLowerCase().includes(lowerCaseSearch);
-};
-
-const filterLevel = (userAuthLevel, searchAuthLevel) => userAuthLevel === searchAuthLevel;

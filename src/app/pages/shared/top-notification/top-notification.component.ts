@@ -10,7 +10,7 @@ import { TopNotificationService } from '../../../services/top-notification.servi
 })
 export class TopNotificationComponent implements OnInit, OnDestroy {
 
-  private subscription: Subscription;
+  public subscription: Subscription;
   public message = null;
 
   constructor(private notificationService: TopNotificationService) { }
@@ -34,5 +34,4 @@ export class TopNotificationComponent implements OnInit, OnDestroy {
   hideMessage() {
     this.message = null;
   }
-
 }

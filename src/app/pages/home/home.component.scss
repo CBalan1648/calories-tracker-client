@@ -1,18 +1,47 @@
-.home-upper-component {
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: row;
-  width: 100%;
-  justify-content: center;
+.home-component {
+  display: grid;
+  grid-template-rows: 500px 500px 500px auto;
+
+  grid-template-areas:
+    "dashboard "
+    "new-meal"
+    "filter-menu"
+    "meals";
+
+
+
+  @media (min-width: 769px) {
+    grid-template-rows: 33% 33% auto;
+    grid-template-columns: 50% 50%;
+    grid-template-areas:
+      "dashboard dashboard "
+      "filter-menu new-meal"
+      "meals meals";
+  }
+
+  @media (min-width: 1440px) {
+    grid-template-rows: 50% 50%;
+    grid-template-columns: auto 20% 20%;
+    grid-template-areas:
+      "dashboard filter-menu new-meal"
+      "meals meals meals";
+  }
 }
 
 app-dashboard {
-  flex-grow: 2;
-  flex-basis: 500px;
-}
-.home-input-group {
-  display: flex;
-  flex-wrap: wrap;
+  grid-area: dashboard;
+  padding-left:10px;
+  overflow: hidden;
 }
 
+app-filter-menu {
+  grid-area: filter-menu;
+}
 
+app-meal-form {
+  grid-area: new-meal;
+}
+
+app-meals {
+  grid-area: meals;
+}

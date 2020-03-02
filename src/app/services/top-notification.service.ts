@@ -5,7 +5,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class TopNotificationService {
-  private subject = new Subject<any>();
+  readonly subject = new Subject<any>();
 
   constructor() { }
 
@@ -14,6 +14,10 @@ export class TopNotificationService {
   }
 
   public getMessage(): Observable<any> {
-    return this.subject.asObservable();
+    return this.subject;
   }
 }
+
+export const JWT_LOGIN_NOTIFICATION = 'Signing in, please wait';
+export const AUTO_LOGIN_NOTIFICATION = 'Hello, this is a notification form - Register Form';
+export const PROFILE_UPDATE_SUCCESSFUL = 'Something something update successful';

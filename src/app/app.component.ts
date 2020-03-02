@@ -8,6 +8,7 @@ import { SearchUserDialogComponent } from './pages/admin/components/search-user-
 import { User } from './models/user';
 import { AdminService } from './services/admin.service';
 import { UserService } from './services/user.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -22,7 +23,9 @@ export class AppComponent implements OnInit, OnDestroy {
               private readonly userService: UserService,
               private readonly adminService: AdminService,
               private readonly popupDialog: MatDialog,
-              private readonly snackBar: MatSnackBar) { }
+              private readonly snackBar: MatSnackBar,
+              private readonly titleService: Title) {
+               }
 
   private userServiceSubscriptions: Subscription;
   private showSideBar: boolean;
@@ -30,6 +33,8 @@ export class AppComponent implements OnInit, OnDestroy {
   private activeButton = 'HOME';
   private filterValueSubscription: Subscription;
   private filterValue: string;
+
+
 
   ngOnInit() {
     this.userServiceSubscriptions = this.userService.getUserObservable().subscribe(user => {
@@ -40,6 +45,10 @@ export class AppComponent implements OnInit, OnDestroy {
     this.filterValueSubscription = this.adminService.getFilterObservable().subscribe(value => {
       this.filterValue = value;
     });
+  }
+
+  public setTitle( newTitle: string) {
+    this.titleService.setTitle( newTitle );
   }
 
   isSuperUser(authLevel) {

@@ -1,31 +1,30 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, ValidationErrors, ValidatorFn } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Subject, Subscription } from 'rxjs';
-import { RegisterService } from 'src/app/services/register.service';
-import { TopNotificationService } from '../../services/top-notification.service';
+import { getRegisterFormFormValues, samePasswordValidator } from 'src/app/helpers/functions.static';
 import { registerFormConfig } from 'src/app/helpers/objects.static';
-import { getRegisterFormFormValues } from 'src/app/helpers/functions.static';
+import { RegisterService } from 'src/app/services/register.service';
+import { TopNotificationService, AUTO_LOGIN_NOTIFICATION } from '../../services/top-notification.service';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.scss']
 })
-export class RegisterFormComponent implements OnDestroy, OnInit {
+export class RegisterComponent implements OnDestroy, OnInit {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  public observableSubject: Subject<any> = new Subject();
+  public observableSubscription: Subscription;
+  public registerForm: FormGroup;
+  public errorStateMatcher = new RepeatPasswordFormErrorMatcher();
 
   constructor(private formBuilder: FormBuilder,
               private registerService: RegisterService,
               private topNotification: TopNotificationService) { }
 
-  registerForm = this.formBuilder.group(registerFormConfig, { validators: samePasswordValidator });
-
-  errorStateMatcher = new RepeatPasswordFormErrorMatcher();
-
   ngOnInit() {
+    this.registerForm = this.formBuilder.group(registerFormConfig, { validators: samePasswordValidator });
     this.observableSubscription = this.registerService.connectRequestObservable(this.observableSubject);
   }
 
@@ -36,8 +35,8 @@ export class RegisterFormComponent implements OnDestroy, OnInit {
   submitForm() {
     if (this.registerForm.status === 'VALID') {
       this.observableSubject.next([getRegisterFormFormValues(this.registerForm), true]);
+      this.topNotification.setMessage(AUTO_LOGIN_NOTIFICATION);
     }
-    this.topNotification.setMessage('Hello, this is a notification form - Register Form');
   }
 }
 
@@ -48,10 +47,3 @@ class RepeatPasswordFormErrorMatcher implements ErrorStateMatcher {
     return !!(control && (control.invalid || formErrors) && (control.dirty || control.touched || isSubmitted));
   }
 }
-
-const samePasswordValidator: ValidatorFn = (form: FormGroup): ValidationErrors | null => {
-  const password = form.get('password');
-  const repeatedPassword = form.get('repeatPassword');
-
-  return password.value !== repeatedPassword.value ? { passwordRepeatError: true } : null;
-};

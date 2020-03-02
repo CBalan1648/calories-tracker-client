@@ -10,8 +10,8 @@ import { Meal } from 'src/app/models/meal';
 })
 export class HomeComponent implements OnInit, OnDestroy {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  public observableSubject: Subject<any> = new Subject();
+  public observableSubscription: Subscription;
 
   constructor(private readonly mealService: MealsService) { }
 

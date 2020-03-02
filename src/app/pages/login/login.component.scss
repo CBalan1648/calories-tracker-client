@@ -1,6 +1,6 @@
 @import "../../../material.theme.scss";
 
-.login-form-container {
+.login-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -9,13 +9,13 @@
   background: #16222a; /* fallback for old browsers */
   background: -webkit-linear-gradient(
     to top,
-    mat-color($accent,900),
-    rgb(255, 255, 255, 0)
-  ); /* Chrome 10-25, Safari 5.1-6 */
+    mat-color($custom, custom-theme-dark-blue),
+    mat-color($custom, custom-theme-light-blue)
+  );
   background: linear-gradient(
     to top,
-    mat-color($accent,900),
-    rgba(255, 255, 255, 0)
+    mat-color($custom, custom-theme-dark-blue),
+    mat-color($custom, custom-theme-light-blue)
   );
 }
 
@@ -24,6 +24,17 @@
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
+
+  button {
+    font-weight: 700;
+    color: white;
+    width: 45%;
+  }
+  a {
+    font-weight: 700;
+    color: white;
+    width: 45%;
+  }
 }
 
 form {
@@ -36,11 +47,22 @@ form {
 mat-form-field {
   font-weight: bold;
   padding-bottom: 30px;
-  min-width: 300px;
+  min-width: 270px;
 }
 
 img {
-  width: 100%;
+  width: 50%;
   height: auto;
-  padding-bottom: 50px;
+}
+
+span {
+  font-size: 70px;
+  color: white;
+  font-weight: normal;
+}
+
+.title-lower-row {
+  font-family: Montserrat, sans-serif;
+  margin-top: -20px;
+  margin-bottom: 30px;
 }

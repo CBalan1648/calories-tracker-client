@@ -1,8 +1,8 @@
 <div [ngClass]="{'meal-form-container' : 'true', 'background': !hideBackground }">
 
-    <form [formGroup]="mealForm" (ngSubmit)="submitForm()">
+    <h2>{{meal ? "Edit Meal" : "Add new"}}</h2>
 
-        <h3>{{meal ? "Edit Meal" : "Add new"}}</h3>
+    <form [formGroup]="mealForm" (ngSubmit)="submitForm()">
 
         <mat-form-field>
             <input matInput formControlName="title" placeholder="Title (e.g. Best lunch ever)" required>
@@ -22,8 +22,8 @@
             <mat-error *ngIf="mealForm.controls.calories.errors">Please insert the Meal calories</mat-error>
         </mat-form-field>
 
-        <button [disabled]="!mealForm.valid" mat-flat-button type="submit" color="accent">
-            <i class="material-icons"> done_outline</i>
+        <button [disabled]="!mealForm.valid" mat-flat-button type="submit">
+            <i class="material-icons"> done</i>
         </button>
     </form>
 </div>

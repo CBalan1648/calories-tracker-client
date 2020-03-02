@@ -14,9 +14,9 @@ export class MealFormComponent implements OnInit {
   @Input() meal: Meal;
   @Input() onSubmit: (meal: Meal) => void;
 
-  private mealForm: FormGroup;
+  public mealForm: FormGroup;
 
-  constructor(private readonly formBuilder: FormBuilder,
+  constructor(readonly formBuilder: FormBuilder,
   ) { }
 
   ngOnInit() {
@@ -24,7 +24,6 @@ export class MealFormComponent implements OnInit {
   }
 
   submitForm() {
-    console.log(this.meal);
     if (this.mealForm.status === 'VALID') {
       this.onSubmit(this.meal ? getEditMealFormValues(this.mealForm, this.meal) : getMealFormValues(this.mealForm));
       resetMealForm(this.mealForm);

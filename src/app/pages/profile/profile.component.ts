@@ -1,42 +1,57 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { getEditUserFormValues, getProfileFormValues } from 'src/app/helpers/functions.static';
+import { generateMealStats, getProfileFormValues } from 'src/app/helpers/functions.static';
 import { userProfileFormConfig } from 'src/app/helpers/objects.static';
 import { User } from 'src/app/models/user';
 import { MealsService } from 'src/app/services/meals.service';
 import { UserService } from 'src/app/services/user.service';
-import { TopNotificationService } from '../../services/top-notification.service';
+import { initialMealStats } from '../../helpers/objects.static';
+import { ABORT_STRING, EDIT_STRING, SAVE_STRING } from '../../helpers/string';
+import { TopNotificationService, PROFILE_UPDATE_SUCCESSFUL } from '../../services/top-notification.service';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit, OnDestroy {
 
-  private mealsObservableSubscription: Subscription;
-  private userObservableSubscription: Subscription;
-  public buttonMessage = 'Edit';
+  public mealsObservableSubscription: Subscription;
+  public userObservableSubscription: Subscription;
+
+  public editUserObservableSubject: Subject<any> = new Subject();
+  public editUserObservableSubscription: Subscription;
+
+  public user: User;
+  public buttonMessage = EDIT_STRING;
+  public abortButtonMessage = ABORT_STRING;
   public editing = false;
-  public stats: {
-    totalMeals: number,
-    totalCalories: number,
-    averageCalories: string,
-  };
+  public stats = { ...initialMealStats };
+  public userProfileForm: FormGroup;
 
-  private editUserObservableSubject: Subject<any> = new Subject();
-  private editUserObservableSubscription: Subscription;
+  constructor(
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private topNotification: TopNotificationService,
+    private mealsService: MealsService
+  ) { }
 
-  private user: User;
 
-  constructor(private formBuilder: FormBuilder,
-              private userService: UserService,
-              private topNotification: TopNotificationService,
-              private mealsService: MealsService) { }
 
-  userProfileForm = this.formBuilder.group(userProfileFormConfig);
+  ngOnInit() {
+    this.userProfileForm = this.formBuilder.group(userProfileFormConfig);
+    this.editUserObservableSubscription = this.userService.connectRequestObservable(this.editUserObservableSubject);
+    this.userObservableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
+      this.resetForm(user);
+      this.user = user;
+    });
+
+    this.mealsObservableSubscription = this.mealsService.getRawObservable(this.user._id).subscribe(meals => {
+      this.stats = generateMealStats(meals, initialMealStats, this.user.targetCalories);
+    });
+  }
 
   enableFormEditing() {
     this.userProfileForm.controls.firstName.enable();
@@ -64,69 +79,21 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
     this.disableFormEditing();
     this.editing = false;
-    this.buttonMessage = 'Edit';
-    this.topNotification.setMessage('Something something update successful');
+    this.buttonMessage = EDIT_STRING;
+    this.topNotification.setMessage(PROFILE_UPDATE_SUCCESSFUL);
   }
 
   edit() {
     this.enableFormEditing();
-    this.buttonMessage = 'Save';
+    this.buttonMessage = SAVE_STRING;
     this.editing = true;
   }
 
   abort() {
     this.disableFormEditing();
     this.resetForm(this.user);
-    this.buttonMessage = 'Edit';
+    this.buttonMessage = EDIT_STRING;
     this.editing = false;
-  }
-
-  ngOnInit() {
-    this.editUserObservableSubscription = this.userService.connectRequestObservable(this.editUserObservableSubject);
-    this.userObservableSubscription = this.userService.getUserObservable().pipe(filter(user => !!user)).subscribe(user => {
-      this.resetForm(user);
-      this.user = user;
-    });
-
-    this.mealsObservableSubscription = this.mealsService.getRawObservable(this.user._id).subscribe(meals => {
-      let calculatedStats = {
-        totalMeals: 0,
-        totalCalories: 0,
-        averageCalories: '',
-
-        mealsAboveTarget: 0,
-        mealsBelowTarget: 0,
-
-        mostCaloricMealTitle: '',
-        mostCaloriMealCalories: -1,
-
-        leastCaloricMealTitle: '',
-        leastCaloricMealCalories: Infinity
-      };
-
-      calculatedStats = meals.reduce((statsCounter, currentValue) => {
-        if ( currentValue.calories > statsCounter.mostCaloriMealCalories) {
-          statsCounter.mostCaloriMealCalories = currentValue.calories;
-          statsCounter.mostCaloricMealTitle = currentValue.title;
-        }
-
-        if ( currentValue.calories < statsCounter.leastCaloricMealCalories) {
-          statsCounter.leastCaloricMealCalories = currentValue.calories;
-          statsCounter.leastCaloricMealTitle = currentValue.title;
-        }
-
-        currentValue.calories >= this.user.targetCalories ? statsCounter.mealsAboveTarget++ : statsCounter.mealsBelowTarget++;
-        statsCounter.totalCalories += currentValue.calories;
-        return statsCounter;
-      }, calculatedStats);
-
-      calculatedStats.totalMeals = meals.length;
-      calculatedStats.averageCalories = Number(calculatedStats.totalCalories / calculatedStats.totalMeals).toFixed(2);
-
-      this.stats = calculatedStats;
-
-      console.log(calculatedStats);
-    });
   }
 
   ngOnDestroy() {

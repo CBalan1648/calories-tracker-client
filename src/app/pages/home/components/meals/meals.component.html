@@ -14,8 +14,8 @@
             <mat-list-item [ngClass]="meal.overCal ? 'red-bg' : 'green-bg'" *cdkVirtualFor="let meal of meals">
 
                 <div class="flex-table-cell title">{{meal.title}} </div>
-                <div class="flex-table-cell time">{{meal.time | weekday}} - {{meal.time | date:'short'}}</div>
-                <div class="flex-table-cell description"> -- {{meal.description}}</div>
+                <div class="flex-table-cell time">{{meal.time | weekday}}, {{meal.time | date:'short'}}</div>
+                <div class="flex-table-cell description">{{meal.description}}</div>
                 <div class="flex-table-cell calories">{{meal.calories}}</div>
                 <div class="flex-table-cell actions">
                     <button mat-raised-button (click)="openEditDialog(meal)">

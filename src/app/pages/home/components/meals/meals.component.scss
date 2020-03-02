@@ -1,39 +1,43 @@
 @import "../../../../../material.theme.scss";
 
 .green-bg {
-  background: linear-gradient(
-    to left,
-    mat-color($primary, 900),
-    rgb(255, 255, 255, 0)
-  );
+  background: white;
   transition: 1s;
+
+  .actions {
+    button {
+      color: white;
+      background-color: mat-color($custom, custom-theme-dark-blue);
+    }
+  }
 }
 
 .red-bg {
-  background: linear-gradient(
-    to left,
-    mat-color($warn, 900),
-    rgb(255, 255, 255, 0)
-  );
+  background: rgba(mat-color($custom, custom-theme-light-red), 0.8);
   transition: 1s;
+  font-weight: 900;
+  div {
+    color: rgba(red, 0.5);
+  }
+
+  .actions {
+    button {
+      color: red;
+      background-color: mat-color($custom, custom-theme-light-red);
+    }
+  }
 }
 
 .red-bg:hover {
-  background: linear-gradient(
-    to left,
-    rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255, 0)
-  );
+  background: rgba(mat-color($custom, custom-theme-light-red), 0.5);
   transition: 1s;
+  font-weight: 900;
 }
 
 .green-bg:hover {
-  background: linear-gradient(
-    to left,
-    rgba(66, 132, 255, 0.514),
-    rgb(255, 255, 255, 0)
-  );
+  background: rgba(mat-color($custom, custom-theme-light-blue), 0.3);
   transition: 1s;
+  font-weight: 900;
 }
 
 mat-table {
@@ -41,7 +45,10 @@ mat-table {
 }
 
 .meals-scroll-viewport {
-  height: 480px;
+  height: 900px;
+  @media (min-width: 769px) {
+    height: 480px;
+  }
 }
 
 div {
@@ -64,35 +71,42 @@ div {
   text-align: center;
   align-items: center;
   display: flex;
+  justify-content: center;
+  @media (min-width: 769px) {
+    justify-content: initial;
+  }
 }
 
 .title {
-  flex-grow: 2;
+  grid-area: title;
 }
 
 .description {
-  flex-grow: 2;
+  grid-area: description;
 }
 
 .time {
-  flex-grow: 2;
+  grid-area: time;
 }
 
 .calories {
-  flex-grow: 1;
-  flex-shrink: 1.3;
+  grid-area: calories;
 }
 
 .actions {
-  flex-grow: 1;
-  flex-shrink: 1.1;
   justify-content: space-evenly;
+  grid-area: actions;
+}
+
+button .material-icons {
+  color: white;
+}
+
+button {
+  min-width: 40px;
+  padding: 0px;
 }
 
 .flex-table-header {
-  background: linear-gradient(
-    to left,
-    mat-color($accent, 500),
-    rgb(255, 255, 255, 0)
-  );
+  background: mat-color($custom, custom-theme-light-orange);
 }

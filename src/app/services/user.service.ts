@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { BehaviorSubject, Observable, ObservableInput, Subscription } from 'rxjs';
 import { catchError, retryWhen, take } from 'rxjs/operators';
 import { apiAddress } from '../config';
+import { deleteToken } from '../helpers/functions.static';
 import { requestRetryStrategy } from '../helpers/request-retry.strategy';
 import { ResponseHandlerService } from './response-handler.service';
 
@@ -28,6 +29,7 @@ export class UserService {
   }
 
   public logoutUser() {
+    deleteToken();
     this.currentUserSubject.next(emptyUser);
     this.router.navigate(['/login']);
   }

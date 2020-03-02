@@ -6,62 +6,64 @@ mat-sidenav-container {
 
 .home-sidebar {
   border: 0;
-  width: 80px;
-  background-color: mat-color($accent, 900);
+  width: 30px;
+  @media (min-width: 769px) {
+    width: 80px;
+  }
+  background-color: mat-color($custom, custom-theme-light-blue);
 }
 
 .sidebar-button {
-  background-color: mat-color($accent, 900);
+  background-color: mat-color($custom, custom-theme-light-blue);
   transition: color 0.4s ease-in-out;
-  color: mat-color($primary, 600)
+  color: rgb(255, 255, 255);
+  width: 100%;
 }
 
 .sidebar-button-active {
-  background-color: mat-color($primary, A300);
-  color: mat-color($primary, A400);
+  background-color: mat-color($custom, custom-theme-dark-blue);
+  color: rgb(255, 255, 255);
   border-left: solid 4px;
   transition: color 0.4s ease-in-out;
 }
 
 .sidebar-add-button-active {
-  background-color: mat-color($primary, 700);
+  background-color: mat-color($custom, custom-theme-light-orange);
   border-left: solid 4px;
-  color: mat-color($accent, 50);
+  color: white;
   animation-name: flashingAnimationAdd;
   animation-duration: 1s;
 }
 
 .sidebar-search-button-active {
-  background-color: mat-color($primary, 700);
+  background-color: mat-color($custom, custom-theme-light-orange);
   border-left: solid 4px;
-  color: mat-color($accent, 50);
+  color: white;
   animation-name: flashingAnimationSearch;
   animation-duration: 1s;
 }
 
 @keyframes flashingAnimationAdd {
   0% {
-    color: rgba(255, 188, 87, 0);
+    color: mat-color($custom, custom-theme-dark-blue);
   }
   30% {
-    color: mat-color($primary, A200);
+    color: mat-color($custom, custom-theme-light-blue);
   }
   100% {
-    color: mat-color($accent, 50);
+    color: white;
   }
 }
 
-
-
 @keyframes flashingAnimationSearch {
   0% {
-    color: rgba(255, 188, 87, 0);
+    color: mat-color($custom, custom-theme-dark-blue);
   }
   30% {
-    color: mat-color($primary, A200);
+    color: mat-color($custom, custom-theme-light-blue);
   }
   100% {
-    color: mat-color($accent, 50);
+    color: white;
   }
 }
 
@@ -74,8 +76,22 @@ mat-sidenav-container {
 button {
   border-radius: 0;
   width: 100%;
-  height: 60px;
+  height: 30px;
+  min-width: 30px;
+  padding: 0px;
+  @media (min-width: 769px) {
+    height: 60px;
+    min-width: initial;
+    padding: initial;
+  }
   line-height: 13px;
   font-size: small;
   text-justify: auto;
+}
+
+button span {
+  display: none;
+  @media (min-width: 769px) {
+    display: initial;
+  }
 }

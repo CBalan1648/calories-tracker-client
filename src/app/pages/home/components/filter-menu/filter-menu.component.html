@@ -1,13 +1,13 @@
 <div class="filter-menu-container">
 
-    <h3>
+    <h2>
         Filter by
         <span *ngIf="!filterForm.pristine">
             <button mat-flat-button (click)='clearFilters()'>
                 Nothing <i class="material-icons"> clear</i>
             </button>
         </span>
-    </h3>
+    </h2>
 
     <form [formGroup]="filterForm" (ngSubmit)="submitForm()">
 

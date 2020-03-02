@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, Subscription } from 'rxjs';
 import { getEditUserFormValues } from 'src/app/helpers/functions.static';
@@ -14,19 +14,19 @@ import { AdminService } from 'src/app/services/admin.service';
 })
 export class EditUserDialogComponent implements OnInit, OnDestroy {
 
-  private userObservableSubject: Subject<any> = new Subject();
-  private userObservableSubscription: Subscription;
+  public userObservableSubject: Subject<any> = new Subject();
+  public userObservableSubscription: Subscription;
+  public editUserForm: FormGroup;
 
   constructor(
+    private formBuilder: FormBuilder,
     private readonly adminService: AdminService,
     public dialogRef: MatDialogRef<EditUserDialogComponent>,
-    private formBuilder: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public userData: User,
   ) { }
 
-  userProfileForm = this.formBuilder.group(editUserFormConfig(this.userData));
-
   ngOnInit() {
+    this.editUserForm = this.formBuilder.group(editUserFormConfig(this.userData));
     this.userObservableSubscription = this.adminService.connectEditUserRequestObservable(this.userObservableSubject);
   }
 
@@ -35,10 +35,9 @@ export class EditUserDialogComponent implements OnInit, OnDestroy {
   }
 
   submitForm() {
-    if (this.userProfileForm.status === 'VALID') {
-
-    this.userObservableSubject.next(getEditUserFormValues(this.userProfileForm, this.userData));
-    this.onClose();
+    if (this.editUserForm.status === 'VALID') {
+      this.userObservableSubject.next(getEditUserFormValues(this.editUserForm, this.userData));
+      this.onClose();
     }
   }
 

@@ -32,18 +32,19 @@ import { LoginFormComponent } from './pages/login/login.component';
 import { MealFormComponent } from './pages/shared/meal-form/meal-form.component';
 import { MealsComponent } from './pages/home/components/meals/meals.component';
 import { PageNotFoundComponent } from './pages/not-found/not-found.component';
-import { RegisterFormComponent } from './pages/register/register.component';
+import { RegisterComponent } from './pages/register/register.component';
 import { SearchUserDialogComponent } from './pages/admin/components/search-user-dialog/search-user-dialog.component';
 import { TopNotificationComponent } from './pages/shared/top-notification/top-notification.component';
-import { UserProfileComponent } from './pages/profile/profile.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './helpers/auth.guard';
 import { WeekDayPipe } from './helpers/week-day.pipe';
+import { GraphComponent } from './pages/home/components/graph/graph.component';
 
 const routes: Routes = [
-    { path: 'login', component: LoginFormComponent, data: { title: 'Welcome to Calories Tracker' } },
-    { path: 'register', component: RegisterFormComponent },
+    { path: 'login', component: LoginFormComponent },
+    { path: 'register', component: RegisterComponent },
     { path: 'home', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: HomeComponent },
-    { path: 'user', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: UserProfileComponent },
+    { path: 'user', canActivate: [AuthGuard], data: { roles: ['USER', 'USER_MANAGER', 'ADMIN'] }, component: ProfileComponent },
     { path: 'admin', canActivate: [AuthGuard], data: { roles: ['USER_MANAGER', 'ADMIN'] }, component: AdminComponent },
     { path: '', redirectTo: '/login', pathMatch: 'full' },
     { path: '**', component: PageNotFoundComponent }
@@ -53,7 +54,7 @@ export const AppDeclarations = [
     AppComponent,
     HeaderComponent,
     LoginFormComponent,
-    RegisterFormComponent,
+    RegisterComponent,
     PageNotFoundComponent,
     TopNotificationComponent,
     HomeComponent,
@@ -62,13 +63,14 @@ export const AppDeclarations = [
     MealFormComponent,
     EditMealDialogComponent,
     FilterMenuComponent,
-    UserProfileComponent,
+    ProfileComponent,
     AdminComponent,
     EditUserDialogComponent,
     AddUserDialogComponent,
     AddMealDialogComponent,
     SearchUserDialogComponent,
     WeekDayPipe,
+    GraphComponent,
 ];
 
 export const AppImports = [

@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject, Subscription } from 'rxjs';
-import { LoginService } from '../../services/login.service';
-import { loginFormConfig } from 'src/app/helpers/objects.static';
 import { getLoginFormValues } from 'src/app/helpers/functions.static';
+import { loginFormConfig } from 'src/app/helpers/objects.static';
+import { LoginService } from '../../services/login.service';
 
 @Component({
   selector: 'app-login',
@@ -12,15 +12,15 @@ import { getLoginFormValues } from 'src/app/helpers/functions.static';
 })
 export class LoginFormComponent implements OnDestroy, OnInit {
 
-  private observableSubject: Subject<any> = new Subject();
-  private observableSubscription: Subscription;
+  public observableSubject: Subject<any> = new Subject();
+  public observableSubscription: Subscription;
+  public loginForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private loginService: LoginService) { }
-
-  loginForm = this.formBuilder.group(loginFormConfig);
+  constructor(private formBuilder: FormBuilder, readonly loginService: LoginService) { }
 
   ngOnInit() {
     this.observableSubscription = this.loginService.connectRequestObservable(this.observableSubject);
+    this.loginForm = this.formBuilder.group(loginFormConfig);
   }
 
   ngOnDestroy() {
