@@ -1,0 +1,10 @@
+kind: pipeline
+name: default
+
+steps:
+  - name: test
+    image: node
+    commands:
+      - npm install
+      - npm install -g "@angular/cli" --silent
+      - npm test
