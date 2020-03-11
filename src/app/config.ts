@@ -1,5 +1,5 @@
 // API configuration
-export const apiAddress = 'http://ctb.azurelynx.com';
+export const apiAddress = 'https://ctb.azurelynx.com';
 
 // Material Dialogs configuration
 export const DIALOG_WIDTH = '400px';
